@@ -26,11 +26,13 @@ class _NTWidgetState extends State<NTWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 176,
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
@@ -42,7 +44,6 @@ class _NTWidgetState extends State<NTWidget> {
               Text(
                 '${widget.entity.stock}',
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
                   fontSize: AppConstants.stock_font_size,
                 ),
               ),
@@ -69,7 +70,7 @@ class _NTWidgetState extends State<NTWidget> {
   void onValueChanged(BuildContext context, int modification) {
     BlocProvider.of<ResourceBloc>(context).add(
       ResourceChanged(
-        widget.entity.copyWith(stock: widget.entity.stock + modification),
+        stock: widget.entity.stock + modification,
       ),
     );
   }

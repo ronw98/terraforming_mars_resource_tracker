@@ -46,7 +46,6 @@ class DetailedResourceWidget extends StatelessWidget {
                             .add(StockChangedEvent(newValue)),
                     value: state.stock,
                     valueTextStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: AppConstants.stock_font_size,
                     ),
                   ),
@@ -56,9 +55,7 @@ class DetailedResourceWidget extends StatelessWidget {
                             .add(ProductionChangedEvent(newValue)),
                     value: state.production,
                     valueTextStyle: TextStyle(
-                      backgroundColor: Colors.brown,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.brown,
                       fontSize: AppConstants.production_font_size,
                     ),
                   ),
@@ -77,9 +74,8 @@ class DetailedResourceWidget extends StatelessWidget {
                               HistoryElementType.HISTORY_PROD
                           ? TextStyle(
                               backgroundColor: Colors.brown,
-                              fontWeight: FontWeight.bold,
                             )
-                          : TextStyle(fontWeight: FontWeight.bold),
+                          : TextStyle(),
                     ),
                 ],
               ),

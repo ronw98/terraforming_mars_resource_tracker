@@ -32,7 +32,7 @@ class _ResourceWidgetState extends State<ResourceWidget> {
       child: Container(
         child: Card(
           child: Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -41,17 +41,21 @@ class _ResourceWidgetState extends State<ResourceWidget> {
                   width: AppConstants.image_big_size,
                   height: AppConstants.image_big_size,
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 Text(
                   '${widget.entity.stock}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: AppConstants.stock_font_size),
+                  style: TextStyle(
+                      fontSize: AppConstants.stock_font_size),
                 ),
-                const SizedBox(height: 5,),
+                const SizedBox(
+                  height: 5,
+                ),
                 Text(
                   '${widget.entity.production}',
                   style: TextStyle(
                     color: Colors.brown,
-                    fontWeight: FontWeight.bold,
                     fontSize: AppConstants.production_font_size,
                   ),
                 ),
@@ -64,7 +68,7 @@ class _ResourceWidgetState extends State<ResourceWidget> {
   }
 
   void _showResourceDetails(BuildContext context, ResourceEntity entity) async {
-    final ResourceEntity newResource = await showDialog(
+    final ResourceEntity? newResource = await showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
         insetPadding: EdgeInsets.all(10),
@@ -83,7 +87,13 @@ class _ResourceWidgetState extends State<ResourceWidget> {
         ),
       ),
     );
-
-    BlocProvider.of<ResourceBloc>(context).add(ResourceChanged(newResource));
+    if(newResource == null) {
+      return;
+    }
+    BlocProvider.of<ResourceBloc>(context).add(ResourceChanged(
+      stock: newResource.stock,
+      production: newResource.production,
+      history: newResource.history,
+    ));
   }
 }

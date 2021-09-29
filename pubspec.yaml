@@ -42,6 +42,12 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  fonts:
+    - family: Enter Sansman
+      fonts:
+        - asset: assets/fonts/entsani.ttf
+          style: italic
+        - asset: assets/fonts/entsans.ttf
   assets:
     - assets/images/
   # The following line ensures that the Material Icons font is

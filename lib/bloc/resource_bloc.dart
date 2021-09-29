@@ -14,7 +14,18 @@ class ResourceBloc extends Bloc<ResourceEvent, ResourceState> {
             ResourceEntity(history: [], production: 0, stock: 0))) {
     on<ResourceEvent>((event, emit) {
       if (event is ResourceChanged) {
-        emit(ResourceState(event.resource));
+        emit(ResourceState(state.resource.copyWith(
+          history: event.history,
+          stock: event.stock,
+          production: event.production,
+        )));
+      }
+      if (event is ResourceReset) {
+        emit(ResourceState(state.resource.copyWith(
+          stock: event.stock,
+          production: event.production,
+          history: [],
+        )));
       }
       if (event is StockAdded) {
         emit(ResourceState(state.resource
