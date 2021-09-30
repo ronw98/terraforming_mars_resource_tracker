@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_ressource_tracker/entities/resource_entity.dart';
 
 part 'resource_event.dart';
@@ -9,7 +11,7 @@ part 'resource_event.dart';
 part 'resource_state.dart';
 
 class ResourceBloc extends Bloc<ResourceEvent, ResourceState> {
-  ResourceBloc()
+  ResourceBloc({required this.sharedPrefsKey})
       : super(ResourceState(
             ResourceEntity(history: [], production: 0, stock: 0))) {
     on<ResourceEvent>((event, emit) {
@@ -49,4 +51,13 @@ class ResourceBloc extends Bloc<ResourceEvent, ResourceState> {
       }
     });
   }
+  @override
+  void onChange(Change<ResourceState> change) {
+    SharedPreferences.getInstance().then((SharedPreferences prefs) {
+      prefs.setString(sharedPrefsKey, json.encode(change.nextState.resource.toJson()));
+    });
+    super.onChange(change);
+  }
+
+  final String sharedPrefsKey;
 }

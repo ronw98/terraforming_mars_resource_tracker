@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_ressource_tracker/bloc/resource_bloc.dart';
+import 'package:tm_ressource_tracker/entities/resource_entity.dart';
 import 'package:tm_ressource_tracker/widgets/credit_cost_widget.dart';
 import 'package:tm_ressource_tracker/widgets/nt_edit_widget.dart';
 import 'package:tm_ressource_tracker/widgets/project_widget.dart';
@@ -31,13 +35,76 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _steelBloc = ResourceBloc();
-    _creditsBloc = ResourceBloc();
-    _titaniumBloc = ResourceBloc();
-    _energyBloc = ResourceBloc();
-    _plantBloc = ResourceBloc();
-    _ntBloc = ResourceBloc();
-    _heatBloc = ResourceBloc();
+    _steelBloc = ResourceBloc(sharedPrefsKey: AppConstants.prefs_steel);
+    _creditsBloc = ResourceBloc(sharedPrefsKey: AppConstants.prefs_credit);
+    _titaniumBloc = ResourceBloc(sharedPrefsKey: AppConstants.prefs_titanium);
+    _energyBloc = ResourceBloc(sharedPrefsKey: AppConstants.prefs_energy);
+    _plantBloc = ResourceBloc(sharedPrefsKey: AppConstants.prefs_plant);
+    _ntBloc = ResourceBloc(sharedPrefsKey: AppConstants.prefs_nt);
+    _heatBloc = ResourceBloc(sharedPrefsKey: AppConstants.prefs_heat);
+
+    _getFromPreferences<String>(AppConstants.prefs_nt)
+        .then((value) {
+      if(value != null) {
+        _loadJsonStringToBloc(value, _ntBloc);
+      }
+      else {
+        _ntBloc.add(StockAdded(20));
+      }
+    });
+    _getFromPreferences<String>(AppConstants.prefs_credit)
+        .then((value) {
+      if(value != null) {
+        _loadJsonStringToBloc(value, _creditsBloc);
+      }
+    });
+    _getFromPreferences<String>(AppConstants.prefs_plant)
+        .then((value) {
+      if(value != null) {
+        _loadJsonStringToBloc(value, _plantBloc);
+      }
+    });
+    _getFromPreferences<String>(AppConstants.prefs_steel)
+        .then((value) {
+      if(value != null) {
+        _loadJsonStringToBloc(value, _steelBloc);
+      }
+    });
+    _getFromPreferences<String>(AppConstants.prefs_titanium)
+        .then((value) {
+      if(value != null) {
+        _loadJsonStringToBloc(value, _titaniumBloc);
+      }
+    });
+    _getFromPreferences<String>(AppConstants.prefs_energy)
+        .then((value) {
+      if(value != null) {
+        _loadJsonStringToBloc(value, _energyBloc);
+      }
+    });
+    _getFromPreferences<String>(AppConstants.prefs_heat)
+        .then((value) {
+      if(value != null) {
+        _loadJsonStringToBloc(value, _heatBloc);
+      }
+    });
+
+    _getFromPreferences<int>(AppConstants.prefs_gen).then((value) {
+      if(value != null) {
+        setState(() {
+          _generation_number = value;
+        });
+      }
+    });
+
+    _getFromPreferences<bool>(AppConstants.prefs_turmoil).then((value) {
+      if(value != null) {
+        setState(() {
+          _turmoilSelected = value;
+        });
+      }
+    });
+
     super.initState();
   }
 
@@ -58,16 +125,19 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           PopupMenuButton(
-              itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                        value: 0,
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              _onSettingsPressed();
-                            },
-                            child: Text('Paramètres')))
-                  ])
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem(
+                value: 0,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _onSettingsPressed();
+                  },
+                  child: Text('Paramètres'),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -85,8 +155,14 @@ class _HomePageState extends State<HomePage> {
                       BlocProvider(
                         create: (context) => _ntBloc,
                         child: BlocBuilder<ResourceBloc, ResourceState>(
+                          bloc: _ntBloc,
                           builder: (context, state) {
-                            return Expanded(child: NTWidget(name: 'NT', entity: state.resource));
+                            return Expanded(
+                              child: NTWidget(
+                                name: 'NT',
+                                entity: state.resource,
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -368,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -387,7 +463,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void _onGenerateTap() {
+  void _onGenerateTap() async {
     _heatBloc.add(StockAdded(_energyBloc.state.resource.stock));
     _energyBloc.add(ResourceChanged(stock: 0));
     _creditsBloc.add(StockAdded(_ntBloc.state.resource.stock));
@@ -400,6 +476,8 @@ class _HomePageState extends State<HomePage> {
     if (_turmoilSelected) {
       _ntBloc.add(StockAdded(-1));
     }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(AppConstants.prefs_gen, _generation_number+1);
     setState(() {
       _generation_number++;
     });
@@ -442,12 +520,29 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) => SettingsDialog(
         onResetTap: _onResetTap,
-        onTurmoilChanged: (bool newValue) {
+        onTurmoilChanged: (bool newValue) async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool(AppConstants.prefs_turmoil, newValue);
           setState(() {
             _turmoilSelected = newValue;
           });
         },
       ),
     );
+  }
+
+  Future<T?> _getFromPreferences<T>(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.get(key) as T?;
+  }
+
+  void _loadJsonStringToBloc(String jsonString, ResourceBloc bloc) {
+    final ResourceEntity entity =
+        ResourceEntity.fromJson(json.decode(jsonString));
+    bloc.add(ResourceChanged(
+      stock: entity.stock,
+      history: entity.history,
+      production: entity.production,
+    ));
   }
 }
