@@ -432,7 +432,7 @@ class _HomePageState extends State<HomePage> {
                   child: TextButton(
                     onPressed: _onGenerateTap,
                     child: Text(
-                      'Generate',
+                      'Produire',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -464,6 +464,25 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onGenerateTap() async {
+    final bool confirm = await showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text("Confirmer la production"),
+        actions: [
+          TextButton(
+            child: Text('Confirmer'),
+            onPressed: () => Navigator.pop(context, true),
+          ),
+          TextButton(
+            child: Text('Annuler'),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+        ],
+      ),
+    );
+    if(!confirm) {
+      return;
+    }
     _heatBloc.add(StockAdded(_energyBloc.state.resource.stock));
     _energyBloc.add(ResourceChanged(stock: 0));
     _creditsBloc.add(StockAdded(_ntBloc.state.resource.stock));
