@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.reblochor.tm_ressource_tracker">
    <application
-        android:label="tm_ressource_tracker"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Terraforming Mars Calculator"
+        android:icon="@mipmap/icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
