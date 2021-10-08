@@ -2,7 +2,7 @@
     package="org.reblochor.tm_ressource_tracker">
    <application
         android:label="Terraforming Mars Calculator"
-        android:icon="@mipmap/icon">
+        android:icon="@mipmap/app_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
