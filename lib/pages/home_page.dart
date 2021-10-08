@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             title: Text(
-              'TM Tracker',
+              'TM Calculator',
               style: TextStyle(fontSize: 18),
             ),
             actions: [
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor: Colors.white,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Paramètres'),
+                        child: Text('Settings'),
                       ),
                     ),
                   ),
@@ -287,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 ProjectWidget(
-                                  name: 'Forêt',
+                                  name: 'Greenery',
                                   price: 23,
                                   resource: Resource.CREDITS,
                                   onTap: () =>
@@ -302,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 ProjectWidget(
-                                  name: 'Ville',
+                                  name: 'City',
                                   price: 25,
                                   resource: Resource.CREDITS,
                                   onTap: () {
@@ -343,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 ProjectWidget(
-                                  name: 'Océan',
+                                  name: 'Aquifer',
                                   price: 18,
                                   resource: Resource.CREDITS,
                                   onTap: () {
@@ -359,7 +359,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 ProjectWidget(
-                                  name: 'Centrale',
+                                  name: 'Power plant',
                                   price: 11,
                                   resource: Resource.CREDITS,
                                   onTap: () {
@@ -385,7 +385,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 ProjectWidget(
-                                  name: 'Temperature',
+                                  name: 'Asteroid',
                                   price: 14,
                                   resource: Resource.CREDITS,
                                   onTap: () {
@@ -419,7 +419,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 ProjectWidget(
-                                  name: 'Temperature',
+                                  name: 'Heat',
                                   price: 8,
                                   resource: Resource.HEAT,
                                   onTap: () => _heatBloc.add(StockAdded(-8)),
@@ -433,7 +433,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 ProjectWidget(
-                                  name: 'Forêt',
+                                  name: 'Plants',
                                   price: 8,
                                   resource: Resource.PLANT,
                                   onTap: () {
@@ -464,7 +464,7 @@ class _HomePageState extends State<HomePage> {
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                'Produire',
+                                'Produce!',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.black,
@@ -502,9 +502,9 @@ class _HomePageState extends State<HomePage> {
     final bool confirm = await showDialog(
         context: context,
         builder: (BuildContext context) => ConfirmDialog(
-              text: 'Confirmer la production?',
-              cancel: 'Annuler',
-              confirm: 'Confirmer',
+              text: 'Confirm production?',
+              cancel: 'Cancel',
+              confirm: 'Confirm',
             ));
     if (!confirm) {
       return;
@@ -532,9 +532,9 @@ class _HomePageState extends State<HomePage> {
     final bool confirm = await showDialog(
       context: context,
       builder: (BuildContext context) => ConfirmDialog(
-        text: 'Réinitialiser les données?',
-        cancel: 'Annuler',
-        confirm: 'Confirmer',
+        text: 'Reset data?',
+        cancel: 'Cancel',
+        confirm: 'Confirm',
       ),
     );
     if (!confirm) {
