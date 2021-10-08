@@ -5,6 +5,7 @@ class SettingsDialog extends StatefulWidget {
   SettingsDialog({
     required this.onTurmoilChanged,
     required this.onResetTap,
+    this.initialValue = false,
   });
 
   final Function(bool) onTurmoilChanged;
@@ -17,6 +18,12 @@ class SettingsDialog extends StatefulWidget {
 
 class _SettingsDialogState extends State<SettingsDialog> {
   bool _turmoilSelected = false;
+
+  @override
+  void initState() {
+    _turmoilSelected = widget.initialValue;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
