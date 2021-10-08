@@ -557,6 +557,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) => SettingsDialog(
         onResetTap: _onResetTap,
+        initialValue: _turmoilSelected,
         onTurmoilChanged: (bool newValue) async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setBool(AppConstants.prefs_turmoil, newValue);
