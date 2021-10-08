@@ -9,6 +9,7 @@ class SettingsDialog extends StatefulWidget {
 
   final Function(bool) onTurmoilChanged;
   final Function() onResetTap;
+  final bool initialValue;
 
   @override
   State<StatefulWidget> createState() => _SettingsDialogState();
