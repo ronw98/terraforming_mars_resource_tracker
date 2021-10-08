@@ -3,6 +3,7 @@ import 'package:tm_ressource_tracker/widgets/credit_cost_widget.dart';
 import 'package:tm_ressource_tracker/widgets/numbered_resource_widget.dart';
 
 import '../constants.dart';
+import 'custom_card.dart';
 
 class ProjectWidget extends StatelessWidget {
   ProjectWidget({
@@ -24,17 +25,13 @@ class ProjectWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        child: Card(
+        child: CustomCard(
           child: Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(
-                //   name,
-                //   style: TextStyle(fontSize: 16),
-                // ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,

@@ -5,6 +5,7 @@ import 'package:tm_ressource_tracker/bloc/resource_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/entities/resource_entity.dart';
 
+import 'custom_card.dart';
 import 'edit_value_button.dart';
 
 class NTWidget extends StatefulWidget {
@@ -27,7 +28,14 @@ class _NTWidgetState extends State<NTWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 176,
-      child: Card(
+      child: CustomCard(
+        borderColors: [
+          Colors.white,
+          Colors.grey,
+          Colors.black,
+        ],
+        borderWidth: 3,
+        backgroundColor: Color.fromARGB(200, 220, 220, 220),
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
