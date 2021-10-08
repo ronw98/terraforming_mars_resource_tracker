@@ -24,26 +24,32 @@ class EditableFieldBig extends StatelessWidget {
           onPressed: () => onValueChanged(-10),
           text: '-10',
         ),
+        const SizedBox(width: 5,),
         EditValueButton(
           onPressed: () => onValueChanged(-5),
           text: '-5',
         ),
+        const SizedBox(width: 5,),
         EditValueButton(
           onPressed: () => onValueChanged(-1),
           text: '-1',
         ),
+        const SizedBox(width: 5,),
         Text(
           '$value',
           style: valueTextStyle
         ),
+        const SizedBox(width: 5,),
         EditValueButton(
           onPressed: () => onValueChanged(1),
           text: '+1',
         ),
+        const SizedBox(width: 5,),
         EditValueButton(
           onPressed: () => onValueChanged(5),
           text: '+5',
         ),
+        const SizedBox(width: 5,),
         EditValueButton(
           onPressed: () => onValueChanged(10),
           text: '+10',

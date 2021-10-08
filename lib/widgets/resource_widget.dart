@@ -4,6 +4,7 @@ import 'package:tm_ressource_tracker/bloc/resource_bloc.dart';
 import 'package:tm_ressource_tracker/bloc/resource_detail_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/entities/resource_entity.dart';
+import 'package:tm_ressource_tracker/widgets/custom_card.dart';
 
 import 'detailed_resource_widget.dart';
 
@@ -29,38 +30,35 @@ class _ResourceWidgetState extends State<ResourceWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => _showResourceDetails(context, widget.entity),
-      child: Container(
-        child: Card(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  widget.iconPath,
-                  width: AppConstants.image_big_size,
-                  height: AppConstants.image_big_size,
+      child: CustomCard(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                widget.iconPath,
+                width: AppConstants.image_big_size,
+                height: AppConstants.image_big_size,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                '${widget.entity.stock}',
+                style: TextStyle(fontSize: AppConstants.stock_font_size),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                '${widget.entity.production}',
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: AppConstants.production_font_size,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '${widget.entity.stock}',
-                  style: TextStyle(
-                      fontSize: AppConstants.stock_font_size),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  '${widget.entity.production}',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontSize: AppConstants.production_font_size,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -74,6 +72,7 @@ class _ResourceWidgetState extends State<ResourceWidget> {
         insetPadding: EdgeInsets.all(10),
         titlePadding: EdgeInsets.zero,
         contentPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
         content: BlocProvider<ResourceDetailBloc>(
           create: (context) => ResourceDetailBloc(
             resource: widget.entity,
@@ -87,7 +86,7 @@ class _ResourceWidgetState extends State<ResourceWidget> {
         ),
       ),
     );
-    if(newResource == null) {
+    if (newResource == null) {
       return;
     }
     BlocProvider.of<ResourceBloc>(context).add(ResourceChanged(
