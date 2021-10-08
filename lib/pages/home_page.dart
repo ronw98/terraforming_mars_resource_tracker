@@ -109,16 +109,17 @@ class _HomePageState extends State<HomePage> {
         Container(
           decoration: BoxDecoration(
             gradient: SweepGradient(
-                center: Alignment.bottomCenter,
-                startAngle: 0,
-                endAngle: 3.1415 / 4,
-                tileMode: TileMode.mirror,
-                colors: [
-                  Color.fromARGB(255, 108, 64, 38),
-                  Color.fromARGB(255, 84, 56, 40),
-                  Color.fromARGB(255, 110, 60, 32),
-                  Color.fromARGB(255, 140, 80, 38),
-                ]),
+              center: Alignment.bottomCenter,
+              startAngle: 0,
+              endAngle: 3.1415 / 4,
+              tileMode: TileMode.mirror,
+              colors: [
+                Color.fromARGB(255, 108, 64, 38),
+                Color.fromARGB(255, 84, 56, 40),
+                Color.fromARGB(255, 110, 60, 32),
+                Color.fromARGB(255, 140, 80, 38),
+              ],
+            ),
           ),
         ),
         Scaffold(
@@ -499,13 +500,12 @@ class _HomePageState extends State<HomePage> {
 
   void _onGenerateTap() async {
     final bool confirm = await showDialog(
-      context: context,
-      builder: (BuildContext context) => ConfirmDialog(
-        text: 'Confirmer la production?',
-        cancel: 'Annuler',
-        confirm: 'Confirmer',
-      )
-    );
+        context: context,
+        builder: (BuildContext context) => ConfirmDialog(
+              text: 'Confirmer la production?',
+              cancel: 'Annuler',
+              confirm: 'Confirmer',
+            ));
     if (!confirm) {
       return;
     }
