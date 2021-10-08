@@ -68,6 +68,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                                   value: _turmoilSelected,
                                   onChanged: (_) => setState(() {
                                     _turmoilSelected = !_turmoilSelected;
+                                    widget.onTurmoilChanged(_turmoilSelected);
                                   }),
                                 ),
                               ),
