@@ -104,6 +104,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Container(
@@ -167,22 +168,20 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IntrinsicHeight(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Column(
+                  Row(
+                    children: [
+                      IntrinsicWidth(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             BlocProvider(
                               create: (context) => _ntBloc,
                               child: BlocBuilder<ResourceBloc, ResourceState>(
                                 bloc: _ntBloc,
                                 builder: (context, state) {
-                                  return Expanded(
-                                    child: NTWidget(
+                                  return NTWidget(
                                       name: 'NT',
                                       entity: state.resource,
-                                    ),
                                   );
                                 },
                               ),
@@ -195,10 +194,12 @@ class _HomePageState extends State<HomePage> {
                                       BlocBuilder<ResourceBloc, ResourceState>(
                                     bloc: _creditsBloc,
                                     builder: (context, state) {
-                                      return ResourceWidget(
-                                        iconPath: 'assets/images/credits.png',
-                                        entity: state.resource,
-                                        prodThreshold: -5,
+                                      return Expanded(
+                                        child: ResourceWidget(
+                                          iconPath: 'assets/images/credits.png',
+                                          entity: state.resource,
+                                          prodThreshold: -5,
+                                        ),
                                       );
                                     },
                                   ),
@@ -209,9 +210,11 @@ class _HomePageState extends State<HomePage> {
                                       BlocBuilder<ResourceBloc, ResourceState>(
                                     bloc: _plantBloc,
                                     builder: (context, state) {
-                                      return ResourceWidget(
-                                        iconPath: 'assets/images/plants.png',
-                                        entity: state.resource,
+                                      return Expanded(
+                                        child: ResourceWidget(
+                                          iconPath: 'assets/images/plants.png',
+                                          entity: state.resource,
+                                        ),
                                       );
                                     },
                                   ),
@@ -226,9 +229,11 @@ class _HomePageState extends State<HomePage> {
                                       BlocBuilder<ResourceBloc, ResourceState>(
                                     bloc: _steelBloc,
                                     builder: (context, state) {
-                                      return ResourceWidget(
-                                        iconPath: 'assets/images/steel.png',
-                                        entity: state.resource,
+                                      return Expanded(
+                                        child: ResourceWidget(
+                                          iconPath: 'assets/images/steel.png',
+                                          entity: state.resource,
+                                        ),
                                       );
                                     },
                                   ),
@@ -239,9 +244,11 @@ class _HomePageState extends State<HomePage> {
                                       BlocBuilder<ResourceBloc, ResourceState>(
                                     bloc: _titaniumBloc,
                                     builder: (context, state) {
-                                      return ResourceWidget(
-                                        iconPath: 'assets/images/titanium.png',
-                                        entity: state.resource,
+                                      return Expanded(
+                                        child: ResourceWidget(
+                                          iconPath: 'assets/images/titanium.png',
+                                          entity: state.resource,
+                                        ),
                                       );
                                     },
                                   ),
@@ -256,9 +263,11 @@ class _HomePageState extends State<HomePage> {
                                       BlocBuilder<ResourceBloc, ResourceState>(
                                     bloc: _energyBloc,
                                     builder: (context, state) {
-                                      return ResourceWidget(
-                                        iconPath: 'assets/images/energy.png',
-                                        entity: state.resource,
+                                      return Expanded(
+                                        child: ResourceWidget(
+                                          iconPath: 'assets/images/energy.png',
+                                          entity: state.resource,
+                                        ),
                                       );
                                     },
                                   ),
@@ -269,9 +278,11 @@ class _HomePageState extends State<HomePage> {
                                       BlocBuilder<ResourceBloc, ResourceState>(
                                     bloc: _heatBloc,
                                     builder: (context, state) {
-                                      return ResourceWidget(
-                                        iconPath: 'assets/images/heat.png',
-                                        entity: state.resource,
+                                      return Expanded(
+                                        child: ResourceWidget(
+                                          iconPath: 'assets/images/heat.png',
+                                          entity: state.resource,
+                                        ),
                                       );
                                     },
                                   ),
@@ -280,180 +291,169 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        Expanded(
-                          child: IntrinsicWidth(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                ProjectWidget(
-                                  name: 'Greenery',
-                                  price: 23,
-                                  resource: Resource.CREDITS,
-                                  onTap: () =>
-                                      _creditsBloc.add(StockAdded(-23)),
-                                  reward: [
-                                    Image.asset(
-                                      'assets/images/greenery.png',
-                                      height: AppConstants
-                                              .image_numbered_resource_size +
-                                          10,
-                                    ),
-                                  ],
-                                ),
-                                ProjectWidget(
-                                  name: 'City',
-                                  price: 25,
-                                  resource: Resource.CREDITS,
-                                  onTap: () {
-                                    _creditsBloc.add(ProductionAdded(1));
-                                    _creditsBloc.add(StockAdded(-25));
-                                  },
-                                  reward: [
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/city.png',
-                                          height: AppConstants
-                                                  .image_numbered_resource_size +
-                                              10,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            Image.asset(
-                                              'assets/images/production.png',
-                                              height: AppConstants
-                                                      .image_numbered_resource_size +
-                                                  5,
-                                            ),
-                                            CreditCostWidget(
-                                              value: 1,
-                                              size: AppConstants
-                                                      .image_numbered_resource_size -
-                                                  5,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                ProjectWidget(
-                                  name: 'Aquifer',
-                                  price: 18,
-                                  resource: Resource.CREDITS,
-                                  onTap: () {
-                                    _creditsBloc.add(StockAdded(-18));
-                                  },
-                                  reward: [
-                                    Image.asset(
-                                      'assets/images/ocean.png',
-                                      height: AppConstants
-                                              .image_numbered_resource_size +
-                                          10,
-                                    ),
-                                  ],
-                                ),
-                                ProjectWidget(
-                                  name: 'Power plant',
-                                  price: 11,
-                                  resource: Resource.CREDITS,
-                                  onTap: () {
-                                    _energyBloc.add(ProductionAdded(1));
-                                    _creditsBloc.add(StockAdded(-11));
-                                  },
-                                  reward: [
-                                    Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/production.png',
-                                          height: AppConstants
-                                                  .image_numbered_resource_size +
-                                              5,
-                                        ),
-                                        Image.asset('assets/images/energy.png',
-                                            height: AppConstants
-                                                    .image_numbered_resource_size -
-                                                5),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                ProjectWidget(
-                                  name: 'Asteroid',
-                                  price: 14,
-                                  resource: Resource.CREDITS,
-                                  onTap: () {
-                                    _creditsBloc.add(StockAdded(-14));
-                                  },
-                                  reward: [
-                                    Image.asset(
-                                      'assets/images/temperature.png',
-                                      height: AppConstants
-                                              .image_numbered_resource_size +
-                                          10,
-                                    ),
-                                  ],
-                                ),
-                                Visibility(
-                                  visible: _turmoilSelected,
-                                  child: ProjectWidget(
-                                    name: 'Lobby',
-                                    price: 5,
-                                    resource: Resource.CREDITS,
-                                    reward: [
+                      ),
+                      Expanded(
+                        child: IntrinsicWidth(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ProjectWidget(
+                                name: 'Greenery',
+                                price: 23,
+                                resource: Resource.CREDITS,
+                                onTap: () =>
+                                    _creditsBloc.add(StockAdded(-23)),
+                                reward: [
+                                  Image.asset(
+                                    'assets/images/greenery.png',
+                                    height: screenWidth / AppConstants.project_resource_divider,
+                                  ),
+                                ],
+                              ),
+                              ProjectWidget(
+                                name: 'City',
+                                price: 25,
+                                resource: Resource.CREDITS,
+                                onTap: () {
+                                  _creditsBloc.add(ProductionAdded(1));
+                                  _creditsBloc.add(StockAdded(-25));
+                                },
+                                reward: [
+                                  Row(
+                                    children: [
                                       Image.asset(
-                                        'assets/images/delegate.png',
-                                        height: AppConstants
-                                                .image_numbered_resource_size -
-                                            10,
+                                        'assets/images/city.png',
+                                        height: screenWidth /
+                                            AppConstants
+                                                .project_resource_divider /*(AppConstants
+                                                .image_numbered_resource_size +
+                                            10)/1.5*/
+                                        ,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Image.asset(
+                                              'assets/images/production.png',
+                                              height: screenWidth /
+                                                  AppConstants
+                                                      .project_resource_prod_divider),
+                                          CreditCostWidget(
+                                              value: 1,
+                                              size: screenWidth /
+                                                  AppConstants
+                                                      .project_resource_divider),
+                                        ],
                                       ),
                                     ],
-                                    onTap: () =>
-                                        _creditsBloc.add(StockAdded(-5)),
                                   ),
-                                ),
-                                ProjectWidget(
-                                  name: 'Heat',
-                                  price: 8,
-                                  resource: Resource.HEAT,
-                                  onTap: () => _heatBloc.add(StockAdded(-8)),
+                                ],
+                              ),
+                              ProjectWidget(
+                                name: 'Aquifer',
+                                price: 18,
+                                resource: Resource.CREDITS,
+                                onTap: () {
+                                  _creditsBloc.add(StockAdded(-18));
+                                },
+                                reward: [
+                                  Image.asset('assets/images/ocean.png',
+                                      height: screenWidth /
+                                          AppConstants
+                                              .project_resource_divider),
+                                ],
+                              ),
+                              ProjectWidget(
+                                name: 'Power plant',
+                                price: 11,
+                                resource: Resource.CREDITS,
+                                onTap: () {
+                                  _energyBloc.add(ProductionAdded(1));
+                                  _creditsBloc.add(StockAdded(-11));
+                                },
+                                reward: [
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/production.png',
+                                        height: screenWidth / AppConstants.project_resource_prod_divider,
+                                      ),
+                                      Image.asset(
+                                        'assets/images/energy.png',
+                                        height: screenWidth /
+                                            AppConstants
+                                                .project_resource_divider,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              ProjectWidget(
+                                name: 'Asteroid',
+                                price: 14,
+                                resource: Resource.CREDITS,
+                                onTap: () {
+                                  _creditsBloc.add(StockAdded(-14));
+                                },
+                                reward: [
+                                  Image.asset(
+                                    'assets/images/temperature.png',
+                                    height: screenWidth / AppConstants.project_resource_divider,
+                                  ),
+                                ],
+                              ),
+                              Visibility(
+                                visible: _turmoilSelected,
+                                child: ProjectWidget(
+                                  name: 'Lobby',
+                                  price: 5,
+                                  resource: Resource.CREDITS,
                                   reward: [
                                     Image.asset(
-                                      'assets/images/temperature.png',
-                                      height: AppConstants
-                                              .image_numbered_resource_size +
-                                          10,
+                                      'assets/images/delegate.png',
+                                      height: screenWidth / AppConstants.project_resource_divider,
                                     ),
                                   ],
+                                  onTap: () =>
+                                      _creditsBloc.add(StockAdded(-5)),
                                 ),
-                                ProjectWidget(
-                                  name: 'Plants',
-                                  price: 8,
-                                  resource: Resource.PLANT,
-                                  onTap: () {
-                                    _plantBloc.add(StockAdded(-8));
-                                  },
-                                  reward: [
-                                    Image.asset(
-                                      'assets/images/greenery.png',
-                                      height: AppConstants
-                                              .image_numbered_resource_size +
-                                          10,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              ),
+                              ProjectWidget(
+                                name: 'Heat',
+                                price: 8,
+                                resource: Resource.HEAT,
+                                onTap: () => _heatBloc.add(StockAdded(-8)),
+                                reward: [
+                                  Image.asset(
+                                    'assets/images/temperature.png',
+                                    height: screenWidth / AppConstants.project_resource_divider,
+                                  ),
+                                ],
+                              ),
+                              ProjectWidget(
+                                name: 'Plants',
+                                price: 8,
+                                resource: Resource.PLANT,
+                                onTap: () {
+                                  _plantBloc.add(StockAdded(-8));
+                                },
+                                reward: [
+                                  Image.asset(
+                                    'assets/images/greenery.png',
+                                    height: screenWidth / AppConstants.project_resource_divider,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   Row(
                     children: [

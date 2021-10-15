@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tm_ressource_tracker/constants.dart';
 
 class EditValueButton extends StatelessWidget {
   EditValueButton({required this.text, required this.onPressed});
@@ -20,7 +19,7 @@ class EditValueButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(fontSize: AppConstants.num_button_font_size),
+          style: TextStyle(fontSize: 20),
         ),
       ),
     );

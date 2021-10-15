@@ -6,10 +6,12 @@ class NumberedResource extends StatelessWidget {
   const NumberedResource({
     required this.resource,
     required this.value,
+    required this.size,
   });
 
   final Resource resource;
   final int value;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +21,13 @@ class NumberedResource extends StatelessWidget {
         Text(
           '$value',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: size/2,
           ),
         ),
         const SizedBox(width: 5,),
         Image.asset(
           AppConstants.numbered_resource_path_map[resource]!,
-          width: AppConstants.image_numbered_resource_size,
+          width: size,
         ),
       ],
     );

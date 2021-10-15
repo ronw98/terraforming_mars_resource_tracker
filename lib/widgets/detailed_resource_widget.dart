@@ -18,6 +18,7 @@ class DetailedResourceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return BlocBuilder<ResourceDetailBloc, ResourceDetailState>(
       builder: (BuildContext context, ResourceDetailState state) {
         return CustomCard(
@@ -36,8 +37,7 @@ class DetailedResourceWidget extends StatelessWidget {
               ),
               Image.asset(
                 iconPath,
-                height: AppConstants.image_big_size,
-                width: AppConstants.image_big_size,
+                width: screenWidth / AppConstants.image_big_size_divider,
               ),
               const SizedBox(
                 height: 10,
@@ -56,7 +56,7 @@ class DetailedResourceWidget extends StatelessWidget {
                                 .add(StockChangedEvent(newValue)),
                         value: state.stock,
                         valueTextStyle: TextStyle(
-                          fontSize: AppConstants.stock_font_size,
+                          fontSize:  screenWidth / AppConstants.stock_font_size_divider,
                         ),
                       ),
                       EditableFieldBig(
@@ -66,7 +66,7 @@ class DetailedResourceWidget extends StatelessWidget {
                         value: state.production,
                         valueTextStyle: TextStyle(
                           color: Colors.brown,
-                          fontSize: AppConstants.production_font_size,
+                          fontSize: screenWidth / AppConstants.production_font_size_divider,
                         ),
                       ),
                     ],

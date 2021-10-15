@@ -26,6 +26,7 @@ class NTWidget extends StatefulWidget {
 class _NTWidgetState extends State<NTWidget> {
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: 176,
       child: CustomCard(
@@ -45,14 +46,13 @@ class _NTWidgetState extends State<NTWidget> {
             children: [
               Image.asset(
                 'assets/images/terraformRating.png',
-                width: AppConstants.image_big_size,
-                height: AppConstants.image_big_size,
+                width: screenWidth / AppConstants.image_big_size_divider,
               ),
               const SizedBox(height: 5),
               Text(
                 '${widget.entity.stock}',
                 style: TextStyle(
-                  fontSize: AppConstants.stock_font_size,
+                  fontSize: screenWidth / AppConstants.stock_font_size_divider,
                 ),
               ),
               Row(

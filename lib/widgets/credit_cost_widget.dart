@@ -4,7 +4,7 @@ import 'package:tm_ressource_tracker/constants.dart';
 class CreditCostWidget extends StatelessWidget {
   const CreditCostWidget({
     required this.value,
-    this.size = AppConstants.image_numbered_resource_size,
+    required this.size,
   });
 
   final int value;

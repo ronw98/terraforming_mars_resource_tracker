@@ -28,6 +28,7 @@ class ResourceWidget extends StatefulWidget {
 class _ResourceWidgetState extends State<ResourceWidget> {
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () => _showResourceDetails(context, widget.entity),
       child: CustomCard(
@@ -38,15 +39,14 @@ class _ResourceWidgetState extends State<ResourceWidget> {
             children: [
               Image.asset(
                 widget.iconPath,
-                width: AppConstants.image_big_size,
-                height: AppConstants.image_big_size,
+                width: screenWidth / AppConstants.image_big_size_divider,
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
                 '${widget.entity.stock}',
-                style: TextStyle(fontSize: AppConstants.stock_font_size),
+                style: TextStyle(fontSize:  screenWidth / AppConstants.stock_font_size_divider),
               ),
               const SizedBox(
                 height: 5,
@@ -55,7 +55,7 @@ class _ResourceWidgetState extends State<ResourceWidget> {
                 '${widget.entity.production}',
                 style: TextStyle(
                   color: Colors.brown,
-                  fontSize: AppConstants.production_font_size,
+                  fontSize: screenWidth / AppConstants.production_font_size_divider,
                 ),
               ),
             ],

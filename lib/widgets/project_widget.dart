@@ -22,33 +22,49 @@ class ProjectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: onTap,
       child: Container(
         child: CustomCard(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    resource == Resource.CREDITS
-                        ? CreditCostWidget(value: price)
-                        : NumberedResource(
-                            resource: resource,
-                            value: price,
-                          ),
-                    const SizedBox(width: 5,),
-                    Image.asset('assets/images/arrow.png', width: 30,),
-                    const SizedBox(width: 5,),
-                    ...reward,
-                  ],
-                ),
-              ],
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      resource == Resource.CREDITS
+                          ? CreditCostWidget(
+                              value: price,
+                              size: screenWidth /
+                                  AppConstants.project_resource_divider,
+                            )
+                          : NumberedResource(
+                              resource: resource,
+                              value: price,
+                              size: screenWidth /
+                                  AppConstants.project_resource_divider,
+                            ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Image.asset(
+                        'assets/images/arrow.png',
+                        width: screenWidth / AppConstants.project_resource_divider,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      ...reward,
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
