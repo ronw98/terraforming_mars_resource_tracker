@@ -19,12 +19,12 @@ import 'package:tm_ressource_tracker/widgets/settings_dialog_widget.dart';
 
 import '../constants.dart';
 
-class HomePage extends StatefulWidget {
+class MobileHomePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  State<StatefulWidget> createState() => _MobileHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MobileHomePageState extends State<MobileHomePage> {
   late ResourceBloc _creditsBloc;
   late ResourceBloc _steelBloc;
   late ResourceBloc _titaniumBloc;
