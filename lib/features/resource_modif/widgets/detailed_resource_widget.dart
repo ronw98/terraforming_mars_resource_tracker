@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tm_ressource_tracker/bloc/resource_detail_bloc.dart';
+import 'package:tm_ressource_tracker/features/resource_modif/bloc/resource_detail_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/entities/resource_entity.dart';
-import 'package:tm_ressource_tracker/widgets/custom_card.dart';
-import 'package:tm_ressource_tracker/widgets/editable_field_big.dart';
+import 'package:tm_ressource_tracker/core/widgets/custom_card.dart';
+import 'package:tm_ressource_tracker/core/widgets/editable_field_big.dart';
 
 class DetailedResourceWidget extends StatelessWidget {
   DetailedResourceWidget({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tm_ressource_tracker/widgets/custom_card.dart';
+import 'package:tm_ressource_tracker/core/widgets/custom_card.dart';
 
 class SettingsDialog extends StatefulWidget {
   SettingsDialog({

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tm_ressource_tracker/bloc/resource_bloc.dart';
+import 'package:tm_ressource_tracker/features/home/bloc/bloc_bindings.dart';
+import 'package:tm_ressource_tracker/features/resource/bloc/resource_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/entities/resource_entity.dart';
 
-import 'custom_card.dart';
-import 'edit_value_button.dart';
+import '../../../core/widgets/custom_card.dart';
+import '../../../core/widgets/edit_value_button.dart';
 
 class NTWidget extends StatefulWidget {
   NTWidget({
@@ -76,7 +77,7 @@ class _NTWidgetState extends State<NTWidget> {
   }
 
   void onValueChanged(BuildContext context, int modification) {
-    BlocProvider.of<ResourceBloc>(context).add(
+    BlocProvider.of<NTBloc>(context).add(
       ResourceChanged(
         stock: widget.entity.stock + modification,
       ),

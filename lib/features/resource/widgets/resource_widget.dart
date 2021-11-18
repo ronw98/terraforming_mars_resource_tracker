@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tm_ressource_tracker/bloc/resource_bloc.dart';
-import 'package:tm_ressource_tracker/bloc/resource_detail_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart';
+import 'package:tm_ressource_tracker/core/widgets/custom_card.dart';
 import 'package:tm_ressource_tracker/entities/resource_entity.dart';
-import 'package:tm_ressource_tracker/widgets/custom_card.dart';
+import 'package:tm_ressource_tracker/features/resource/bloc/resource_bloc.dart';
+import 'package:tm_ressource_tracker/features/resource_modif/bloc/resource_detail_bloc.dart';
 
-import 'detailed_resource_widget.dart';
+import '../../resource_modif/widgets/detailed_resource_widget.dart';
 
-class ResourceWidget extends StatefulWidget {
+class ResourceWidget<T extends ResourceBloc> extends StatefulWidget {
   ResourceWidget({
     required this.iconPath,
     required this.entity,
@@ -22,10 +22,10 @@ class ResourceWidget extends StatefulWidget {
   final int prodThreshold;
 
   @override
-  State<StatefulWidget> createState() => _ResourceWidgetState();
+  State<StatefulWidget> createState() => _ResourceWidgetState<T>();
 }
 
-class _ResourceWidgetState extends State<ResourceWidget> {
+class _ResourceWidgetState<T extends ResourceBloc> extends State<ResourceWidget<T>> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -89,7 +89,7 @@ class _ResourceWidgetState extends State<ResourceWidget> {
     if (newResource == null) {
       return;
     }
-    BlocProvider.of<ResourceBloc>(context).add(ResourceChanged(
+    BlocProvider.of<T>(context).add(ResourceChanged(
       stock: newResource.stock,
       production: newResource.production,
       history: newResource.history,

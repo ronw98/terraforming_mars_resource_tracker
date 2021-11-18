@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tm_ressource_tracker/widgets/credit_cost_widget.dart';
-import 'package:tm_ressource_tracker/widgets/numbered_resource_widget.dart';
+import 'package:tm_ressource_tracker/core/widgets/credit_cost_widget.dart';
+import 'package:tm_ressource_tracker/core/widgets/numbered_resource_widget.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 import 'custom_card.dart';
 
 class ProjectWidget extends StatelessWidget {
