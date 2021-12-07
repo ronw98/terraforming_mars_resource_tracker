@@ -8,24 +8,26 @@ import 'package:tm_ressource_tracker/features/resource_modif/bloc/resource_detai
 
 import '../../resource_modif/widgets/detailed_resource_widget.dart';
 
-class ResourceWidget<T extends ResourceBloc> extends StatefulWidget {
+class ResourceWidget extends StatefulWidget {
   ResourceWidget({
     required this.iconPath,
     required this.entity,
+    required this.resource,
     this.stockThreshold = 0,
     this.prodThreshold = 0,
   });
 
+  final Resource resource;
   final String iconPath;
   final ResourceEntity entity;
   final int stockThreshold;
   final int prodThreshold;
 
   @override
-  State<StatefulWidget> createState() => _ResourceWidgetState<T>();
+  State<StatefulWidget> createState() => _ResourceWidgetState();
 }
 
-class _ResourceWidgetState<T extends ResourceBloc> extends State<ResourceWidget<T>> {
+class _ResourceWidgetState extends State<ResourceWidget> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -89,7 +91,8 @@ class _ResourceWidgetState<T extends ResourceBloc> extends State<ResourceWidget<
     if (newResource == null) {
       return;
     }
-    BlocProvider.of<T>(context).add(ResourceChanged(
+    BlocProvider.of<ResourceBloc>(context).add(ResourceChanged(
+      resource: widget.resource,
       stock: newResource.stock,
       production: newResource.production,
       history: newResource.history,

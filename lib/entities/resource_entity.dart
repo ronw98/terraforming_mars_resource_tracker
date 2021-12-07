@@ -1,17 +1,28 @@
+import 'dart:math';
+
 import 'package:json_annotation/json_annotation.dart';
+
 part 'resource_entity.g.dart';
 
 @JsonSerializable()
 class ResourceEntity {
   ResourceEntity({
-    required this.stock,
-    required this.production,
-    required this.history,
+    this.stock = 0,
+    this.production = 0,
+    this.history = const [],
   });
 
   final int stock;
   final int production;
   final List<HistoryElement> history;
+
+  ResourceEntity produce() => ResourceEntity(
+        stock: max(stock + production, 0),
+        production: production,
+        history: history,
+      );
+
+  ResourceEntity addStock(int change) => copyWith(stock: stock + change);
 
   ResourceEntity copyWith({
     int? stock,
@@ -24,7 +35,11 @@ class ResourceEntity {
         history: history ?? this.history,
       );
 
-  factory ResourceEntity.fromJson(Map<String, dynamic> json) => _$ResourceEntityFromJson(json);
+
+
+  factory ResourceEntity.fromJson(Map<String, dynamic> json) =>
+      _$ResourceEntityFromJson(json);
+
   Map<String, dynamic> toJson() => _$ResourceEntityToJson(this);
 }
 
@@ -42,6 +57,8 @@ class HistoryElement {
   final HistoryElementType modificationType;
   final int value;
 
-  factory HistoryElement.fromJson(Map<String, dynamic> json) => _$HistoryElementFromJson(json);
+  factory HistoryElement.fromJson(Map<String, dynamic> json) =>
+      _$HistoryElementFromJson(json);
+
   Map<String, dynamic> toJson() => _$HistoryElementToJson(this);
 }

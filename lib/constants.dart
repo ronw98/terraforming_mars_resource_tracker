@@ -30,6 +30,7 @@ class AppConstants {
     Resource.HEAT: 'assets/images/heat.png',
     Resource.ENERGY: 'assets/images/energy.png',
   };
+  static const String prefs_resources = 'prefs_resources';
   static const String prefs_nt = 'prefs_nt';
   static const String prefs_credit = 'prefs_credit';
   static const String prefs_plant = 'prefs_plant';

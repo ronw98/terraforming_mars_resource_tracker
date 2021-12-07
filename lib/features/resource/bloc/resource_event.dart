@@ -8,37 +8,59 @@ abstract class ResourceEvent extends Equatable {
 }
 
 class ResourceChanged extends ResourceEvent {
-  const ResourceChanged({this.stock, this.production, this.history});
+  const ResourceChanged({
+    required this.resource,
+    this.stock,
+    this.production,
+    this.history,
+  });
 
   final int? stock;
   final int? production;
   final List<HistoryElement>? history;
+  final Resource resource;
 
   @override
-  List<Object?> get props => [stock, production, history];
+  List<Object?> get props => [stock, production, history, resource];
 }
 
 class ResourceReset extends ResourceEvent {
-  const ResourceReset({this.stock=0, this.production=0});
+  const ResourceReset({required this.resource, this.stock = 0, this.production = 0});
 
+  final Resource resource;
   final int stock;
   final int production;
 
   @override
-  List<Object?> get props => [stock, production];
+  List<Object?> get props => [stock, production, resource];
 }
+
 class StockAdded extends ResourceEvent {
-  const StockAdded(this.change);
+  const StockAdded(this.resource, this.change);
+  final Resource resource;
   final int change;
+
   @override
-  List<Object?> get props => [change];
+  List<Object?> get props => [change, resource];
 }
 
 class ProductionAdded extends ResourceEvent {
-  const ProductionAdded(this.change);
+  const ProductionAdded(this.resource, this.change);
+
+  final Resource resource;
   final int change;
+
   @override
-  List<Object?> get props => [change];
+  List<Object?> get props => [change, resource];
 }
 
-class ProduceEvent extends ResourceEvent {}
+class ProduceEvent extends ResourceEvent {
+  const ProduceEvent({required this.turmoil});
+
+  final bool turmoil;
+
+  @override
+  List<Object?> get props => [turmoil];
+}
+
+class RestartEvent extends ResourceEvent {}

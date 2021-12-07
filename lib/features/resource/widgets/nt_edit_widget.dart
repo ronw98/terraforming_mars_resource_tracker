@@ -77,8 +77,9 @@ class _NTWidgetState extends State<NTWidget> {
   }
 
   void onValueChanged(BuildContext context, int modification) {
-    BlocProvider.of<NTBloc>(context).add(
+    BlocProvider.of<ResourceBloc>(context).add(
       ResourceChanged(
+        resource: Resource.NT,
         stock: widget.entity.stock + modification,
       ),
     );

@@ -11,7 +11,6 @@ import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/core/widgets/confirm_dialog.dart';
 import 'package:tm_ressource_tracker/core/widgets/custom_card.dart';
 import 'package:tm_ressource_tracker/entities/resource_entity.dart';
-import 'package:tm_ressource_tracker/features/home/bloc/bloc_bindings.dart';
 import 'package:tm_ressource_tracker/features/home/widgets/project_list.dart';
 import 'package:tm_ressource_tracker/features/home/widgets/resource_widgets.dart';
 import 'package:tm_ressource_tracker/features/resource/bloc/resource_bloc.dart';
@@ -23,77 +22,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late ResourceBloc _creditsBloc;
-  late ResourceBloc _steelBloc;
-  late ResourceBloc _titaniumBloc;
-  late ResourceBloc _plantBloc;
-  late ResourceBloc _energyBloc;
-  late ResourceBloc _ntBloc;
-  late ResourceBloc _heatBloc;
+
   bool _turmoilSelected = false;
   int _generation_number = 1;
 
   @override
   void initState() {
-    _steelBloc = BlocProvider.of<SteelBloc>(context);
-    _creditsBloc = BlocProvider.of<CreditsBloc>(context);
-    _titaniumBloc = BlocProvider.of<TitaniumBloc>(context);
-    _energyBloc = BlocProvider.of<EnergyBloc>(context);
-    _plantBloc = BlocProvider.of<PlantBloc>(context);
-    _ntBloc = BlocProvider.of<NTBloc>(context);
-    _heatBloc = BlocProvider.of<HeatBloc>(context);
-
+    final ResourceBloc resourceBloc = BlocProvider.of<ResourceBloc>(context);
     _getFromPreferences<String>(AppConstants.prefs_nt).then((value) {
       if (value != null) {
-        _loadJsonStringToBloc(value, _ntBloc);
+        try {
+          _loadJsonStringToBloc(value, resourceBloc);
+        } catch (_) {
+          // Version upgrade security
+          resourceBloc.add(RestartEvent());
+        }
       } else {
-        _ntBloc.add(StockAdded(20));
-      }
-    });
-    _getFromPreferences<String>(AppConstants.prefs_credit).then((value) {
-      if (value != null) {
-        _loadJsonStringToBloc(value, _creditsBloc);
-      }
-    });
-    _getFromPreferences<String>(AppConstants.prefs_plant).then((value) {
-      if (value != null) {
-        _loadJsonStringToBloc(value, _plantBloc);
-      }
-    });
-    _getFromPreferences<String>(AppConstants.prefs_steel).then((value) {
-      if (value != null) {
-        _loadJsonStringToBloc(value, _steelBloc);
-      }
-    });
-    _getFromPreferences<String>(AppConstants.prefs_titanium).then((value) {
-      if (value != null) {
-        _loadJsonStringToBloc(value, _titaniumBloc);
-      }
-    });
-    _getFromPreferences<String>(AppConstants.prefs_energy).then((value) {
-      if (value != null) {
-        _loadJsonStringToBloc(value, _energyBloc);
-      }
-    });
-    _getFromPreferences<String>(AppConstants.prefs_heat).then((value) {
-      if (value != null) {
-        _loadJsonStringToBloc(value, _heatBloc);
-      }
-    });
-
-    _getFromPreferences<int>(AppConstants.prefs_gen).then((value) {
-      if (value != null) {
-        setState(() {
-          _generation_number = value;
-        });
-      }
-    });
-
-    _getFromPreferences<bool>(AppConstants.prefs_turmoil).then((value) {
-      if (value != null) {
-        setState(() {
-          _turmoilSelected = value;
-        });
+        resourceBloc.add(RestartEvent());
       }
     });
 
@@ -221,6 +166,7 @@ class _HomePageState extends State<HomePage> {
     if (!confirm) {
       return;
     }
+    BlocProvider.of<ResourceBloc>(context).add(ProduceEvent(turmoil: _turmoilSelected));
     _heatBloc.add(StockAdded(_energyBloc.state.resource.stock));
     _energyBloc.add(ResourceChanged(stock: 0));
     _creditsBloc.add(StockAdded(_ntBloc.state.resource.stock));
