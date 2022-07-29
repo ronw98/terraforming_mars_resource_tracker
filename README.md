@@ -16,7 +16,8 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 # TODO
-Change special projects with id
 Feedback on special project clicked
+
 Edit special projects
+
 Setting to allow keyboard editable score
