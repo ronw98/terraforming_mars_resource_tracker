@@ -6,6 +6,7 @@ part 'special_project.freezed.dart';
 @freezed
 class SpecialProject with _$SpecialProject {
   const factory SpecialProject({
+    required String id,
     required List<CostResource> cost,
     required List<CostResource> reward,
   }) = _SpecialProject;
