@@ -154,7 +154,10 @@ enum DefaultSpecialProjects {
   }
 }
 
-const Settings defaultSettings = Settings(useTurmoil: false);
+const Settings defaultSettings = Settings(
+  useTurmoil: false,
+  editValuesWithText: false,
+);
 
 final SpecialProjectConfig defaultProjectConfig = SpecialProjectConfig(
   projects: DefaultSpecialProjects.values.map((p) => p.project).toList(),

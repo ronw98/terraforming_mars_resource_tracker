@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/edit_value_button.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/text_editable_value.dart';
 
 class EditValueWidget extends StatelessWidget {
   const EditValueWidget({
@@ -37,9 +38,10 @@ class EditValueWidget extends StatelessWidget {
           },
         ),
         horizontalSpacer,
-        Text(
-          '$value',
+        TextEditableValue(
+          value: value,
           style: textStyle,
+          onValueChanged: onValueChanged,
         ),
         horizontalSpacer,
         EditValueButton(

@@ -4,13 +4,13 @@ class SwitchWidget extends StatelessWidget {
   const SwitchWidget({
     Key? key,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.value,
     required this.onChanged,
   }) : super(key: key);
 
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final bool value;
   final void Function(bool) onChanged;
 
@@ -28,10 +28,11 @@ class SwitchWidget extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                Text(
-                  subtitle,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                if (subtitle != null)
+                  Text(
+                    subtitle!,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
               ],
             ),
           ),
