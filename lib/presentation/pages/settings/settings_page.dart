@@ -27,23 +27,49 @@ class SettingsPage extends StatelessWidget {
                     return state.maybeWhen(
                       loaded: (config) => Column(
                         children: [
+                          const CategorySeparatorWidget(text: 'General'),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding,
+                            ),
+                            child: Column(
+                              children: [
+                                SwitchWidget(
+                                  title: 'Edit values with keyboard',
+                                  value: config.settings.editValuesWithText,
+                                  onChanged: (value) {
+                                    BlocProvider.of<ConfigurationCubit>(context)
+                                        .updateSettings(
+                                      config.settings.copyWith(
+                                        editValuesWithText: value,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
                           const CategorySeparatorWidget(text: 'Extensions'),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: defaultPadding,
                             ),
-                            child: SwitchWidget(
-                              title: 'Use Turmoil',
-                              subtitle: '(-1 TR each turn)',
-                              value: config.settings.useTurmoil,
-                              onChanged: (value) {
-                                BlocProvider.of<ConfigurationCubit>(context)
-                                    .updateSettings(
-                                  config.settings.copyWith(
-                                    useTurmoil: value,
-                                  ),
-                                );
-                              },
+                            child: Column(
+                              children: [
+                                SwitchWidget(
+                                  title: 'Use Turmoil',
+                                  subtitle: '(-1 TR each turn)',
+                                  value: config.settings.useTurmoil,
+                                  onChanged: (value) {
+                                    BlocProvider.of<ConfigurationCubit>(context)
+                                        .updateSettings(
+                                      config.settings.copyWith(
+                                        useTurmoil: value,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         ],

@@ -6,7 +6,6 @@ part 'settings.freezed.dart';
 class Settings with _$Settings {
   const factory Settings({
     required bool useTurmoil,
+    required bool editValuesWithText,
   }) = _Settings;
-
-  static const Settings defaultSettings = Settings(useTurmoil: false);
 }

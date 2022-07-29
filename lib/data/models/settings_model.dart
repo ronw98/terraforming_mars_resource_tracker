@@ -7,6 +7,7 @@ part 'settings_model.g.dart';
 class SettingsModel with _$SettingsModel {
   const factory SettingsModel({
     bool? useTurmoil,
+    bool? editValuesWithText,
   }) = _SettingsModel;
   
 

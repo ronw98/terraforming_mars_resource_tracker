@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/assets.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
@@ -6,6 +7,7 @@ import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/edit_value_button.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/text_editable_value.dart';
 
 class TerraformingRatingWidget extends StatelessWidget {
   const TerraformingRatingWidget({
@@ -52,9 +54,15 @@ class TerraformingRatingWidget extends StatelessWidget {
                   horizontalBigSpacer,
                   Tooltip(
                     message: 'Terraforming rating stock is $stock',
-                    child: Text(
-                      '$stock',
+                    child: TextEditableValue(
+                      value: stock,
                       style: TextStyle(fontSize: 20),
+                      onValueChanged: (newValue) {
+                        BlocProvider.of<ResourceCubit>(context).modifyStock(
+                          ResourceType.terraformingRating,
+                          newValue,
+                        );
+                      },
                     ),
                   ),
                   horizontalBigSpacer,

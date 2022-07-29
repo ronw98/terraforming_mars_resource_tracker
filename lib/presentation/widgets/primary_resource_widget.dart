@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/presentation/extension/resource_type_extension.dart';
+import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/text_editable_value.dart';
 
 class PrimaryResourceWidget extends StatelessWidget {
   const PrimaryResourceWidget({
@@ -44,16 +47,24 @@ class PrimaryResourceWidget extends StatelessWidget {
                         verticalSpacer,
                         Tooltip(
                           message: '${type.resourceName} stock is $stock',
-                          child: Text(
-                            '$stock',
+                          child: TextEditableValue(
+                            value: stock,
+                            onValueChanged: (newValue) {
+                              BlocProvider.of<ResourceCubit>(context)
+                                  .modifyStock(type, newValue);
+                            },
                           ),
                         ),
                         Tooltip(
                           message:
                               '${type.resourceName} production is $production',
-                          child: Text(
-                            '$production',
+                          child: TextEditableValue(
+                            value: production,
                             style: TextStyle(color: Colors.brown),
+                            onValueChanged: (newValue) {
+                              BlocProvider.of<ResourceCubit>(context)
+                                  .modifyProduction(type, newValue);
+                            },
                           ),
                         ),
                       ],
