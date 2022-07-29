@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
@@ -19,6 +20,11 @@ class SpecialProjectsTab extends StatelessWidget {
                 return SliverList(
                   delegate: SliverChildListDelegate(
                     config.specialProjectConfig.projects
+                        .where(
+                          (project) =>
+                              config.settings.useTurmoil ||
+                              project.id != DefaultSpecialProjects.lobby.name,
+                        )
                         .map(
                           (project) => GestureDetector(
                             onTap: () => BlocProvider.of<ResourceCubit>(context)

@@ -4,6 +4,7 @@ import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
 
 SpecialProject specialProjectModelToEntity(SpecialProjectModel model) =>
     SpecialProject(
+      id: model.id!,
       cost: modelEntityListConverter(
         model.cost,
         costResourceModelToEntity,
@@ -16,6 +17,7 @@ SpecialProject specialProjectModelToEntity(SpecialProjectModel model) =>
 
 SpecialProjectModel specialProjectEntityToModel(SpecialProject entity) =>
     SpecialProjectModel(
+      id: entity.id,
       cost: modelEntityListConverter(
         entity.cost,
         costResourceEntityToModel,
