@@ -18,25 +18,34 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.2+3
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^7.3.0
+  flutter_bloc: ^8.0.1
+  dartz: ^0.10.0
   equatable: ^2.0.3
+  shared_preferences: ^2.0.15
+  get_it: ^7.1.3
+  injectable: ^1.5.3
   json_annotation: ^4.0.0
-  shared_preferences: ^2.0.8
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  auto_size_text: ^3.0.0
+  sliver_tools: ^0.2.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_serializable: ^4.1.4
-  build_runner: ^2.0.0
+  build_runner: ^2.1.11
+  freezed: 2.0.3+1
+  r_flutter: ^0.9.0
+  injectable_generator: ^1.5.3
+  json_serializable: ^6.3.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

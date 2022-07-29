@@ -32,20 +32,32 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion '30.0.3'
+    compileSdkVersion 32
+
+    // Avoid error message collision and allow to not disabled android.useNewApkCreator=false which might case some apk installation issues
+    packagingOptions {
+        exclude 'AndroidManifest.xml'
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "org.reblochor.tm_ressource_tracker"
         minSdkVersion 16
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    flavorDimensions "reblochor"
+
+    productFlavors {
+        dev {
+            dimension "reblochor"
+            applicationId "org.reblochor.tm_ressource_tracker.dev"
+        }
     }
 
     signingConfigs {
