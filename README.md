@@ -18,4 +18,4 @@ samples, guidance on mobile development, and a full API reference.
 # TODO
 Feedback on special project clicked
 
-Reset settings button
+Animated list when adding/removing resource from special project

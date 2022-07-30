@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
 import 'package:tm_ressource_tracker/domain/entities/configuration.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
@@ -225,6 +226,17 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
         configuration: await _getConfig(),
       ),
     );
+  }
+
+  void reset() async {
+    final defaultConfig = Configuration(
+      settings: defaultSettings,
+      specialProjectConfig: defaultProjectConfig,
+    );
+
+    if (await _setConfig(defaultConfig)) {
+      loadConfig();
+    }
   }
 }
 
