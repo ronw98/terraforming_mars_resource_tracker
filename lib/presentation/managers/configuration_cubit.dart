@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/entities/configuration.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/settings.dart';
 import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
 import 'package:tm_ressource_tracker/domain/entities/special_project_config.dart';
@@ -41,6 +42,111 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
       loaded: (config) async {
         final newConfig = config.copyWith(
           specialProjectConfig: specialProjectConfig,
+        );
+        if (await _setConfig(newConfig)) {
+          emit(
+            ConfigurationState.loaded(
+              configuration: await _getConfig(),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  void removeSpecialProjectCost({
+    required String projectId,
+    required CostResource resource,
+  }) =>
+      _removeSpecialProjectCostOrReward(
+        projectId: projectId,
+        resource: resource,
+        isCost: true,
+      );
+
+  void removeSpecialProjectReward({
+    required String projectId,
+    required CostResource resource,
+  }) =>
+      _removeSpecialProjectCostOrReward(
+        projectId: projectId,
+        resource: resource,
+        isCost: false,
+      );
+
+  void _removeSpecialProjectCostOrReward({
+    required String projectId,
+    required CostResource resource,
+    required bool isCost,
+  }) {
+    state.whenOrNull(
+      loaded: (config) async {
+        final Map<String, SpecialProject> projectsCopy = {
+          ...config.specialProjectConfig.projects,
+        };
+        final specialProject = projectsCopy[projectId]!;
+        final costCopy = (isCost ? specialProject.cost : specialProject.reward)
+            .where((r) => r != resource)
+            .toList();
+        final newSpecialProject = isCost
+            ? specialProject.copyWith(cost: costCopy)
+            : specialProject.copyWith(reward: costCopy);
+        projectsCopy[projectId] = newSpecialProject;
+        final newConfig = config.copyWith(
+          specialProjectConfig: config.specialProjectConfig.copyWith(
+            projects: projectsCopy,
+          ),
+        );
+        if (await _setConfig(newConfig)) {
+          emit(
+            ConfigurationState.loaded(
+              configuration: await _getConfig(),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  void addSpecialProjectCost({required String projectId}) =>
+      _addSpecialProjectCostOrReward(
+        projectId: projectId,
+        isCost: true,
+      );
+
+  void addSpecialProjectReward({required String projectId}) =>
+      _addSpecialProjectCostOrReward(
+        projectId: projectId,
+        isCost: false,
+      );
+
+  void _addSpecialProjectCostOrReward({
+    required String projectId,
+    required bool isCost,
+  }) {
+    state.whenOrNull(
+      loaded: (config) async {
+        final Map<String, SpecialProject> projectsCopy = {
+          ...config.specialProjectConfig.projects,
+        };
+        final specialProject = projectsCopy[projectId]!;
+        final costCopy = [
+          ...(isCost ? specialProject.cost : specialProject.reward),
+        ];
+        costCopy.add(
+          CostResource.stock(
+            value: 0,
+            type: ResourceType.credit,
+          ),
+        );
+        final newSpecialProject = isCost
+            ? specialProject.copyWith(cost: costCopy)
+            : specialProject.copyWith(reward: costCopy);
+        projectsCopy[projectId] = newSpecialProject;
+        final newConfig = config.copyWith(
+          specialProjectConfig: config.specialProjectConfig.copyWith(
+            projects: projectsCopy,
+          ),
         );
         if (await _setConfig(newConfig)) {
           emit(

@@ -19,30 +19,47 @@ class SpecialProjectWidget extends StatelessWidget {
     return CustomCard(
       child: Padding(
         padding: const EdgeInsets.all(defaultPadding),
-        child: Wrap(
-          alignment: WrapAlignment.start,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          runSpacing: defaultPadding,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            for (final costPart in project.cost) ...[
-              SizedBox(
-                height: AppConstants.specialProjectItemSize,
-                child: CostResourceWidget(resource: costPart),
+            Flexible(
+              child: Wrap(
+                alignment: WrapAlignment.end,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: defaultPadding,
+                spacing: bigPadding,
+                children: [
+                  for (final costPart in project.cost) ...[
+                    SizedBox(
+                      height: AppConstants.specialProjectItemSize,
+                      child: CostResourceWidget(resource: costPart),
+                    ),
+                  ],
+                ],
               ),
-              horizontalBigSpacer,
-            ],
+            ),
+            horizontalBigSpacer,
             Image(
               image: Images.arrow,
               width: AppConstants.specialProjectItemSize,
             ),
             horizontalBigSpacer,
-            for (final costPart in project.reward) ...[
-              SizedBox(
-                height: AppConstants.specialProjectItemSize,
-                child: CostResourceWidget(resource: costPart),
+            Flexible(
+              child: Wrap(
+                alignment: WrapAlignment.end,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: defaultPadding,
+                spacing: bigPadding,
+                children: [
+                  for (final costPart in project.reward) ...[
+                    SizedBox(
+                      height: AppConstants.specialProjectItemSize,
+                      child: CostResourceWidget(resource: costPart),
+                    ),
+                  ],
+                ],
               ),
-              horizontalBigSpacer,
-            ],
+            ),
           ],
         ),
       ),
