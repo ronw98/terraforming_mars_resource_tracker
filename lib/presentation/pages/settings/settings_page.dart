@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/TMDefaultPage.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/category_separator_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/editable_special_project_tile.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/switch_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/tm_app_bar.dart';
@@ -70,6 +72,29 @@ class SettingsPage extends StatelessWidget {
                                   },
                                 ),
                               ],
+                            ),
+                          ),
+                          const CategorySeparatorWidget(
+                              text: 'Special projects'),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: defaultPadding,
+                            ),
+                            child: Column(
+                              children: config
+                                  .specialProjectConfig.projects.values
+                                  .where(
+                                    (project) =>
+                                        config.settings.useTurmoil ||
+                                        project.id !=
+                                            DefaultSpecialProjects.lobby.name,
+                                  )
+                                  .map(
+                                    (project) => EditableSpecialProjectTile(
+                                      project: project,
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                         ],

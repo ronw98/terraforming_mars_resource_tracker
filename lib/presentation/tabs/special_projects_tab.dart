@@ -19,7 +19,7 @@ class SpecialProjectsTab extends StatelessWidget {
               loaded: (config) {
                 return SliverList(
                   delegate: SliverChildListDelegate(
-                    config.specialProjectConfig.projects
+                    config.specialProjectConfig.projects.values
                         .where(
                           (project) =>
                               config.settings.useTurmoil ||

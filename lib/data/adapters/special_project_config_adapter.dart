@@ -5,9 +5,13 @@ import 'package:tm_ressource_tracker/domain/entities/special_project_config.dart
 SpecialProjectConfig specialProjectConfigModelToEntity(
         SpecialProjectConfigModel model) =>
     SpecialProjectConfig(
-      projects: modelEntityListConverter(
-        model.projects,
-        specialProjectModelToEntity,
+      projects: Map.fromEntries(
+        modelEntityListConverter(
+          model.projects,
+          specialProjectModelToEntity,
+        ).map(
+          (e) => MapEntry(e.id, e),
+        ),
       ),
     );
 
@@ -15,7 +19,7 @@ SpecialProjectConfigModel specialProjectConfigEntityToModel(
         SpecialProjectConfig entity) =>
     SpecialProjectConfigModel(
       projects: modelEntityListConverter(
-        entity.projects,
+        entity.projects.values,
         specialProjectEntityToModel,
       ),
     );

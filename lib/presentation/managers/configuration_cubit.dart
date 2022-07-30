@@ -2,7 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/entities/configuration.dart';
+import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/settings.dart';
+import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
 import 'package:tm_ressource_tracker/domain/entities/special_project_config.dart';
 import 'package:tm_ressource_tracker/domain/usecases/get_config.dart';
 import 'package:tm_ressource_tracker/domain/usecases/set_config.dart';
@@ -39,6 +41,66 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
       loaded: (config) async {
         final newConfig = config.copyWith(
           specialProjectConfig: specialProjectConfig,
+        );
+        if (await _setConfig(newConfig)) {
+          emit(
+            ConfigurationState.loaded(
+              configuration: await _getConfig(),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  void updateSpecialProjectCost({
+    required String id,
+    required CostResource oldCost,
+    required CostResource newCost,
+  }) =>
+      _updateSpecialProjectCostOrReward(
+        id: id,
+        oldCost: oldCost,
+        newCost: newCost,
+        isCost: true,
+      );
+
+  void updateSpecialProjectReward({
+    required String id,
+    required CostResource oldCost,
+    required CostResource newCost,
+  }) =>
+      _updateSpecialProjectCostOrReward(
+        id: id,
+        oldCost: oldCost,
+        newCost: newCost,
+        isCost: false,
+      );
+
+  void _updateSpecialProjectCostOrReward({
+    required String id,
+    required CostResource oldCost,
+    required CostResource newCost,
+    required bool isCost,
+  }) {
+    state.whenOrNull(
+      loaded: (config) async {
+        final Map<String, SpecialProject> projectsCopy = {
+          ...config.specialProjectConfig.projects,
+        };
+        final specialProject = projectsCopy[id]!;
+        final costCopy = [
+          ...(isCost ? specialProject.cost : specialProject.reward),
+        ];
+        costCopy[costCopy.indexOf(oldCost)] = newCost;
+        final newSpecialProject = isCost
+            ? specialProject.copyWith(cost: costCopy)
+            : specialProject.copyWith(reward: costCopy);
+        projectsCopy[id] = newSpecialProject;
+        final newConfig = config.copyWith(
+          specialProjectConfig: config.specialProjectConfig.copyWith(
+            projects: projectsCopy,
+          ),
         );
         if (await _setConfig(newConfig)) {
           emit(

@@ -35,10 +35,16 @@ ThemeData appTheme = ThemeData(
     ),
   ),
   textTheme: TextTheme(
-    bodyLarge: TextStyle(fontSize: 20),
+    bodyLarge: TextStyle(
+      fontSize: 20,
+      color: Colors.black,
+    ),
     bodyMedium: TextStyle(fontSize: 18),
     bodySmall: TextStyle(fontSize: 14),
-    displayMedium: TextStyle(fontSize: 27),
+    displayMedium: TextStyle(
+      fontSize: 27,
+      color: Colors.black,
+    ),
     titleMedium: TextStyle(fontSize: 18),
     displaySmall: TextStyle(
       fontSize: 22,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/number_text_edit.dart';
 
 /// This widget either displays a text or an editable text depending on [Settings.editValuesWithText] value
 class TextEditableValue extends StatefulWidget {
@@ -29,7 +30,7 @@ class _TextEditableValueState extends State<TextEditableValue> {
     _controller.addListener(() {
       final lastCharacter = _controller.text.last;
       // Character typed is '-' in beginning of string, allowed
-      if(lastCharacter == '-' && _controller.text.length ==1 ) {
+      if (lastCharacter == '-' && _controller.text.length == 1) {
         return;
       }
       // Character is invalid character => remove
@@ -81,28 +82,9 @@ class _TextEditableValueState extends State<TextEditableValue> {
         return state.maybeWhen(
           loaded: (config) {
             return config.settings.editValuesWithText
-                ? IntrinsicWidth(
-                    child: TextField(
-                      controller: _controller,
-                      focusNode: _focusNode,
-                      onEditingComplete: () {
-                        widget.onValueChanged(
-                          int.tryParse(_controller.text) ?? 0,
-                        );
-                        _focusNode.unfocus();
-                      },
-                      style: widget.style,
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.zero,
-                        border: InputBorder.none,
-                      ),
-                      keyboardType: TextInputType.numberWithOptions(
-                        decimal: false,
-                        signed: true,
-                      ),
-                    ),
+                ? NumberTextEdit(
+                    value: widget.value,
+                    onValueChanged: widget.onValueChanged,
                   )
                 : staticText;
           },
