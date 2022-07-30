@@ -18,6 +18,4 @@ samples, guidance on mobile development, and a full API reference.
 # TODO
 Feedback on special project clicked
 
-Edit special projects
-
-Setting to allow keyboard editable score
+Reset settings button

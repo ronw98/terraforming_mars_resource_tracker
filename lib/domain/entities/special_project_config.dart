@@ -6,6 +6,6 @@ part 'special_project_config.freezed.dart';
 @freezed
 class SpecialProjectConfig with _$SpecialProjectConfig {
   const factory SpecialProjectConfig({
-    required List<SpecialProject> projects,
+    required Map<String, SpecialProject> projects,
   }) = _SpecialProjectConfig;
 }

@@ -160,5 +160,12 @@ const Settings defaultSettings = Settings(
 );
 
 final SpecialProjectConfig defaultProjectConfig = SpecialProjectConfig(
-  projects: DefaultSpecialProjects.values.map((p) => p.project).toList(),
+  projects: Map.fromEntries(
+    DefaultSpecialProjects.values.map(
+      (p) => MapEntry(
+        p.project.id,
+        p.project,
+      ),
+    ),
+  ),
 );
