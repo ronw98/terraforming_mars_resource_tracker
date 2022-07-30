@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
+import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/TMDefaultPage.dart';
@@ -10,6 +11,7 @@ import 'package:tm_ressource_tracker/presentation/widgets/editable_special_proje
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/switch_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/tm_app_bar.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/tm_text_button.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -48,9 +50,15 @@ class SettingsPage extends StatelessWidget {
                                     );
                                   },
                                 ),
+                                verticalSpacer,
+                                TMTextButton(
+                                  child: Text('Reset settings to default'),
+                                  onTap: () => _onResetSettingsTap(context),
+                                ),
                               ],
                             ),
                           ),
+                          verticalBigSpacer,
                           const CategorySeparatorWidget(text: 'Extensions'),
                           Padding(
                             padding: const EdgeInsets.symmetric(
@@ -109,5 +117,18 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onResetSettingsTap(BuildContext context) async {
+    final reset = await showDialog(
+      context: context,
+      builder: (_) => ConfirmDialog(
+          text: 'Reset settings?\n(Cannot be undone)',
+          confirm: 'Reset',
+          cancel: 'Cancel'),
+    );
+    if (reset) {
+      BlocProvider.of<ConfigurationCubit>(context).reset();
+    }
   }
 }
