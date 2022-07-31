@@ -27,8 +27,24 @@ class SpecialProjectsTab extends StatelessWidget {
                         )
                         .map(
                           (project) => GestureDetector(
-                            onTap: () => BlocProvider.of<ResourceCubit>(context)
-                                .onProjectTap(project),
+                            onTap: () async {
+                              final result =
+                                  await BlocProvider.of<ResourceCubit>(context)
+                                      .onProjectTap(project);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    result
+                                        ? 'Project completed'
+                                        : 'Project error',
+                                    style: TextStyle(
+                                      color: result ? Colors.green : Colors.red,
+                                    ),
+                                  ),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                            },
                             child: SpecialProjectWidget(project: project),
                           ),
                         )

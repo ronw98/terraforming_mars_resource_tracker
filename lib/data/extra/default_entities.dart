@@ -157,6 +157,7 @@ enum DefaultSpecialProjects {
 const Settings defaultSettings = Settings(
   useTurmoil: false,
   editValuesWithText: false,
+  stockBelowZero: false,
 );
 
 final SpecialProjectConfig defaultProjectConfig = SpecialProjectConfig(
