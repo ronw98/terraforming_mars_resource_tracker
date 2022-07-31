@@ -58,6 +58,10 @@ android {
             dimension "reblochor"
             applicationId "org.reblochor.tm_ressource_tracker.dev"
         }
+        prod {
+            dimension "reblochor"
+            applicationId "org.reblochor.tm_ressource_tracker"
+        }
     }
 
     signingConfigs {
