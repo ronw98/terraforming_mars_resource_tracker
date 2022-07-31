@@ -8,7 +8,7 @@ if (localPropertiesFile.exists()) {
 
 def keyStoreProperties = new Properties()
 def keyStorePropertiesFile = rootProject.file('key.properties')
-if(keyStorePropertiesFile.exists()) {
+if (keyStorePropertiesFile.exists()) {
     keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
 }
 
@@ -64,7 +64,9 @@ android {
         release {
             keyAlias keyStoreProperties['keyAlias']
             keyPassword keyStoreProperties['keyPassword']
-            storeFile keyStoreProperties['storeFile'] ? file(keyStoreProperties['storeFile']) : null
+            storeFile System.properties['os.name'].toLowerCase().contains('windows') ?
+                    (keyStoreProperties['storeFileWindows'] ? file(keyStoreProperties['storeFileWindows']) : null) :
+                    (keyStoreProperties['storeFile'] ? file(keyStoreProperties['storeFile']) : null)
             storePassword keyStoreProperties['storePassword']
         }
     }
