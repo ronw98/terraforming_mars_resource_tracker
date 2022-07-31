@@ -8,6 +8,7 @@ class SettingsModel with _$SettingsModel {
   const factory SettingsModel({
     bool? useTurmoil,
     bool? editValuesWithText,
+    bool? stockBelowZero,
   }) = _SettingsModel;
   
 

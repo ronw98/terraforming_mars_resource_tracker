@@ -7,5 +7,6 @@ class Settings with _$Settings {
   const factory Settings({
     required bool useTurmoil,
     required bool editValuesWithText,
+    required bool stockBelowZero,
   }) = _Settings;
 }
