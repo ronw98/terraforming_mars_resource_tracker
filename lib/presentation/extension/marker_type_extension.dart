@@ -15,6 +15,8 @@ extension MarkerTypeExt on MarkerType {
         return Images.temperature;
       case MarkerType.delegate:
         return Images.delegate;
+      case MarkerType.venus:
+        return Images.venus;
     }
   }
 
@@ -30,6 +32,8 @@ extension MarkerTypeExt on MarkerType {
         return 'Temperature';
       case MarkerType.delegate:
         return 'Delegate';
+      case MarkerType.venus:
+        return 'Venus';
     }
   }
 }

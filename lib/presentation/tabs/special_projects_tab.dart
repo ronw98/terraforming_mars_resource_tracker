@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/special_project_widget.dart';
+import 'package:tm_ressource_tracker/presentation/extension/special_project_extension.dart';
 
 class SpecialProjectsTab extends StatelessWidget {
   const SpecialProjectsTab({Key? key}) : super(key: key);
@@ -20,11 +20,7 @@ class SpecialProjectsTab extends StatelessWidget {
                 return SliverList(
                   delegate: SliverChildListDelegate(
                     config.specialProjectConfig.projects.values
-                        .where(
-                          (project) =>
-                              config.settings.useTurmoil ||
-                              project.id != DefaultSpecialProjects.lobby.name,
-                        )
+                        .filterWithSettings(config.settings)
                         .map(
                           (project) => GestureDetector(
                             onTap: () async {

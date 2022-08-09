@@ -85,6 +85,7 @@ class _TextEditableValueState extends State<TextEditableValue> {
                 ? NumberTextEdit(
                     value: widget.value,
                     onValueChanged: widget.onValueChanged,
+              style: widget.style,
                   )
                 : staticText;
           },

@@ -5,10 +5,12 @@ Settings settingsModelToEntity(SettingsModel model) => Settings(
       useTurmoil: model.useTurmoil ?? false,
       editValuesWithText: model.editValuesWithText ?? false,
       stockBelowZero: model.stockBelowZero ?? false,
+      useVenus: model.useVenus ?? false,
     );
 
 SettingsModel settingsEntityToModel(Settings entity) => SettingsModel(
       useTurmoil: entity.useTurmoil,
       editValuesWithText: entity.editValuesWithText,
       stockBelowZero: entity.stockBelowZero,
+      useVenus: entity.useVenus,
     );

@@ -8,5 +8,6 @@ class Settings with _$Settings {
     required bool useTurmoil,
     required bool editValuesWithText,
     required bool stockBelowZero,
+    required bool useVenus,
   }) = _Settings;
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
 import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
+import 'package:tm_ressource_tracker/presentation/extension/special_project_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/TMDefaultPage.dart';
@@ -79,30 +79,38 @@ class SettingsPage extends StatelessWidget {
                                     );
                                   },
                                 ),
+                                verticalSpacer,
+                                SwitchWidget(
+                                  title: 'Use Venus Next',
+                                  value: config.settings.useVenus,
+                                  onChanged: (value) {
+                                    BlocProvider.of<ConfigurationCubit>(context)
+                                        .updateSettings(
+                                      config.settings.copyWith(
+                                        useVenus: value,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                           ),
                           const CategorySeparatorWidget(
-                              text: 'Special projects'),
+                              text: 'Standard projects'),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: defaultPadding,
                             ),
                             child: Column(
-                              children: config
-                                  .specialProjectConfig.projects.values
-                                  .where(
-                                    (project) =>
-                                        config.settings.useTurmoil ||
-                                        project.id !=
-                                            DefaultSpecialProjects.lobby.name,
-                                  )
-                                  .map(
-                                    (project) => EditableSpecialProjectTile(
-                                      project: project,
-                                    ),
-                                  )
-                                  .toList(),
+                              children:
+                                  config.specialProjectConfig.projects.values
+                                      .filterWithSettings(config.settings)
+                                      .map(
+                                        (project) => EditableSpecialProjectTile(
+                                          project: project,
+                                        ),
+                                      )
+                                      .toList(),
                             ),
                           ),
                         ],
