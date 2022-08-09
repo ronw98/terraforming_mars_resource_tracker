@@ -12,7 +12,8 @@ enum DefaultSpecialProjects {
   temperature,
   lobby,
   convertHeat,
-  convertPlants;
+  convertPlants,
+  airScrapping;
 
   const DefaultSpecialProjects();
 
@@ -150,6 +151,22 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
+      case DefaultSpecialProjects.airScrapping:
+        return SpecialProject(
+          id: name,
+          cost: [
+            CostResource.stock(
+              value: 15,
+              type: ResourceType.credit,
+            ),
+          ],
+          reward: [
+            CostResource.marker(
+              value: 1,
+              marker: MarkerType.venus,
+            ),
+          ],
+        );
     }
   }
 }
@@ -158,6 +175,7 @@ const Settings defaultSettings = Settings(
   useTurmoil: false,
   editValuesWithText: false,
   stockBelowZero: false,
+  useVenus: false,
 );
 
 final SpecialProjectConfig defaultProjectConfig = SpecialProjectConfig(

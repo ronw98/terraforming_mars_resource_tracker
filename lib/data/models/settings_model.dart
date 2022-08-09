@@ -9,6 +9,7 @@ class SettingsModel with _$SettingsModel {
     bool? useTurmoil,
     bool? editValuesWithText,
     bool? stockBelowZero,
+    bool? useVenus,
   }) = _SettingsModel;
   
 
