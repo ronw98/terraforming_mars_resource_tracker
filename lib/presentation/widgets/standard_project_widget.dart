@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/assets.dart';
 import 'package:tm_ressource_tracker/constants.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/cost_resource_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
-class SpecialProjectWidget extends StatelessWidget {
-  const SpecialProjectWidget({
+class StandardProjectWidget extends StatelessWidget {
+  const StandardProjectWidget({
     Key? key,
     required this.project,
   }) : super(key: key);
 
-  final SpecialProject project;
+  final StandardProject project;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class SpecialProjectWidget extends StatelessWidget {
                 children: [
                   for (final costPart in project.cost) ...[
                     SizedBox(
-                      height: AppConstants.specialProjectItemSize,
+                      height: AppConstants.standardProjectItemSize,
                       child: CostResourceWidget(resource: costPart),
                     ),
                   ],
@@ -41,7 +41,7 @@ class SpecialProjectWidget extends StatelessWidget {
             horizontalBigSpacer,
             Image(
               image: Images.arrow,
-              width: AppConstants.specialProjectItemSize,
+              width: AppConstants.standardProjectItemSize,
             ),
             horizontalBigSpacer,
             Flexible(
@@ -53,7 +53,7 @@ class SpecialProjectWidget extends StatelessWidget {
                 children: [
                   for (final costPart in project.reward) ...[
                     SizedBox(
-                      height: AppConstants.specialProjectItemSize,
+                      height: AppConstants.standardProjectItemSize,
                       child: CostResourceWidget(resource: costPart),
                     ),
                   ],

@@ -6,8 +6,8 @@ import 'package:tm_ressource_tracker/domain/entities/configuration.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/settings.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project_config.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project_config.dart';
 import 'package:tm_ressource_tracker/domain/usecases/get_config.dart';
 import 'package:tm_ressource_tracker/domain/usecases/set_config.dart';
 
@@ -38,11 +38,11 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
     );
   }
 
-  void updateSpecialProjects(SpecialProjectConfig specialProjectConfig) {
+  void updateStandardProjects(StandardProjectConfig standardProjectConfig) {
     state.whenOrNull(
       loaded: (config) async {
         final newConfig = config.copyWith(
-          specialProjectConfig: specialProjectConfig,
+          standardProjectConfig: standardProjectConfig,
         );
         if (await _setConfig(newConfig)) {
           emit(
@@ -55,46 +55,47 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
     );
   }
 
-  void removeSpecialProjectCost({
+  void removeStandardProjectCost({
     required String projectId,
     required CostResource resource,
   }) =>
-      _removeSpecialProjectCostOrReward(
+      _removeStandardProjectCostOrReward(
         projectId: projectId,
         resource: resource,
         isCost: true,
       );
 
-  void removeSpecialProjectReward({
+  void removeStandardProjectReward({
     required String projectId,
     required CostResource resource,
   }) =>
-      _removeSpecialProjectCostOrReward(
+      _removeStandardProjectCostOrReward(
         projectId: projectId,
         resource: resource,
         isCost: false,
       );
 
-  void _removeSpecialProjectCostOrReward({
+  void _removeStandardProjectCostOrReward({
     required String projectId,
     required CostResource resource,
     required bool isCost,
   }) {
     state.whenOrNull(
       loaded: (config) async {
-        final Map<String, SpecialProject> projectsCopy = {
-          ...config.specialProjectConfig.projects,
+        final Map<String, StandardProject> projectsCopy = {
+          ...config.standardProjectConfig.projects,
         };
-        final specialProject = projectsCopy[projectId]!;
-        final costCopy = (isCost ? specialProject.cost : specialProject.reward)
-            .where((r) => r != resource)
-            .toList();
-        final newSpecialProject = isCost
-            ? specialProject.copyWith(cost: costCopy)
-            : specialProject.copyWith(reward: costCopy);
-        projectsCopy[projectId] = newSpecialProject;
+        final standardProject = projectsCopy[projectId]!;
+        final costCopy =
+            (isCost ? standardProject.cost : standardProject.reward)
+                .where((r) => r != resource)
+                .toList();
+        final newStandardProject = isCost
+            ? standardProject.copyWith(cost: costCopy)
+            : standardProject.copyWith(reward: costCopy);
+        projectsCopy[projectId] = newStandardProject;
         final newConfig = config.copyWith(
-          specialProjectConfig: config.specialProjectConfig.copyWith(
+          standardProjectConfig: config.standardProjectConfig.copyWith(
             projects: projectsCopy,
           ),
         );
@@ -109,30 +110,30 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
     );
   }
 
-  void addSpecialProjectCost({required String projectId}) =>
-      _addSpecialProjectCostOrReward(
+  void addStandardProjectCost({required String projectId}) =>
+      _addStandardProjectCostOrReward(
         projectId: projectId,
         isCost: true,
       );
 
-  void addSpecialProjectReward({required String projectId}) =>
-      _addSpecialProjectCostOrReward(
+  void addStandardProjectReward({required String projectId}) =>
+      _addStandardProjectCostOrReward(
         projectId: projectId,
         isCost: false,
       );
 
-  void _addSpecialProjectCostOrReward({
+  void _addStandardProjectCostOrReward({
     required String projectId,
     required bool isCost,
   }) {
     state.whenOrNull(
       loaded: (config) async {
-        final Map<String, SpecialProject> projectsCopy = {
-          ...config.specialProjectConfig.projects,
+        final Map<String, StandardProject> projectsCopy = {
+          ...config.standardProjectConfig.projects,
         };
-        final specialProject = projectsCopy[projectId]!;
+        final standardProject = projectsCopy[projectId]!;
         final costCopy = [
-          ...(isCost ? specialProject.cost : specialProject.reward),
+          ...(isCost ? standardProject.cost : standardProject.reward),
         ];
         costCopy.add(
           CostResource.stock(
@@ -140,12 +141,12 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
             type: ResourceType.credit,
           ),
         );
-        final newSpecialProject = isCost
-            ? specialProject.copyWith(cost: costCopy)
-            : specialProject.copyWith(reward: costCopy);
-        projectsCopy[projectId] = newSpecialProject;
+        final newStandardProject = isCost
+            ? standardProject.copyWith(cost: costCopy)
+            : standardProject.copyWith(reward: costCopy);
+        projectsCopy[projectId] = newStandardProject;
         final newConfig = config.copyWith(
-          specialProjectConfig: config.specialProjectConfig.copyWith(
+          standardProjectConfig: config.standardProjectConfig.copyWith(
             projects: projectsCopy,
           ),
         );
@@ -160,31 +161,31 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
     );
   }
 
-  void updateSpecialProjectCost({
+  void updateStandardProjectCost({
     required String id,
     required CostResource oldCost,
     required CostResource newCost,
   }) =>
-      _updateSpecialProjectCostOrReward(
+      _updateStandardProjectCostOrReward(
         id: id,
         oldCost: oldCost,
         newCost: newCost,
         isCost: true,
       );
 
-  void updateSpecialProjectReward({
+  void updateStandardProjectReward({
     required String id,
     required CostResource oldCost,
     required CostResource newCost,
   }) =>
-      _updateSpecialProjectCostOrReward(
+      _updateStandardProjectCostOrReward(
         id: id,
         oldCost: oldCost,
         newCost: newCost,
         isCost: false,
       );
 
-  void _updateSpecialProjectCostOrReward({
+  void _updateStandardProjectCostOrReward({
     required String id,
     required CostResource oldCost,
     required CostResource newCost,
@@ -192,20 +193,20 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
   }) {
     state.whenOrNull(
       loaded: (config) async {
-        final Map<String, SpecialProject> projectsCopy = {
-          ...config.specialProjectConfig.projects,
+        final Map<String, StandardProject> projectsCopy = {
+          ...config.standardProjectConfig.projects,
         };
-        final specialProject = projectsCopy[id]!;
+        final standardProject = projectsCopy[id]!;
         final costCopy = [
-          ...(isCost ? specialProject.cost : specialProject.reward),
+          ...(isCost ? standardProject.cost : standardProject.reward),
         ];
         costCopy[costCopy.indexOf(oldCost)] = newCost;
-        final newSpecialProject = isCost
-            ? specialProject.copyWith(cost: costCopy)
-            : specialProject.copyWith(reward: costCopy);
-        projectsCopy[id] = newSpecialProject;
+        final newStandardProject = isCost
+            ? standardProject.copyWith(cost: costCopy)
+            : standardProject.copyWith(reward: costCopy);
+        projectsCopy[id] = newStandardProject;
         final newConfig = config.copyWith(
-          specialProjectConfig: config.specialProjectConfig.copyWith(
+          standardProjectConfig: config.standardProjectConfig.copyWith(
             projects: projectsCopy,
           ),
         );
@@ -231,7 +232,7 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
   void reset() async {
     final defaultConfig = Configuration(
       settings: defaultSettings,
-      specialProjectConfig: defaultProjectConfig,
+      standardProjectConfig: defaultProjectConfig,
     );
 
     if (await _setConfig(defaultConfig)) {

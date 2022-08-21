@@ -14,7 +14,7 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
   @override
   Future<Configuration> getConfig() async {
     final settingsModel = configurationDataSource.getSettings();
-    final projectsConfigModel = configurationDataSource.getSpecialProjects();
+    final projectsConfigModel = configurationDataSource.getStandardProjects();
 
     final settings = modelToEntity(
           settingsModel,
@@ -23,25 +23,25 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
         defaultSettings;
     final projectsConfig = modelToEntity(
           projectsConfigModel,
-          specialProjectConfigModelToEntity,
+          standardProjectConfigModelToEntity,
         ) ??
         defaultProjectConfig;
 
     return Configuration(
       settings: settings,
-      specialProjectConfig: projectsConfig,
+      standardProjectConfig: projectsConfig,
     );
   }
 
   @override
   Future<bool> setConfig(Configuration configuration) async {
     final settingsModel = settingsEntityToModel(configuration.settings);
-    final projectsConfigModel = specialProjectConfigEntityToModel(
-      configuration.specialProjectConfig,
+    final projectsConfigModel = standardProjectConfigEntityToModel(
+      configuration.standardProjectConfig,
     );
 
     final settingsOK = await configurationDataSource.setSettings(settingsModel);
-    final projectsOK = await configurationDataSource.setSpecialProjects(
+    final projectsOK = await configurationDataSource.setStandardProjects(
       projectsConfigModel,
     );
 

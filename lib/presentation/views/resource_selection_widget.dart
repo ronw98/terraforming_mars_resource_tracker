@@ -35,15 +35,15 @@ class ResourceSelectionWidget extends StatelessWidget {
       child: costResource.when(
         stock: (_, ResourceType type) => Image(
           image: type.resourceImage,
-          height: AppConstants.specialProjectItemSize,
+          height: AppConstants.standardProjectItemSize,
         ),
         marker: (int value, MarkerType marker) => Image(
           image: marker.markerImage,
-          height: AppConstants.specialProjectItemSize,
+          height: AppConstants.standardProjectItemSize,
         ),
         production: (int value, ResourceType type) => SizedBox(
           child: ProductionWidget(type: type),
-          height: AppConstants.specialProjectItemSize,
+          height: AppConstants.standardProjectItemSize,
         ),
       ),
     );

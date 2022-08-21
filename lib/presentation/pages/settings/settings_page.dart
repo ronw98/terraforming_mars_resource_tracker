@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
-import 'package:tm_ressource_tracker/presentation/extension/special_project_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/TMDefaultPage.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/category_separator_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
-import 'package:tm_ressource_tracker/presentation/widgets/editable_special_project_tile.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/editable_standard_project_tile.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/switch_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/tm_app_bar.dart';
@@ -103,10 +103,10 @@ class SettingsPage extends StatelessWidget {
                             ),
                             child: Column(
                               children:
-                                  config.specialProjectConfig.projects.values
+                                  config.standardProjectConfig.projects.values
                                       .filterWithSettings(config.settings)
                                       .map(
-                                        (project) => EditableSpecialProjectTile(
+                                        (project) => EditableStandardProjectTile(
                                           project: project,
                                         ),
                                       )

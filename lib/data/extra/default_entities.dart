@@ -1,10 +1,10 @@
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/settings.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project_config.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project_config.dart';
 
-enum DefaultSpecialProjects {
+enum DefaultStandardProjects {
   greenery,
   city,
   ocean,
@@ -15,12 +15,12 @@ enum DefaultSpecialProjects {
   convertPlants,
   airScrapping;
 
-  const DefaultSpecialProjects();
+  const DefaultStandardProjects();
 
-  SpecialProject get project {
+  StandardProject get project {
     switch (this) {
-      case DefaultSpecialProjects.greenery:
-        return SpecialProject(
+      case DefaultStandardProjects.greenery:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -35,8 +35,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.city:
-        return SpecialProject(
+      case DefaultStandardProjects.city:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -55,8 +55,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.ocean:
-        return SpecialProject(
+      case DefaultStandardProjects.ocean:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -71,8 +71,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.powerPlant:
-        return SpecialProject(
+      case DefaultStandardProjects.powerPlant:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -87,8 +87,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.temperature:
-        return SpecialProject(
+      case DefaultStandardProjects.temperature:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -103,8 +103,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.lobby:
-        return SpecialProject(
+      case DefaultStandardProjects.lobby:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -119,8 +119,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.convertHeat:
-        return SpecialProject(
+      case DefaultStandardProjects.convertHeat:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -135,8 +135,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.convertPlants:
-        return SpecialProject(
+      case DefaultStandardProjects.convertPlants:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -151,8 +151,8 @@ enum DefaultSpecialProjects {
             ),
           ],
         );
-      case DefaultSpecialProjects.airScrapping:
-        return SpecialProject(
+      case DefaultStandardProjects.airScrapping:
+        return StandardProject(
           id: name,
           cost: [
             CostResource.stock(
@@ -178,9 +178,9 @@ const Settings defaultSettings = Settings(
   useVenus: false,
 );
 
-final SpecialProjectConfig defaultProjectConfig = SpecialProjectConfig(
+final StandardProjectConfig defaultProjectConfig = StandardProjectConfig(
   projects: Map.fromEntries(
-    DefaultSpecialProjects.values.map(
+    DefaultStandardProjects.values.map(
       (p) => MapEntry(
         p.project.id,
         p.project,

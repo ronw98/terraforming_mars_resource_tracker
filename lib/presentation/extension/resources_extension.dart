@@ -1,6 +1,6 @@
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
 
 extension ResourcesExt on Map<ResourceType, Resource> {
   Resource get terraformingRating => this[ResourceType.terraformingRating]!;
@@ -33,7 +33,7 @@ extension ResourcesExt on Map<ResourceType, Resource> {
 
   set heat(Resource newHeat) => this[ResourceType.heat] = newHeat;
 
-  bool canDoSpecialProject(SpecialProject project) {
+  bool canDoStandardProject(StandardProject project) {
     for (final cost in project.cost) {
       if (cost is StockCost) {
         final resource = this[cost.type]!;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/resources_tab.dart';
-import 'package:tm_ressource_tracker/presentation/tabs/special_projects_tab.dart';
+import 'package:tm_ressource_tracker/presentation/tabs/standard_projects_tab.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _HomeContentState extends State<HomeContent> {
                 child: TabBar(
                   tabs: [
                     Tab(text: 'Resources'),
-                    Tab(text: 'Special projects',)
+                    Tab(text: 'Standard projects',)
                   ],
                 ),
               ),
@@ -33,7 +33,7 @@ class _HomeContentState extends State<HomeContent> {
         body: TabBarView(
           children: [
             ResourcesTab(),
-            SpecialProjectsTab(),
+            StandardProjectsTab(),
           ],
         ),
       ),
