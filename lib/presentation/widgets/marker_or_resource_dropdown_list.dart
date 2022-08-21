@@ -91,12 +91,12 @@ class _MarkerOrResourceDropdownListState
                             },
                             child: production
                                 ? SizedBox(
-                                    height: AppConstants.specialProjectItemSize,
+                                    height: AppConstants.standardProjectItemSize,
                                     child: ProductionWidget(type: type),
                                   )
                                 : Image(
                                     image: type.resourceImage,
-                                    height: AppConstants.specialProjectItemSize,
+                                    height: AppConstants.standardProjectItemSize,
                                   ),
                           ),
                         ),
@@ -111,7 +111,7 @@ class _MarkerOrResourceDropdownListState
                           },
                           child: Image(
                             image: type.markerImage,
-                            height: AppConstants.specialProjectItemSize,
+                            height: AppConstants.standardProjectItemSize,
                           ),
                         ),
                       ),

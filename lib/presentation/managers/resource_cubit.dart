@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
 import 'package:tm_ressource_tracker/domain/usecases/get_resources.dart';
 import 'package:tm_ressource_tracker/domain/usecases/set_resources.dart';
 import 'package:tm_ressource_tracker/domain/utils/resource_utils.dart';
@@ -31,10 +31,10 @@ class ResourceCubit extends Cubit<ResourceState> {
     }
   }
 
-  Future<bool> onProjectTap(SpecialProject project) {
+  Future<bool> onProjectTap(StandardProject project) {
     return state.maybeWhen(
       loaded: (resources) async {
-        if(!resources.canDoSpecialProject(project)) {
+        if(!resources.canDoStandardProject(project)) {
           return false;
         }
         Map<ResourceType, Resource> resourcesCopy = {...resources};

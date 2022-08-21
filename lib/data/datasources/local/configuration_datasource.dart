@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_ressource_tracker/data/models/settings_model.dart';
-import 'package:tm_ressource_tracker/data/models/special_project_config_model.dart';
+import 'package:tm_ressource_tracker/data/models/standard_project_config_model.dart';
 
 const String kSettings = 'settings';
 const String kProjects = 'projects';
@@ -13,9 +13,9 @@ abstract class ConfigurationDataSourceLocal {
 
   Future<bool> setSettings(SettingsModel settings);
 
-  SpecialProjectConfigModel? getSpecialProjects();
+  StandardProjectConfigModel? getStandardProjects();
 
-  Future<bool> setSpecialProjects(SpecialProjectConfigModel projects);
+  Future<bool> setStandardProjects(StandardProjectConfigModel projects);
 }
 
 @Injectable(as: ConfigurationDataSourceLocal)
@@ -36,14 +36,14 @@ class ConfigurationDataSourceLocalImpl implements ConfigurationDataSourceLocal {
   }
 
   @override
-  SpecialProjectConfigModel? getSpecialProjects() {
+  StandardProjectConfigModel? getStandardProjects() {
     final projectsString = sharedPreferences.getString(kProjects);
     if (projectsString == null) {
       return null;
     }
     final projectsJson = jsonDecode(projectsString);
 
-    return SpecialProjectConfigModel.fromJson(projectsJson);
+    return StandardProjectConfigModel.fromJson(projectsJson);
   }
 
   @override
@@ -55,7 +55,7 @@ class ConfigurationDataSourceLocalImpl implements ConfigurationDataSourceLocal {
   }
 
   @override
-  Future<bool> setSpecialProjects(SpecialProjectConfigModel projects) {
+  Future<bool> setStandardProjects(StandardProjectConfigModel projects) {
     return sharedPreferences.setString(
       kProjects,
       jsonEncode(projects.toJson()).toString(),

@@ -1,9 +1,9 @@
 import 'package:tm_ressource_tracker/data/adapters/adapters.dart';
-import 'package:tm_ressource_tracker/data/models/special_project_model.dart';
-import 'package:tm_ressource_tracker/domain/entities/special_project.dart';
+import 'package:tm_ressource_tracker/data/models/standard_project_model.dart';
+import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
 
-SpecialProject specialProjectModelToEntity(SpecialProjectModel model) =>
-    SpecialProject(
+StandardProject standardProjectModelToEntity(StandardProjectModel model) =>
+    StandardProject(
       id: model.id!,
       cost: modelEntityListConverter(
         model.cost,
@@ -15,8 +15,8 @@ SpecialProject specialProjectModelToEntity(SpecialProjectModel model) =>
       ),
     );
 
-SpecialProjectModel specialProjectEntityToModel(SpecialProject entity) =>
-    SpecialProjectModel(
+StandardProjectModel standardProjectEntityToModel(StandardProject entity) =>
+    StandardProjectModel(
       id: entity.id,
       cost: modelEntityListConverter(
         entity.cost,

@@ -11,8 +11,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/circle_icon_button.dar
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/number_text_edit.dart';
 
-class SpecialProjectEditSection extends StatelessWidget {
-  const SpecialProjectEditSection({
+class StandardProjectEditSection extends StatelessWidget {
+  const StandardProjectEditSection({
     Key? key,
     required this.resources,
     required this.projectId,
@@ -66,7 +66,7 @@ class SpecialProjectEditSection extends StatelessWidget {
                     onPressed: () => _onRemovePressed(context, costResource),
                     icon: Icon(
                       Icons.remove,
-                      size: AppConstants.specialProjectItemSize,
+                      size: AppConstants.standardProjectItemSize,
                     ),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(width: 1, color: Colors.black),
@@ -91,7 +91,7 @@ class SpecialProjectEditSection extends StatelessWidget {
                 onPressed: () => _onAddPressed(context),
                 icon: Icon(
                   Icons.add,
-                  size: AppConstants.specialProjectItemSize,
+                  size: AppConstants.standardProjectItemSize,
                 ),
                 shape: RoundedRectangleBorder(
                   side: BorderSide(width: 1, color: Colors.black),
@@ -100,7 +100,7 @@ class SpecialProjectEditSection extends StatelessWidget {
               ),
             ),
             horizontalBigSpacer,
-            const SizedBox(width: AppConstants.specialProjectItemSize)
+            const SizedBox(width: AppConstants.standardProjectItemSize)
           ],
         ),
       ],
@@ -113,9 +113,9 @@ class SpecialProjectEditSection extends StatelessWidget {
     CostResource oldCost,
   ) {
     final updateMethod = isCost
-        ? BlocProvider.of<ConfigurationCubit>(context).updateSpecialProjectCost
+        ? BlocProvider.of<ConfigurationCubit>(context).updateStandardProjectCost
         : BlocProvider.of<ConfigurationCubit>(context)
-            .updateSpecialProjectReward;
+            .updateStandardProjectReward;
 
     updateMethod(
       id: projectId,
@@ -132,9 +132,9 @@ class SpecialProjectEditSection extends StatelessWidget {
     CostResource oldCost,
   ) {
     final updateMethod = isCost
-        ? BlocProvider.of<ConfigurationCubit>(context).updateSpecialProjectCost
+        ? BlocProvider.of<ConfigurationCubit>(context).updateStandardProjectCost
         : BlocProvider.of<ConfigurationCubit>(context)
-            .updateSpecialProjectReward;
+            .updateStandardProjectReward;
     updateMethod(
       id: projectId,
       oldCost: oldCost,
@@ -158,17 +158,17 @@ class SpecialProjectEditSection extends StatelessWidget {
 
   void _onAddPressed(BuildContext context) {
     final updateMethod = isCost
-        ? BlocProvider.of<ConfigurationCubit>(context).addSpecialProjectCost
-        : BlocProvider.of<ConfigurationCubit>(context).addSpecialProjectReward;
+        ? BlocProvider.of<ConfigurationCubit>(context).addStandardProjectCost
+        : BlocProvider.of<ConfigurationCubit>(context).addStandardProjectReward;
 
     updateMethod(projectId: projectId);
   }
 
   void _onRemovePressed(BuildContext context, CostResource resource) {
     final updateMethod = isCost
-        ? BlocProvider.of<ConfigurationCubit>(context).removeSpecialProjectCost
+        ? BlocProvider.of<ConfigurationCubit>(context).removeStandardProjectCost
         : BlocProvider.of<ConfigurationCubit>(context)
-            .removeSpecialProjectReward;
+            .removeStandardProjectReward;
 
     updateMethod(projectId: projectId, resource: resource);
   }

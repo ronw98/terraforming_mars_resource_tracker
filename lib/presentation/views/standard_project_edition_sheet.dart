@@ -5,11 +5,11 @@ import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.d
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/tm_default_bottom_sheet.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
-import 'package:tm_ressource_tracker/presentation/widgets/special_project_edit_section.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/standard_project_edit_section.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/unfocus_parent_widget.dart';
 
-class SpecialProjectEditionBottomSheet extends StatelessWidget {
-  const SpecialProjectEditionBottomSheet({
+class StandardProjectEditionBottomSheet extends StatelessWidget {
+  const StandardProjectEditionBottomSheet({
     Key? key,
     required this.projectId,
   }) : super(key: key);
@@ -22,7 +22,7 @@ class SpecialProjectEditionBottomSheet extends StatelessWidget {
       builder: (context, state) {
         return state.maybeWhen(
           loaded: (config) {
-            final project = config.specialProjectConfig.projects[projectId];
+            final project = config.standardProjectConfig.projects[projectId];
             if (project == null) {
               return const NoneWidget();
             }
@@ -39,13 +39,13 @@ class SpecialProjectEditionBottomSheet extends StatelessWidget {
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                       verticalBigSpacer,
-                      SpecialProjectEditSection(
+                      StandardProjectEditSection(
                         resources: project.cost,
                         projectId: projectId,
                         isCost: true,
                       ),
                       verticalBigSpacer,
-                      SpecialProjectEditSection(
+                      StandardProjectEditSection(
                         resources: project.reward,
                         projectId: projectId,
                         isCost: false,

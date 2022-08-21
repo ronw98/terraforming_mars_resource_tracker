@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
-import 'package:tm_ressource_tracker/presentation/widgets/special_project_widget.dart';
-import 'package:tm_ressource_tracker/presentation/extension/special_project_extension.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/standard_project_widget.dart';
+import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
 
-class SpecialProjectsTab extends StatelessWidget {
-  const SpecialProjectsTab({Key? key}) : super(key: key);
+class StandardProjectsTab extends StatelessWidget {
+  const StandardProjectsTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SpecialProjectsTab extends StatelessWidget {
               loaded: (config) {
                 return SliverList(
                   delegate: SliverChildListDelegate(
-                    config.specialProjectConfig.projects.values
+                    config.standardProjectConfig.projects.values
                         .filterWithSettings(config.settings)
                         .map(
                           (project) => GestureDetector(
@@ -41,7 +41,7 @@ class SpecialProjectsTab extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: SpecialProjectWidget(project: project),
+                            child: StandardProjectWidget(project: project),
                           ),
                         )
                         .toList(),
