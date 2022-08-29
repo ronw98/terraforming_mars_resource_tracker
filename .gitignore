@@ -51,7 +51,8 @@ app.*.map.json
 *.g.dart
 assets.dart
 injection.config.dart
+
 .gitsecret/keys/random_seed
 
-android/key.properties
 certificates/keystore.jks
+android/key.properties
