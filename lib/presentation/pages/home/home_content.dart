@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/resources_tab.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/standard_projects_tab.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/tab_item.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({Key? key}) : super(key: key);
@@ -22,9 +25,16 @@ class _HomeContentState extends State<HomeContent> {
               sliver: SliverToBoxAdapter(
                 child: TabBar(
                   tabs: [
-                    Tab(text: 'Resources'),
-                    Tab(text: 'Standard projects',)
+                    TabItem(
+                      widthFactor: 0.4,
+                      text: LocaleKeys.home.tabs.resources.translate(context),
+                    ),
+                    TabItem(
+                      widthFactor: 0.4,
+                      text: LocaleKeys.home.tabs.projects.translate(context),
+                    )
                   ],
+                  isScrollable: true,
                 ),
               ),
             ),

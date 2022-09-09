@@ -1,0 +1,105 @@
+{
+  "common": {
+    "cancel": "Annuler",
+    "confirm": "OK",
+    "app_name": "TM calculateur",
+    "icon_button": "Bouton icône"
+  },
+  "home": {
+    "tabs": {
+      "resources": "Ressources",
+      "projects": "Projets standards"
+    }
+  },
+  "settings": {
+    "page_title": "Paramètres",
+    "reset": {
+      "button_text": "Réinitialiser les paramètres",
+      "dialog": {
+        "text": "Réinitialiser les paramètres?\n(Cette opération n'est pas annulable)",
+        "confirm": "Réinitialiser"
+      }
+    },
+    "general_settings": "Paramètres généraux",
+    "edit_with_keyboard": "Modifier les valeurs au clavier",
+    "extensions": "Extensions",
+    "standard_projects": {
+      "title": "Projets standards",
+      "edit": {
+        "production": "Production",
+        "cost": "Coùt du projet",
+        "reward": "Récompenses du projet"
+      }
+    },
+    "turmoil": {
+      "title": "Utiliser Turmoil",
+      "subtitle": "(-1 NT par génération)"
+    },
+    "venus": {
+      "title": "Utiliser Venus Next"
+    }
+  },
+  "resources": {
+    "produce": "Produire",
+    "reset": {
+      "button_text": "Réinitialiser",
+      "dialog": {
+        "text": "Réinitialiser les données?\n(Cette opération n'est pas annulable)",
+        "reset": "Réinitialiser"
+      }
+    },
+    "history": {
+      "title": "Historique",
+      "production": "Production",
+      "stock": "Stock"
+    },
+    "names": {
+      "terraforming_rating": "Niveau de Terraforming",
+      "credits": "MegaCredits",
+      "steel": "Acier",
+      "titanium": "Titane",
+      "plants": "Plantes",
+      "energy": "Energie",
+      "heat": "Chaleur"
+    },
+    "tooltips": {
+      "production": {
+        "current": "La production de {unit} est de {value}",
+        "add": "Augmenter la production de {unit} de {value}",
+        "remove": "Retirer {value} de la production de {unit}"
+      },
+      "stock": {
+        "current": "Le stock de {unit} est de {value}",
+        "add": "Augmenter le stock de {unit} de {value}",
+        "remove": "Retirer {value} au stock de {unit}"
+      },
+      "terraforming_rating": {
+        "current": "Le niveau de terraforming est {value}",
+        "add": "Ajouter {value} au niveau de  terraforming",
+        "remove": "Retirer {value} au niveau de terraforming"
+      }
+    }
+  },
+  "standard_project": {
+    "project_result": {
+      "error": "Erreur pour le projet standard",
+      "success": "Projet standard terminé"
+    },
+    "names" :{
+      "city": "Ville",
+      "greenery": "Forêt",
+      "ocean": "Océan",
+      "temperature": "Température",
+      "delegate": "Lobby",
+      "venus": "Vénus"
+    }
+  },
+  "markers": {
+    "city": "Ville",
+    "greenery": "Forêt",
+    "ocean": "Océan",
+    "temperature": "Température",
+    "delegate": "Lobbyiste",
+    "venus": "Vénus"
+  }
+}

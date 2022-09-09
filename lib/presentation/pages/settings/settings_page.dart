@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
 import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
-import 'package:tm_ressource_tracker/presentation/views/TMDefaultPage.dart';
+import 'package:tm_ressource_tracker/presentation/views/tm_default_page.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/category_separator_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/editable_standard_project_tile.dart';
@@ -20,7 +22,9 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TMDefaultPage(
       pageContent: Scaffold(
-        appBar: TMAppBar(title: 'Settings'),
+        appBar: TMAppBar(
+          title: LocaleKeys.settings.page_title.translate(context),
+        ),
         body: SafeArea(
           child: CustomCard(
             child: Padding(
@@ -31,7 +35,10 @@ class SettingsPage extends StatelessWidget {
                     return state.maybeWhen(
                       loaded: (config) => Column(
                         children: [
-                          const CategorySeparatorWidget(text: 'General'),
+                          CategorySeparatorWidget(
+                            text: LocaleKeys.settings.general_settings
+                                .translate(context),
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: defaultPadding,
@@ -39,7 +46,8 @@ class SettingsPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 SwitchWidget(
-                                  title: 'Edit values with keyboard',
+                                  title: LocaleKeys.settings.edit_with_keyboard
+                                      .translate(context),
                                   value: config.settings.editValuesWithText,
                                   onChanged: (value) {
                                     BlocProvider.of<ConfigurationCubit>(context)
@@ -52,14 +60,20 @@ class SettingsPage extends StatelessWidget {
                                 ),
                                 verticalSpacer,
                                 TMTextButton(
-                                  child: Text('Reset settings to default'),
+                                  child: Text(
+                                    LocaleKeys.settings.reset.button_text
+                                        .translate(context),
+                                  ),
                                   onTap: () => _onResetSettingsTap(context),
                                 ),
                               ],
                             ),
                           ),
                           verticalBigSpacer,
-                          const CategorySeparatorWidget(text: 'Extensions'),
+                          CategorySeparatorWidget(
+                            text: LocaleKeys.settings.extensions
+                                .translate(context),
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: defaultPadding,
@@ -67,8 +81,10 @@ class SettingsPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 SwitchWidget(
-                                  title: 'Use Turmoil',
-                                  subtitle: '(-1 TR each turn)',
+                                  title: LocaleKeys.settings.turmoil.title
+                                      .translate(context),
+                                  subtitle: LocaleKeys.settings.turmoil.subtitle
+                                      .translate(context),
                                   value: config.settings.useTurmoil,
                                   onChanged: (value) {
                                     BlocProvider.of<ConfigurationCubit>(context)
@@ -81,7 +97,8 @@ class SettingsPage extends StatelessWidget {
                                 ),
                                 verticalSpacer,
                                 SwitchWidget(
-                                  title: 'Use Venus Next',
+                                  title: LocaleKeys.settings.venus.title
+                                      .translate(context),
                                   value: config.settings.useVenus,
                                   onChanged: (value) {
                                     BlocProvider.of<ConfigurationCubit>(context)
@@ -95,22 +112,24 @@ class SettingsPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const CategorySeparatorWidget(
-                              text: 'Standard projects'),
+                          CategorySeparatorWidget(
+                            text: LocaleKeys.settings.standard_projects.title
+                                .translate(context),
+                          ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: defaultPadding,
                             ),
                             child: Column(
-                              children:
-                                  config.standardProjectConfig.projects.values
-                                      .filterWithSettings(config.settings)
-                                      .map(
-                                        (project) => EditableStandardProjectTile(
-                                          project: project,
-                                        ),
-                                      )
-                                      .toList(),
+                              children: config
+                                  .standardProjectConfig.projects.values
+                                  .filterWithSettings(config.settings)
+                                  .map(
+                                    (project) => EditableStandardProjectTile(
+                                      project: project,
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                         ],
@@ -131,9 +150,10 @@ class SettingsPage extends StatelessWidget {
     final reset = await showDialog(
       context: context,
       builder: (_) => ConfirmDialog(
-          text: 'Reset settings?\n(Cannot be undone)',
-          confirm: 'Reset',
-          cancel: 'Cancel'),
+        text: LocaleKeys.settings.reset.dialog.text.translate(context),
+        confirm: LocaleKeys.settings.reset.dialog.confirm.translate(context),
+        cancel: LocaleKeys.common.cancel,
+      ),
     );
     if (reset) {
       BlocProvider.of<ConfigurationCubit>(context).reset();

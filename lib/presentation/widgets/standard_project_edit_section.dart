@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/marker_or_resource.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/resource_selection_widget.dart';
@@ -29,7 +31,11 @@ class StandardProjectEditSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CategorySeparatorWidget(
-            text: isCost ? 'Project cost' : 'Project reward'),
+          text: (isCost
+                  ? LocaleKeys.settings.standard_projects.edit.cost
+                  : LocaleKeys.settings.standard_projects.edit.reward)
+              .translate(context),
+        ),
         ...resources.map(
           (costResource) {
             return Padding(

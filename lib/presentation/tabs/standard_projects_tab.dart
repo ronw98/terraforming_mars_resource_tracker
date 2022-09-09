@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/standard_project_widget.dart';
-import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
 
 class StandardProjectsTab extends StatelessWidget {
   const StandardProjectsTab({Key? key}) : super(key: key);
@@ -31,8 +33,12 @@ class StandardProjectsTab extends StatelessWidget {
                                 SnackBar(
                                   content: Text(
                                     result
-                                        ? 'Project completed'
-                                        : 'Project error',
+                                        ? LocaleKeys.standard_project
+                                            .project_result.success
+                                            .translate(context)
+                                        : LocaleKeys.standard_project
+                                            .project_result.error
+                                            .translate(context),
                                     style: TextStyle(
                                       color: result ? Colors.green : Colors.red,
                                     ),

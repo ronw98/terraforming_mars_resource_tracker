@@ -1,0 +1,105 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "OK",
+    "app_name": "TM Calculator",
+    "icon_button": "Icon button"
+  },
+  "home": {
+    "tabs": {
+      "resources": "Resources",
+      "projects": "Standard projects"
+    }
+  },
+  "settings": {
+    "page_title": "Settings",
+    "reset": {
+      "button_text": "Reset settings to default",
+      "dialog": {
+        "text": "Reset settings?\n(Cannot be undone)",
+        "confirm": "Reset"
+      }
+    },
+    "general_settings": "General Settings",
+    "edit_with_keyboard": "Edit values with keyboard",
+    "extensions": "Extensions",
+    "standard_projects": {
+      "title": "Standard projects",
+      "edit": {
+        "production": "Production",
+        "cost": "Project cost",
+        "reward": "Project reward"
+      }
+    },
+    "turmoil": {
+      "title": "Use Turmoil",
+      "subtitle": "(-1 TR each turn)"
+    },
+    "venus": {
+      "title": "Use Venus Next"
+    }
+  },
+  "resources": {
+    "produce": "Produce",
+    "reset": {
+      "button_text": "Reset",
+      "dialog": {
+        "text": "Reset data?\n(Cannot be undone)",
+        "reset": "Reset"
+      }
+    },
+    "history": {
+      "title": "History",
+      "production": "Production",
+      "stock": "Stock"
+    },
+    "names": {
+      "terraforming_rating": "Terraforming rating",
+      "credits": "MegaCredits",
+      "steel": "Steel",
+      "titanium": "Titanium",
+      "plants": "Plants",
+      "energy": "Energy",
+      "heat": "Heat"
+    },
+    "tooltips": {
+      "production": {
+        "current": "{unit} production is {value}",
+        "add": "Add {value} {unit} production",
+        "remove": "Remove {value} {unit} production"
+      },
+      "stock": {
+        "current": "{unit} stock is {value}",
+        "add": "Add {value} {unit} stock",
+        "remove": "Remove {value} {unit} stock"
+      },
+      "terraforming_rating": {
+        "current": "Terraforming rating is {value}",
+        "add": "Add {value} terraforming rating",
+        "remove": "Remove {value} Terraforming rating"
+      }
+    }
+  },
+  "standard_project": {
+    "project_result": {
+      "error": "Project error",
+      "success": "Project completed"
+    },
+    "names" :{
+      "city": "City",
+      "greenery": "Greenery",
+      "ocean": "Ocean",
+      "temperature": "Temperature",
+      "delegate": "Delegate",
+      "venus": "Venus"
+    }
+  },
+  "markers": {
+    "city": "City",
+    "greenery": "Greenery",
+    "ocean": "Ocean",
+    "temperature": "Temperature",
+    "delegate": "Delegate",
+    "venus": "Venus"
+  }
+}
