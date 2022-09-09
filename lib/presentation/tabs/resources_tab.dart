@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/views/resource_edition_bottom_sheet.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/resource_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/tm_text_button.dart';
-import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
 
 class ResourcesTab extends StatelessWidget {
   const ResourcesTab({Key? key}) : super(key: key);
@@ -35,7 +37,7 @@ class ResourcesTab extends StatelessWidget {
           child: TMTextButton(
             onTap: BlocProvider.of<ResourceCubit>(context).produce,
             child: Text(
-              'Produce',
+              LocaleKeys.resources.produce.translate(context),
               style: Theme.of(context).textTheme.displaySmall,
             ),
           ),
@@ -44,7 +46,7 @@ class ResourcesTab extends StatelessWidget {
           child: TMTextButton(
             onTap: () => _onReset(context),
             child: Text(
-              'Reset',
+              LocaleKeys.resources.reset.button_text.translate(context),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
@@ -69,10 +71,9 @@ class ResourcesTab extends StatelessWidget {
     final reset = await showDialog(
       context: context,
       builder: (_) => ConfirmDialog(
-        text:
-            'Reset data?\n(Cannot be undone)',
-        confirm: 'Reset',
-        cancel: 'Cancel',
+        text: LocaleKeys.resources.reset.dialog.text.translate(context),
+        confirm: LocaleKeys.resources.reset.dialog.reset.translate(context),
+        cancel: LocaleKeys.common.cancel.translate(context),
       ),
     );
     if (reset) {

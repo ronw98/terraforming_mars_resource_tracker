@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
+import 'package:tm_ressource_tracker/core/locale/locale_helper.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/pages/home/home_page.dart';
@@ -35,9 +37,7 @@ class ResourceTracker extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ResourceCubit>(
-          create: (_) =>
-          sl()
-            ..loadResources(),
+          create: (_) => sl()..loadResources(),
         ),
         BlocProvider<ConfigurationCubit>(
           create: (_) => sl()..loadConfig(),
@@ -47,6 +47,14 @@ class ResourceTracker extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: HomePage(),
         theme: appTheme,
+        supportedLocales: TMI18n.supportedLocales,
+        localeListResolutionCallback: TMI18n.localeListResolutionCallback,
+        localizationsDelegates: [
+          TMI18n.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
       ),
     );
   }

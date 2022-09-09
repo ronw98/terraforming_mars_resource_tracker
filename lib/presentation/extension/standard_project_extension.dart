@@ -1,15 +1,23 @@
+import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
 import 'package:tm_ressource_tracker/domain/entities/settings.dart';
 import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
+import 'package:tm_ressource_tracker/presentation/extension/default_standard_projects_ext.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 
 extension StandardProjectsExt on Iterable<StandardProject> {
   Iterable<StandardProject> filterWithSettings(Settings settings) => where(
         (project) =>
             settings.useTurmoil ||
-            project.id != DefaultStandardProjects.lobby.name,
+            project.defaultType != DefaultStandardProjects.lobby,
       ).where(
         (project) =>
             settings.useVenus ||
-            project.id != DefaultStandardProjects.airScrapping.name,
+            project.defaultType != DefaultStandardProjects.airScrapping,
       );
+}
+
+extension StandardProjectExt on StandardProject {
+  String translatedName(BuildContext context) =>
+      defaultType?.translateKey.translate(context) ?? id.capitalizeFirst();
 }

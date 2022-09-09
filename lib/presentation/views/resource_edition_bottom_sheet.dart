@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart' as constants;
 import 'package:tm_ressource_tracker/core/injection.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/extension/resource_type_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/tm_default_bottom_sheet.dart';
@@ -38,7 +40,7 @@ class ResourceEditionBottomSheet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      resource.type.resourceName,
+                      resource.type.resourceKey.translate(context),
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                     verticalBigSpacer,
@@ -62,15 +64,20 @@ class ResourceEditionBottomSheet extends StatelessWidget {
                         fontSize: 22,
                       ),
                     ),
-                    CategorySeparatorWidget(text: 'History'),
+                    CategorySeparatorWidget(
+                      text:
+                          LocaleKeys.resources.history.title.translate(context),
+                    ),
                     if (resource.stockHistory.isNotEmpty)
                       ResourceHistoryWidget(
-                        label: 'Stock',
+                        label: LocaleKeys.resources.history.stock
+                            .translate(context),
                         history: resource.stockHistory,
                       ),
                     if (resource.productionHistory.isNotEmpty)
                       ResourceHistoryWidget(
-                        label: 'Production',
+                        label: LocaleKeys.resources.history.production
+                            .translate(context),
                         history: resource.productionHistory,
                         textStyle: TextStyle(color: Colors.brown),
                       ),

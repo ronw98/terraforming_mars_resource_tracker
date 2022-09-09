@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/pages/home/home_content.dart';
 import 'package:tm_ressource_tracker/presentation/pages/settings/settings_page.dart';
-import 'package:tm_ressource_tracker/presentation/views/TMDefaultPage.dart';
+import 'package:tm_ressource_tracker/presentation/views/tm_default_page.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/circle_icon_button.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/tm_app_bar.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/unfocus_parent_widget.dart';
@@ -28,11 +30,11 @@ class HomePage extends StatelessWidget {
                     );
                   },
                   icon: Icon(Icons.settings),
-                  semanticsLabel: 'Settings',
+                  semanticsKey: LocaleKeys.settings.page_title.translate(context),
                 ),
               ),
             ],
-            title: 'TM Calculator',
+            title: LocaleKeys.common.app_name.translate(context),
           ),
           body: SafeArea(
             child: HomeContent(),

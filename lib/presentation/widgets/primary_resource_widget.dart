@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/extension/resource_type_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
@@ -26,7 +28,7 @@ class PrimaryResourceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: type.resourceName,
+      message: type.resourceKey.translate(context),
       child: CustomCard(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -46,7 +48,14 @@ class PrimaryResourceWidget extends StatelessWidget {
                         ),
                         verticalSpacer,
                         Tooltip(
-                          message: '${type.resourceName} stock is $stock',
+                          message: LocaleKeys.resources.tooltips.stock.current
+                              .translate(
+                            context,
+                            translationParams: {
+                              'unit': type.resourceKey.translate(context),
+                              'value': '$stock'
+                            },
+                          ),
                           child: TextEditableValue(
                             value: stock,
                             onValueChanged: (newValue) {
@@ -56,8 +65,15 @@ class PrimaryResourceWidget extends StatelessWidget {
                           ),
                         ),
                         Tooltip(
-                          message:
-                              '${type.resourceName} production is $production',
+                          message: LocaleKeys
+                              .resources.tooltips.production.current
+                              .translate(
+                            context,
+                            translationParams: {
+                              'unit': type.resourceKey.translate(context),
+                              'value': '$production'
+                            },
+                          ),
                           child: TextEditableValue(
                             value: production,
                             style: TextStyle(color: Colors.brown),

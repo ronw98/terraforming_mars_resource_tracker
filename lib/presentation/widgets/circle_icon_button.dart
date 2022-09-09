@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
 
 class ShapeIconButton extends StatelessWidget {
-  const ShapeIconButton({
+  ShapeIconButton({
     Key? key,
     required this.onPressed,
     required this.icon,
     this.fillColor,
-    this.semanticsLabel='Icon button',
+    String? semanticsKey,
     this.padding = const EdgeInsets.all(15),
     this.shape = const CircleBorder(),
-  }) : super(key: key);
+  })  : semanticsKey = semanticsKey ?? LocaleKeys.common.icon_button,
+        super(key: key);
 
   final Function() onPressed;
   final Color? fillColor;
   final Widget icon;
   final EdgeInsetsGeometry padding;
-  final String? semanticsLabel;
+  final String? semanticsKey;
   final ShapeBorder shape;
 
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: semanticsLabel,
+      message: semanticsKey,
       padding: EdgeInsets.all(0),
       child: RawMaterialButton(
         onPressed: onPressed,

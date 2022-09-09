@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/assets.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
 
 extension MarkerTypeExt on MarkerType {
   AssetImage get markerImage {
@@ -23,17 +24,17 @@ extension MarkerTypeExt on MarkerType {
   String get markerName {
     switch (this) {
       case MarkerType.city:
-        return 'City';
+        return LocaleKeys.markers.city;
       case MarkerType.greenery:
-        return 'Greenery';
+        return LocaleKeys.markers.greenery;
       case MarkerType.ocean:
-        return 'Ocean';
+        return LocaleKeys.markers.ocean;
       case MarkerType.temperature:
-        return 'Temperature';
+        return LocaleKeys.markers.temperature;
       case MarkerType.delegate:
-        return 'Delegate';
+        return LocaleKeys.markers.delegate;
       case MarkerType.venus:
-        return 'Venus';
+        return LocaleKeys.markers.venus;
     }
   }
 }

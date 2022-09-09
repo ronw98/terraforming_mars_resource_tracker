@@ -50,6 +50,7 @@ app.*.map.json
 *.freezed.dart
 *.g.dart
 assets.dart
+jsons.dart
 injection.config.dart
 
 .gitsecret/keys/random_seed

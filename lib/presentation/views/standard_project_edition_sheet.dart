@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/tm_default_bottom_sheet.dart';
@@ -35,7 +35,7 @@ class StandardProjectEditionBottomSheet extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        project.id.capitalizeFirst(),
+                        project.translatedName(context),
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                       verticalBigSpacer,
