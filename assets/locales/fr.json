@@ -27,7 +27,7 @@
       "title": "Projets standards",
       "edit": {
         "production": "Production",
-        "cost": "Coùt du projet",
+        "cost": "Coût du projet",
         "reward": "Récompenses du projet"
       }
     },
@@ -37,6 +37,9 @@
     },
     "venus": {
       "title": "Utiliser Venus Next"
+    },
+    "colonies": {
+      "title": "Use colonies"
     }
   },
   "resources": {
@@ -85,13 +88,17 @@
       "error": "Erreur pour le projet standard",
       "success": "Projet standard terminé"
     },
-    "names" :{
+    "names": {
       "city": "Ville",
       "greenery": "Forêt",
       "ocean": "Océan",
       "temperature": "Température",
-      "delegate": "Lobby",
-      "venus": "Vénus"
+      "powerPlant": "Centrale",
+      "lobby": "Lobby",
+      "convertHeat": "Conversion de chaleur",
+      "convertPlant": "Conversion de plantes",
+      "airScrapping": "Air scrapping",
+      "buildColony": "Construire une colonie"
     }
   },
   "markers": {
@@ -100,6 +107,7 @@
     "ocean": "Océan",
     "temperature": "Température",
     "delegate": "Lobbyiste",
-    "venus": "Vénus"
+    "venus": "Vénus",
+    "colony": "Colonie"
   }
 }

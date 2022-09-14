@@ -10,6 +10,7 @@ class SettingsModel with _$SettingsModel {
     bool? editValuesWithText,
     bool? stockBelowZero,
     bool? useVenus,
+    bool? useColonies,
   }) = _SettingsModel;
   
 

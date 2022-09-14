@@ -109,6 +109,19 @@ class SettingsPage extends StatelessWidget {
                                     );
                                   },
                                 ),
+                                SwitchWidget(
+                                  title: LocaleKeys.settings.colonies.title
+                                      .translate(context),
+                                  value: config.settings.useColonies,
+                                  onChanged: (value) {
+                                    BlocProvider.of<ConfigurationCubit>(context)
+                                        .updateSettings(
+                                      config.settings.copyWith(
+                                        useColonies: value,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                           ),
@@ -147,15 +160,15 @@ class SettingsPage extends StatelessWidget {
   }
 
   void _onResetSettingsTap(BuildContext context) async {
-    final reset = await showDialog(
+    final bool? reset = await showDialog(
       context: context,
       builder: (_) => ConfirmDialog(
         text: LocaleKeys.settings.reset.dialog.text.translate(context),
         confirm: LocaleKeys.settings.reset.dialog.confirm.translate(context),
-        cancel: LocaleKeys.common.cancel,
+        cancel: LocaleKeys.common.cancel.translate(context),
       ),
     );
-    if (reset) {
+    if (reset??false) {
       BlocProvider.of<ConfigurationCubit>(context).reset();
     }
   }

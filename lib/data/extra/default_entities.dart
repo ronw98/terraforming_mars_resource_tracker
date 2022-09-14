@@ -11,13 +11,16 @@ enum DefaultStandardProjects {
   powerPlant,
   temperature,
   lobby,
+  airScrapping,
+  buildColony,
   convertHeat,
-  convertPlants,
-  airScrapping;
+  convertPlants;
 
   const DefaultStandardProjects();
 
-  StandardProject get project {
+  StandardProject get project => _project.copyWith(defaultType: this);
+
+  StandardProject get _project {
     switch (this) {
       case DefaultStandardProjects.greenery:
         return StandardProject(
@@ -167,6 +170,22 @@ enum DefaultStandardProjects {
             ),
           ],
         );
+      case DefaultStandardProjects.buildColony:
+        return StandardProject(
+          id: name,
+          cost: [
+            CostResource.stock(
+              value: 17,
+              type: ResourceType.credit,
+            ),
+          ],
+          reward: [
+            CostResource.marker(
+              value: 1,
+              marker: MarkerType.colony,
+            ),
+          ],
+        );
     }
   }
 }
@@ -176,6 +195,7 @@ const Settings defaultSettings = Settings(
   editValuesWithText: false,
   stockBelowZero: false,
   useVenus: false,
+  useColonies: false,
 );
 
 final StandardProjectConfig defaultProjectConfig = StandardProjectConfig(

@@ -4,7 +4,13 @@ import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 part 'cost_resource.freezed.dart';
 
 enum MarkerType {
-  city, greenery, ocean, temperature, delegate, venus
+  city,
+  greenery,
+  ocean,
+  temperature,
+  delegate,
+  venus,
+  colony,
 }
 
 @freezed

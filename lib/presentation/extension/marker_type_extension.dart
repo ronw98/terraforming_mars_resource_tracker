@@ -18,6 +18,8 @@ extension MarkerTypeExt on MarkerType {
         return Images.delegate;
       case MarkerType.venus:
         return Images.venus;
+      case MarkerType.colony:
+        return Images.colony;
     }
   }
 
@@ -35,6 +37,8 @@ extension MarkerTypeExt on MarkerType {
         return LocaleKeys.markers.delegate;
       case MarkerType.venus:
         return LocaleKeys.markers.venus;
+      case MarkerType.colony:
+        return LocaleKeys.markers.colony;
     }
   }
 }
