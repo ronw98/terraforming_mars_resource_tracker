@@ -51,6 +51,10 @@
         "reset": "Reset"
       }
     },
+    "edition": {
+      "stock": "Stock",
+      "production": "Production"
+    },
     "history": {
       "title": "History",
       "production": "Production",

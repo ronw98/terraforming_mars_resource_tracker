@@ -12,25 +12,34 @@ class EditionConfirmButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      type: MaterialType.button,
-      color: Theme.of(context).colorScheme.primary,
-      child: InkWell(
-        onTap: onPressed,
-        child: SafeArea(
-          child: ElevatedButton.icon(
-            onPressed: null,
-            icon: Icon(Icons.check),
-            label: Text(
-              LocaleKeys.common.confirm.translate(context),
-            ),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                Colors.transparent,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      child: Material(
+        elevation: 0,
+        type: MaterialType.button,
+        color: Theme.of(context).colorScheme.primary,
+        child: InkWell(
+          onTap: onPressed,
+          child: SafeArea(
+            child: ElevatedButton.icon(
+              onPressed: null,
+              icon: Icon(Icons.check),
+              label: Text(
+                LocaleKeys.common.confirm.translate(context),
               ),
-              foregroundColor: MaterialStateProperty.all(
-                Theme.of(context).colorScheme.onPrimary,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  Colors.transparent,
+                ),
+                foregroundColor: MaterialStateProperty.all(
+                  Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
             ),
           ),

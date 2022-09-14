@@ -72,6 +72,10 @@ class _ResourceEditionBottomSheetState
                           width: constants.AppConstants.bottomSheetImageSize,
                         ),
                         verticalBigSpacer,
+                        CategorySeparatorWidget(
+                          text: LocaleKeys.resources.edition.stock
+                              .translate(context),
+                        ),
                         ValueListenableBuilder<int>(
                           valueListenable: stockChange,
                           builder: (context, value, child) {
@@ -93,7 +97,10 @@ class _ResourceEditionBottomSheetState
                             fontSize: 22,
                           ),
                         ),
-                        Divider(),
+                        CategorySeparatorWidget(
+                          text: LocaleKeys.resources.edition.production
+                              .translate(context),
+                        ),
                         ValueListenableBuilder<int>(
                           valueListenable: prodChange,
                           builder: (context, value, child) {
