@@ -29,16 +29,42 @@ class ResourceEditionBottomSheet extends StatefulWidget {
       _ResourceEditionBottomSheetState();
 }
 
-class _ResourceEditionBottomSheetState
-    extends State<ResourceEditionBottomSheet> {
+class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
+    with SingleTickerProviderStateMixin {
   late final ValueNotifier<int> stockChange = ValueNotifier(0);
   late final ValueNotifier<int> prodChange = ValueNotifier(0);
+  late final AnimationController _animationController;
+  Animation<int>? _stockAnimation;
+  Animation<int>? _prodAnimation;
 
   @override
   void dispose() {
     stockChange.dispose();
     prodChange.dispose();
+    _animationController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..addListener(() {
+        final sa = _stockAnimation;
+        if (sa != null) {
+          stockChange.value = sa.value;
+        }
+        final pa = _prodAnimation;
+        if (pa != null) {
+          prodChange.value = pa.value;
+        }
+        if (_animationController.isCompleted) {
+          _stockAnimation = null;
+          _prodAnimation = null;
+        }
+      });
+    super.initState();
   }
 
   @override
@@ -154,11 +180,19 @@ class _ResourceEditionBottomSheetState
   }
 
   void _onConfirmPressed() {
-    sl<ResourceCubit>().addStock(widget.resourceType, stockChange.value);
-    sl<ResourceCubit>().addProduction(widget.resourceType, prodChange.value);
+    sl<ResourceCubit>().addStockOrProduction(
+      resourceType: widget.resourceType,
+      stockChange: stockChange.value,
+      productionChange: prodChange.value,
+    );
 
-    stockChange.value = 0;
-    prodChange.value = 0;
+    _prodAnimation =
+        IntTween(begin: prodChange.value, end: 0).animate(_animationController);
+    _stockAnimation = IntTween(begin: stockChange.value, end: 0)
+        .animate(_animationController);
+
+    _animationController.reset();
+    _animationController.forward();
   }
 
   void _onStockChanged(int value) {

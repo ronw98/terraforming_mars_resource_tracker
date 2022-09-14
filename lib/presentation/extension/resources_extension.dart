@@ -54,9 +54,14 @@ extension ResourcesExt on Map<ResourceType, Resource> {
 
 extension ResourceExt on Resource {
   Resource produce({int? additionalStock}) => map(
-        primaryResource: (resource) => resource.copyWith(
-          stock: resource.stock + resource.production + (additionalStock ?? 0),
-        ),
+        primaryResource: (resource) {
+          final newStock =
+              resource.stock + resource.production + (additionalStock ?? 0);
+          return resource.copyWith(
+            stock: newStock,
+            stockHistory: [...stockHistory, newStock],
+          );
+        },
         terraformingLevel: (tr) => tr,
       );
 
