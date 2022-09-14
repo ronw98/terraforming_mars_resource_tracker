@@ -69,8 +69,8 @@ class TerraformingRatingWidget extends StatelessWidget {
                       translationParams: {'value': '$stock'},
                     ),
                     child: TextEditableValue(
-                      value: stock,
                       editable: true,
+                      value: stock,
                       style: TextStyle(fontSize: 20),
                       onValueChanged: (newValue) {
                         BlocProvider.of<ResourceCubit>(context)

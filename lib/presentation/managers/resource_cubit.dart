@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -21,6 +22,10 @@ class ResourceCubit extends Cubit<ResourceState> {
 
   final GetResources getResources;
   final SetResources setResources;
+
+  final List<ResourcesLoaded> previousStates = [];
+
+  bool get canUndo => previousStates.isNotEmpty;
 
   void loadResources() async {
     emit(ResourceState.loading());
@@ -94,6 +99,25 @@ class ResourceCubit extends Cubit<ResourceState> {
       await setResources(newResources.values.toList());
       emit(ResourceState.loaded(resources: newResources));
     });
+  }
+
+  void undo() async {
+    final newState = previousStates.lastOrNull;
+    if(newState == null) {
+      return;
+    }
+    previousStates.removeLast();
+    await setResources(newState.resources.values.toList());
+    super.emit(newState);
+  }
+
+  @override
+  void emit(ResourceState newState) {
+    if (previousStates.length == 3) {
+      previousStates.removeAt(0);
+    }
+    state.mapOrNull(loaded: (loaded) => previousStates.add(loaded));
+    super.emit(newState);
   }
 
   Map<ResourceType, Resource> _updateResourcesWithCost(

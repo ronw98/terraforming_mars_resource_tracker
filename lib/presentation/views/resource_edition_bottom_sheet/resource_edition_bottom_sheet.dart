@@ -36,6 +36,7 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
   late final AnimationController _animationController;
   Animation<int>? _stockAnimation;
   Animation<int>? _prodAnimation;
+  bool lock = false;
 
   @override
   void dispose() {
@@ -62,6 +63,7 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
         if (_animationController.isCompleted) {
           _stockAnimation = null;
           _prodAnimation = null;
+          lock = false;
         }
       });
     super.initState();
@@ -118,7 +120,6 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
                         EditValueWidget(
                           value: resource.stock,
                           onValueChanged: _onStockChanged,
-                          editable: false,
                           textStyle: TextStyle(
                             fontSize: 22,
                           ),
@@ -180,6 +181,9 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
   }
 
   void _onConfirmPressed() {
+    if (lock) {
+      return;
+    }
     sl<ResourceCubit>().addStockOrProduction(
       resourceType: widget.resourceType,
       stockChange: stockChange.value,
@@ -193,21 +197,22 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
 
     _animationController.reset();
     _animationController.forward();
+    lock = true;
   }
 
   void _onStockChanged(int value) {
-    stockChange.value += value;
+    if (!lock) stockChange.value += value;
   }
 
   void _onNewStockChange(int value) {
-    stockChange.value = value;
+    if (!lock) stockChange.value = value;
   }
 
   void _onProductionChanged(int value) {
-    prodChange.value += value;
+    if (!lock) prodChange.value += value;
   }
 
   void _onNewProdChange(int value) {
-    prodChange.value = value;
+    if (!lock) prodChange.value = value;
   }
 }
