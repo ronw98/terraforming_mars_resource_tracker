@@ -107,8 +107,12 @@ class ResourceCubit extends Cubit<ResourceState> {
         costResource.mapOrNull(
           stock: (stockCost) {
             final resource = resources[stockCost.type]!;
+            final newStock = resource.stock + factor * stockCost.value;
             resources[stockCost.type] = resource.copyWith(
-              stock: resource.stock + factor * stockCost.value,
+              stock: newStock,
+              stockHistory: newStock != resource.stock
+                  ? resource.stockHistory.addIfNotNull(newStock)
+                  : resource.stockHistory,
             );
           },
           production: (prodCost) {
@@ -116,8 +120,12 @@ class ResourceCubit extends Cubit<ResourceState> {
             if (resource is! PrimaryResource) {
               return;
             }
+            final newProd = resource.production + factor * prodCost.value;
             resources[prodCost.type] = resource.copyWith(
-              production: resource.production + factor * prodCost.value,
+              production: newProd,
+              productionHistory: resource.production != newProd
+                  ? resource.productionHistory.addIfNotNull(newProd)
+                  : resource.productionHistory,
             );
           },
         );
