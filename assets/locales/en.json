@@ -90,8 +90,12 @@
       "greenery": "Greenery",
       "ocean": "Ocean",
       "temperature": "Temperature",
-      "delegate": "Delegate",
-      "venus": "Venus"
+      "powerPlant": "Power plant",
+      "lobby": "Lobby",
+      "convertHeat": "Convert heat",
+      "convertPlant": "Convert plants",
+      "airScrapping": "Air scrapping",
+      "buildColony": "Build colony"
     }
   },
   "markers": {
@@ -100,6 +104,8 @@
     "ocean": "Ocean",
     "temperature": "Temperature",
     "delegate": "Delegate",
-    "venus": "Venus"
+    "venus": "Venus",
+    "colony": "Colony",
+    "trade": "Trade"
   }
 }
