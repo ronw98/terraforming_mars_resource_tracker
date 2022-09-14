@@ -6,6 +6,7 @@ Settings settingsModelToEntity(SettingsModel model) => Settings(
       editValuesWithText: model.editValuesWithText ?? false,
       stockBelowZero: model.stockBelowZero ?? false,
       useVenus: model.useVenus ?? false,
+      useColonies: model.useColonies ?? false,
     );
 
 SettingsModel settingsEntityToModel(Settings entity) => SettingsModel(
@@ -13,4 +14,5 @@ SettingsModel settingsEntityToModel(Settings entity) => SettingsModel(
       editValuesWithText: entity.editValuesWithText,
       stockBelowZero: entity.stockBelowZero,
       useVenus: entity.useVenus,
+      useColonies: entity.useColonies,
     );

@@ -11,6 +11,7 @@ class StandardProjectModel with _$StandardProjectModel {
     String? id,
     List<CostResourceModel>? cost,
     List<CostResourceModel>? reward,
+    String? defaultType,
   }) = _StandardProjectModel;
 
   factory StandardProjectModel.fromJson(Map<String, dynamic> json) =>

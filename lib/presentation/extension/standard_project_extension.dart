@@ -10,11 +10,17 @@ extension StandardProjectsExt on Iterable<StandardProject> {
         (project) =>
             settings.useTurmoil ||
             project.defaultType != DefaultStandardProjects.lobby,
-      ).where(
-        (project) =>
-            settings.useVenus ||
-            project.defaultType != DefaultStandardProjects.airScrapping,
-      );
+      )
+          .where(
+            (project) =>
+                settings.useVenus ||
+                project.defaultType != DefaultStandardProjects.airScrapping,
+          )
+          .where(
+            (project) =>
+                settings.useColonies ||
+                project.defaultType != DefaultStandardProjects.buildColony,
+          );
 }
 
 extension StandardProjectExt on StandardProject {

@@ -38,6 +38,7 @@ dependencies:
   flutter_i18n: ^0.32.3
   logger: ^1.1.0
   json_locale_generator: ^0.2.4
+  collection: ^1.16.0
 
 dev_dependencies:
   flutter_test:
