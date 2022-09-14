@@ -10,9 +10,11 @@ class TMDefaultBottomSheet extends StatelessWidget {
     this.initialChildSize = 0.3,
     this.minChildSize = 0.25,
     this.maxChildSize = 0.75,
+    this.bottomChild,
   }) : super(key: key);
 
   final Widget child;
+  final Widget? bottomChild;
   final bool expand;
   final double initialChildSize;
   final double maxChildSize;
@@ -25,29 +27,29 @@ class TMDefaultBottomSheet extends StatelessWidget {
       initialChildSize: initialChildSize,
       maxChildSize: maxChildSize,
       minChildSize: minChildSize,
-      builder: (context, scrollController) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: bigPadding),
-          child: Stack(
-            children: [
-              const Align(
-                alignment: Alignment.topCenter,
-                child: Notch(),
-              ),
-              Positioned.fill(
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  physics: const ClampingScrollPhysics(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: largePadding,
-                    ),
-                    child: child,
+      builder: (context, scrollController) => Padding(
+        padding: const EdgeInsets.only(top: bigPadding),
+        child: Stack(
+          children: [
+            const Align(
+              alignment: Alignment.topCenter,
+              child: Notch(),
+            ),
+            Positioned.fill(
+              child: SingleChildScrollView(
+                controller: scrollController,
+                physics: const ClampingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: largePadding,
                   ),
+                  child: child,
                 ),
               ),
-            ],
-          ),
+            ),
+            if (bottomChild != null)
+              Positioned(bottom: 0, left: 0, right: 0, child: bottomChild!),
+          ],
         ),
       ),
     );

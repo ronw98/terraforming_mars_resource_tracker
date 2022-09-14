@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/presentation/extension/number_extension.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/number_text_edit.dart';
@@ -10,11 +11,15 @@ class TextEditableValue extends StatefulWidget {
     Key? key,
     this.style,
     required this.value,
-    required this.onValueChanged,
+    this.onValueChanged,
+    required this.editable,
+    this.signedString = false,
   }) : super(key: key);
   final TextStyle? style;
   final int value;
-  final Function(int) onValueChanged;
+  final Function(int)? onValueChanged;
+  final bool editable;
+  final bool signedString;
 
   @override
   State<TextEditableValue> createState() => _TextEditableValueState();
@@ -78,14 +83,16 @@ class _TextEditableValueState extends State<TextEditableValue> {
   Widget build(BuildContext context) {
     return BlocBuilder<ConfigurationCubit, ConfigurationState>(
       builder: (context, state) {
-        final staticText = Text('${widget.value}', style: widget.style);
+        final staticText =
+            Text(widget.value.toSignedString(), style: widget.style);
         return state.maybeWhen(
           loaded: (config) {
-            return config.settings.editValuesWithText
+            return config.settings.editValuesWithText && widget.editable
                 ? NumberTextEdit(
                     value: widget.value,
-                    onValueChanged: widget.onValueChanged,
-              style: widget.style,
+                    onValueChanged: widget.onValueChanged ?? (_) {},
+                    style: widget.style,
+                    signedString: widget.signedString,
                   )
                 : staticText;
           },

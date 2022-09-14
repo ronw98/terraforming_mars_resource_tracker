@@ -53,9 +53,9 @@ class TerraformingRatingWidget extends StatelessWidget {
                     child: EditValueButton(
                       text: '-1',
                       onPressed: () {
-                        sl<ResourceCubit>().modifyStock(
-                          ResourceType.terraformingRating,
-                          stock - 1,
+                        sl<ResourceCubit>().modifyStockOrProduction(
+                          resourceType: ResourceType.terraformingRating,
+                          newStock: stock - 1,
                         );
                       },
                     ),
@@ -70,11 +70,13 @@ class TerraformingRatingWidget extends StatelessWidget {
                     ),
                     child: TextEditableValue(
                       value: stock,
+                      editable: true,
                       style: TextStyle(fontSize: 20),
                       onValueChanged: (newValue) {
-                        BlocProvider.of<ResourceCubit>(context).modifyStock(
-                          ResourceType.terraformingRating,
-                          newValue,
+                        BlocProvider.of<ResourceCubit>(context)
+                            .modifyStockOrProduction(
+                          resourceType: ResourceType.terraformingRating,
+                          newStock: newValue,
                         );
                       },
                     ),
@@ -90,9 +92,9 @@ class TerraformingRatingWidget extends StatelessWidget {
                     child: EditValueButton(
                       text: '+1',
                       onPressed: () {
-                        sl<ResourceCubit>().modifyStock(
-                          ResourceType.terraformingRating,
-                          stock + 1,
+                        sl<ResourceCubit>().modifyStockOrProduction(
+                          resourceType: ResourceType.terraformingRating,
+                          newStock: stock + 1,
                         );
                       },
                     ),

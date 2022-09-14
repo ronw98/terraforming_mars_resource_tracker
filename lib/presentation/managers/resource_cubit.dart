@@ -8,6 +8,7 @@ import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
 import 'package:tm_ressource_tracker/domain/usecases/get_resources.dart';
 import 'package:tm_ressource_tracker/domain/usecases/set_resources.dart';
 import 'package:tm_ressource_tracker/domain/utils/resource_utils.dart';
+import 'package:tm_ressource_tracker/presentation/extension/number_extension.dart';
 import 'package:tm_ressource_tracker/presentation/extension/resources_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 
@@ -34,7 +35,7 @@ class ResourceCubit extends Cubit<ResourceState> {
   Future<bool> onProjectTap(StandardProject project) {
     return state.maybeWhen(
       loaded: (resources) async {
-        if(!resources.canDoStandardProject(project)) {
+        if (!resources.canDoStandardProject(project)) {
           return false;
         }
         Map<ResourceType, Resource> resourcesCopy = {...resources};
@@ -51,43 +52,8 @@ class ResourceCubit extends Cubit<ResourceState> {
         await setResources(resourcesCopy.values.toList());
         emit(ResourceState.loaded(resources: resourcesCopy));
         return true;
-      }, orElse: () async => false,
-    );
-  }
-
-  void modifyStock(ResourceType resourceType, int newStock) {
-    state.whenOrNull(
-      loaded: (resources) async {
-        final resourcesCopy = {...resources};
-        final oldResource = resourcesCopy[resourceType]!;
-        resourcesCopy[resourceType] = oldResource.copyWith(
-          stock: newStock,
-          stockHistory: [...oldResource.stockHistory, newStock],
-        );
-        await setResources(resourcesCopy.values.toList());
-        emit(ResourceState.loaded(resources: resourcesCopy));
       },
-    );
-  }
-
-  void modifyProduction(ResourceType resourceType, int newProduction) {
-    state.whenOrNull(
-      loaded: (resources) async {
-        final resourcesCopy = {...resources};
-        final oldResource = resourcesCopy[resourceType]!;
-        resourcesCopy[resourceType] = oldResource.map(
-          primaryResource: (resource) => PrimaryResource(
-            type: resource.type,
-            stock: resource.stock,
-            stockHistory: resource.stockHistory,
-            production: newProduction,
-            productionHistory: [...resource.productionHistory, newProduction],
-          ),
-          terraformingLevel: (resource) => resource,
-        );
-        await setResources(resourcesCopy.values.toList());
-        emit(ResourceState.loaded(resources: resourcesCopy));
-      },
+      orElse: () async => false,
     );
   }
 
@@ -158,6 +124,69 @@ class ResourceCubit extends Cubit<ResourceState> {
       },
     );
     return resources;
+  }
+
+  void addStockOrProduction({
+    required ResourceType resourceType,
+    int? stockChange,
+    int? productionChange,
+  }) {
+    if (stockChange == null && productionChange == null) {
+      return;
+    }
+    state.whenOrNull(
+      loaded: (resources) {
+        final resource = resources[resourceType];
+        final oldStock = resource?.stock;
+        final oldProduction = resource?.mapOrNull(
+          primaryResource: (r) => r.production,
+        );
+
+        final newStock = oldStock.add(stockChange);
+        final newProduction = oldProduction.add(productionChange);
+
+        modifyStockOrProduction(
+          resourceType: resourceType,
+          newProduction: newProduction,
+          newStock: newStock,
+        );
+      },
+    );
+  }
+
+  void modifyStockOrProduction({
+    required ResourceType resourceType,
+    int? newStock,
+    int? newProduction,
+  }) {
+    if (newStock == null && newProduction == null) {
+      return;
+    }
+    state.whenOrNull(
+      loaded: (resources) async {
+        final resourcesCopy = {...resources};
+        final oldResource = resourcesCopy[resourceType]!;
+        resourcesCopy[resourceType] = oldResource.map(
+          primaryResource: (resource) => PrimaryResource(
+            type: resource.type,
+            stock: newStock ?? resource.stock,
+            stockHistory: newStock != resource.stock
+                ? resource.stockHistory.addIfNotNull(newStock)
+                : resource.stockHistory,
+            production: newProduction ?? resource.production,
+            productionHistory: newProduction != resource.production
+                ? resource.productionHistory.addIfNotNull(newProduction)
+                : resource.productionHistory,
+          ),
+          terraformingLevel: (resource) => resource.copyWith(
+            stock: newStock ?? resource.stock,
+            stockHistory: resource.stockHistory.addIfNotNull(newStock),
+          ),
+        );
+        await setResources(resourcesCopy.values.toList());
+        emit(ResourceState.loaded(resources: resourcesCopy));
+      },
+    );
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tm_ressource_tracker/presentation/extension/number_extension.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 
 class NumberTextEdit extends StatefulWidget {
@@ -7,10 +8,12 @@ class NumberTextEdit extends StatefulWidget {
     required this.value,
     required this.onValueChanged,
     this.style,
+    this.signedString = false,
   }) : super(key: key);
   final int value;
   final Function(int) onValueChanged;
   final TextStyle? style;
+  final bool signedString;
 
   @override
   State<NumberTextEdit> createState() => _NumberTextEditState();
@@ -24,7 +27,9 @@ class _NumberTextEditState extends State<NumberTextEdit> {
   void didUpdateWidget(covariant NumberTextEdit oldWidget) {
     // If the widget has a changed value, update the value in the controller
     if (oldWidget.value != widget.value) {
-      _controller.text = '${widget.value}';
+      _controller.text = widget.signedString
+          ? widget.value.toSignedString()
+          : '${widget.value}';
     }
     super.didUpdateWidget(oldWidget);
   }

@@ -16,6 +16,17 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 # TODO
-Feedback on special project clicked
+
+DONE Confirm resource edition in sheet for better history
+
+Add resource summary in standard project tab
+
+Split actions and standard project & add actions in resource tiles or in resource tab
+
+Remove scrollable tabs because it's shit
+
+Undo button (depth = 3)
+
+Feedback on standard project clicked
 
 Animated list when adding/removing resource from special project
