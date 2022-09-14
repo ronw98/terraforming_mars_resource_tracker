@@ -70,6 +70,7 @@ class TerraformingRatingWidget extends StatelessWidget {
                     ),
                     child: TextEditableValue(
                       value: stock,
+                      editable: true,
                       style: TextStyle(fontSize: 20),
                       onValueChanged: (newValue) {
                         BlocProvider.of<ResourceCubit>(context).modifyStock(

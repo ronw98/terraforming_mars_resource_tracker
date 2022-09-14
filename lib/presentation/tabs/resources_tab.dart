@@ -5,7 +5,7 @@ import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
-import 'package:tm_ressource_tracker/presentation/views/resource_edition_bottom_sheet.dart';
+import 'package:tm_ressource_tracker/presentation/views/resource_edition_bottom_sheet/resource_edition_bottom_sheet.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/resource_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/tm_text_button.dart';
 

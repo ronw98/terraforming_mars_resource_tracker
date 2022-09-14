@@ -4,6 +4,10 @@ import 'package:tm_ressource_tracker/assets.dart';
 ThemeData appTheme = ThemeData(
   fontFamily: Fonts.enterSansman,
   primaryColor: Color.fromARGB(255, 140, 80, 38),
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: Color.fromARGB(255, 140, 80, 38),
+    primary: Color.fromARGB(255, 140, 80, 38),
+  ),
   scaffoldBackgroundColor: Colors.transparent,
   tabBarTheme: TabBarTheme(
     labelStyle: TextStyle(

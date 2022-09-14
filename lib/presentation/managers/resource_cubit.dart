@@ -34,7 +34,7 @@ class ResourceCubit extends Cubit<ResourceState> {
   Future<bool> onProjectTap(StandardProject project) {
     return state.maybeWhen(
       loaded: (resources) async {
-        if(!resources.canDoStandardProject(project)) {
+        if (!resources.canDoStandardProject(project)) {
           return false;
         }
         Map<ResourceType, Resource> resourcesCopy = {...resources};
@@ -51,7 +51,37 @@ class ResourceCubit extends Cubit<ResourceState> {
         await setResources(resourcesCopy.values.toList());
         emit(ResourceState.loaded(resources: resourcesCopy));
         return true;
-      }, orElse: () async => false,
+      },
+      orElse: () async => false,
+    );
+  }
+
+  void addStock(ResourceType resourceType, int modification) {
+    if(modification == 0) {
+      return;
+    }
+    state.whenOrNull(
+      loaded: (resources) {
+        final oldStock = resources[resourceType]?.stock;
+        if (oldStock != null) {
+          modifyStock(resourceType, oldStock + modification);
+        }
+      },
+    );
+  }
+
+  void addProduction(ResourceType resourceType, int modification) {
+    if(modification == 0) {
+      return;
+    }
+    state.whenOrNull(
+      loaded: (resources) {
+        final oldProd = resources[resourceType]
+            ?.mapOrNull(primaryResource: (r) => r.production);
+        if (oldProd != null) {
+          modifyProduction(resourceType, oldProd + modification);
+        }
+      },
     );
   }
 

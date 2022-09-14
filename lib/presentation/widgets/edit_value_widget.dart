@@ -7,12 +7,16 @@ class EditValueWidget extends StatelessWidget {
   const EditValueWidget({
     Key? key,
     required this.value,
-    required this.onValueChanged,
+    this.onValueChanged,
+    this.onNewValue,
     this.textStyle,
+    this.editable = false,
   }) : super(key: key);
   final int value;
-  final void Function(int) onValueChanged;
+  final void Function(int change)? onValueChanged;
+  final void Function(int newValue)? onNewValue;
   final TextStyle? textStyle;
+  final bool editable;
 
   @override
   Widget build(BuildContext context) {
@@ -22,44 +26,45 @@ class EditValueWidget extends StatelessWidget {
         EditValueButton(
           text: '-10',
           onPressed: () {
-            onValueChanged(value - 10);
+            onValueChanged?.call(- 10);
           },
         ),
         EditValueButton(
           text: '-5',
           onPressed: () {
-            onValueChanged(value - 5);
+            onValueChanged?.call(- 5);
           },
         ),
         EditValueButton(
           text: '-1',
           onPressed: () {
-            onValueChanged(value - 1);
+            onValueChanged?.call(- 1);
           },
         ),
         horizontalSpacer,
         TextEditableValue(
           value: value,
           style: textStyle,
-          onValueChanged: onValueChanged,
+          editable: editable,
+          onValueChanged: onNewValue,
         ),
         horizontalSpacer,
         EditValueButton(
           text: '+1',
           onPressed: () {
-            onValueChanged(value + 1);
+            onValueChanged?.call(1);
           },
         ),
         EditValueButton(
           text: '+5',
           onPressed: () {
-            onValueChanged(value + 5);
+            onValueChanged?.call(5);
           },
         ),
         EditValueButton(
           text: '+10',
           onPressed: () {
-            onValueChanged(value + 10);
+            onValueChanged?.call(10);
           },
         ),
       ],
