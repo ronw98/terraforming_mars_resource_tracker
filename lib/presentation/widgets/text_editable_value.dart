@@ -83,8 +83,12 @@ class _TextEditableValueState extends State<TextEditableValue> {
   Widget build(BuildContext context) {
     return BlocBuilder<ConfigurationCubit, ConfigurationState>(
       builder: (context, state) {
-        final staticText =
-            Text(widget.value.toSignedString(), style: widget.style);
+        final staticText = Text(
+          widget.signedString
+              ? widget.value.toSignedString()
+              : widget.value.toString(),
+          style: widget.style,
+        );
         return state.maybeWhen(
           loaded: (config) {
             return config.settings.editValuesWithText && widget.editable

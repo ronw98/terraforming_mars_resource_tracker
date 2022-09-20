@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
+import 'package:tm_ressource_tracker/presentation/views/resource_summary/resources_summary_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/standard_project_widget.dart';
 
@@ -15,6 +17,7 @@ class StandardProjectsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
+        SliverPinnedHeader(child: ResourcesSummaryWidget()),
         BlocBuilder<ConfigurationCubit, ConfigurationState>(
           builder: (context, state) {
             return state.maybeWhen(
