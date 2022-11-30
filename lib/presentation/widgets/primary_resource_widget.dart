@@ -57,8 +57,8 @@ class PrimaryResourceWidget extends StatelessWidget {
                             },
                           ),
                           child: TextEditableValue(
-                            value: stock,
                             editable: true,
+                            value: stock,
                             onValueChanged: (newValue) {
                               BlocProvider.of<ResourceCubit>(context)
                                   .modifyStockOrProduction(
@@ -79,8 +79,8 @@ class PrimaryResourceWidget extends StatelessWidget {
                             },
                           ),
                           child: TextEditableValue(
-                            value: production,
                             editable: true,
+                            value: production,
                             style: TextStyle(color: Colors.brown),
                             onValueChanged: (newValue) {
                               BlocProvider.of<ResourceCubit>(context)
