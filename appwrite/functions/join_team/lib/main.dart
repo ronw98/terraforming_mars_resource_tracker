@@ -56,6 +56,7 @@ Future<void> start(final req, final res) async {
 
   final String teamCode = payload['team_code'];
   final String userName = payload['user_name'];
+  final String userEmail = payload['user_email'];
 
   print(teamCode);
   print(userName);
@@ -94,10 +95,12 @@ Future<void> start(final req, final res) async {
     final result = await teams.createMembership(
       teamId: teamId,
       name: userName,
-      email: '$userName@terraformingmars.reblochor.dev',
+      email: userEmail,
       roles: [],
       url: 'https://192.168.1.31',
     );
+
+    // Update team document so that all watching refresh
 
     res.json(result.toMap(), status: 200);
   } on Exception catch (e, s) {
