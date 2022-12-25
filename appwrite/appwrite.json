@@ -33,6 +33,23 @@
       ],
       "schedule": "",
       "timeout": 60
+    },
+    {
+      "$id": "63a870478d277f5e686d",
+      "name": "on_owner_leave_team",
+      "runtime": "dart-2.17",
+      "path": "functions/on_owner_leave_team",
+      "entrypoint": "lib/main.dart",
+      "ignore": [
+        ".packages",
+        ".dart_tool"
+      ],
+      "execute": [],
+      "events": [
+        "teams.*.memberships.*.delete"
+      ],
+      "schedule": "",
+      "timeout": 15
     }
   ]
 }
