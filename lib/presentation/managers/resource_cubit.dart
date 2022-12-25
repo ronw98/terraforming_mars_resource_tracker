@@ -78,7 +78,7 @@ class ResourceCubit extends Cubit<ResourceState> {
         resourcesCopy.energy = resourcesCopy.energy.copyWith(stock: 0);
         resourcesCopy.energy = resourcesCopy.energy.produce();
 
-        final settings = sl<ConfigurationCubit>().state.mapOrNull(
+        final settings = serviceLocator<ConfigurationCubit>().state.mapOrNull(
               loaded: (loaded) => loaded.configuration.settings,
             );
         if (settings != null) {

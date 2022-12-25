@@ -26,14 +26,16 @@ class HomePage extends StatelessWidget {
               BlocBuilder<ResourceCubit, ResourceState>(
                 buildWhen: (previous, current) => current is ResourcesLoaded,
                 builder: (context, state) {
-                  if (!sl<ResourceCubit>().canUndo) {
+                  // TODO: Use [BlocProvider.of]
+                  if (!serviceLocator<ResourceCubit>().canUndo) {
                     return const NoneWidget();
                   }
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ShapeIconButton(
                       onPressed: () {
-                        sl<ResourceCubit>().undo();
+                        // TODO: Use [BlocProvider.of]
+                        serviceLocator<ResourceCubit>().undo();
                       },
                       icon: Icon(Icons.replay),
                     ),

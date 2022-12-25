@@ -8,7 +8,9 @@
   "home": {
     "tabs": {
       "resources": "Resources",
-      "projects": "Standard projects"
+      "projects": "Standard projects",
+      "current_game": "Current game"
+
     }
   },
   "settings": {
