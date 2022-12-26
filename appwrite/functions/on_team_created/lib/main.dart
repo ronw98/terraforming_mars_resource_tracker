@@ -38,6 +38,7 @@ Future<void> start(final req, final res) async {
     client
         .setEndpoint('https://192.168.1.31/v1')
         .setProject('63a19394a9a11f708b98')
+    // TODO use variables
         .setKey(
           '93a3b7b7c6bbe5c1aa0b978df5fa828499624cd2e06ba4f3d1b72308ce45c2bea0'
           '6f8130340e2b868a075d1d9f41a668dd9713051b49e86949baa42ebf49745c0d3e'
@@ -112,4 +113,4 @@ Future<String> _generateTeamValidCode(Databases databases) async {
 }
 
 /// Generates a 6 characters code
-String _generateOneCode() => Uuid().v4().substring(0, 6);
+String _generateOneCode() => Uuid().v4().substring(0, 6).toUpperCase();

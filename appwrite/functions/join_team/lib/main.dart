@@ -42,6 +42,7 @@ Future<void> start(final req, final res) async {
   client
       .setEndpoint('https://192.168.1.31/v1')
       .setProject('63a19394a9a11f708b98')
+  // TODO use variables
       .setKey(
           '3ca4e064905131d9c9bede1455edcfa180fabe233ad753e476b4ff5f71890168e368'
           'd49976bcfc007757adfb55f37c380a512563120d427c31bd13b4b04bce4e4735b8c8'
@@ -64,11 +65,12 @@ Future<void> start(final req, final res) async {
   // Check if team code exists
   try {
     final documents = await databases.listDocuments(
-        databaseId: '63a1950e5d318d12092c',
-        collectionId: '63a740a49ed18ab26e6d',
-        queries: [
-          Query.equal('teamCode', teamCode),
-        ]);
+      databaseId: '63a1950e5d318d12092c',
+      collectionId: '63a740a49ed18ab26e6d',
+      queries: [
+        Query.equal('teamCode', teamCode.toUpperCase()),
+      ],
+    );
 
     if (documents.documents.isEmpty) {
       print('Documents empty');
