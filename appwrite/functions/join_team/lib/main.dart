@@ -19,6 +19,7 @@ import 'package:dart_appwrite/dart_appwrite.dart';
 //     {
 //       "team_code": "65a984",
 //       "user_name": "test",
+//       "user_email": "oui@test.test"
 //     },
 //   );
 // }
@@ -40,7 +41,7 @@ Future<void> start(final req, final res) async {
   final client = Client();
 
   client
-      .setEndpoint('https://192.168.1.31/v1')
+      .setEndpoint('https://192.168.1.82/v1')
       .setProject('63a19394a9a11f708b98')
   // TODO use variables
       .setKey(
@@ -75,7 +76,7 @@ Future<void> start(final req, final res) async {
     if (documents.documents.isEmpty) {
       print('Documents empty');
       res.json(
-        jsonEncode({'type': ResultType.teamNotFound}),
+        {'type': ResultType.teamNotFound},
         status: 404,
       );
       return;
@@ -83,7 +84,7 @@ Future<void> start(final req, final res) async {
     if (documents.documents.length > 1) {
       print('Too many documents');
       res.json(
-        jsonEncode({'type': ResultType.tooManyTeams}),
+        {'type': ResultType.tooManyTeams},
         status: 406,
       );
       return;
@@ -99,7 +100,7 @@ Future<void> start(final req, final res) async {
       name: userName,
       email: userEmail,
       roles: [],
-      url: 'https://192.168.1.31',
+      url: 'https://192.168.1.82',
     );
 
     // Update team document so that all watching refresh
