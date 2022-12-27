@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' hide Account;
@@ -43,7 +42,9 @@ mixin AppwriteDatabaseDataSource {
     subscription.stream.listen(
       (event) async {
         try {
-          log('Event triggered');
+          if (streamController.isClosed) {
+            return;
+          }
           streamController.add(
             await getDocument(
               databaseId,
@@ -86,6 +87,9 @@ mixin AppwriteDatabaseDataSource {
     subscription.stream.listen(
       (event) async {
         try {
+          if (streamController.isClosed) {
+            return;
+          }
           streamController.add(
             await getCollection(
               databaseId,

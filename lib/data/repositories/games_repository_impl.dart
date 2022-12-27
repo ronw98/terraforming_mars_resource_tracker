@@ -181,8 +181,8 @@ class GamesRepositoryImpl implements GamesRepository {
         email: newEmail,
         password: 'defaultPassword',
       );
-      await teamsDataSource.joinTeam(inviteCode, userName, newEmail);
-      return true;
+      final joined = await teamsDataSource.joinTeam(inviteCode, userName, newEmail);
+      return joined;
     } on AppwriteException catch (e, s) {
       log(
         'Error while joining game',

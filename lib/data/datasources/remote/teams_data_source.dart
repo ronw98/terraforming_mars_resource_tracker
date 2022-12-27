@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
@@ -99,15 +100,104 @@ class TeamsDataSourceImpl
 
   @override
   Stream<TeamDocumentModel> watchTeamDocument(String teamId) async* {
-    final document = await _getTeamRawDocument(teamId);
-    yield* watchDocument(
-      AppConstants.resourceDataBaseId,
-      AppConstants.teamsCollectionId,
-      document.$id,
-      additionalChannels: ['memberships'],
-    ).map(
-      (document) => TeamDocumentModel.fromJson(document.data),
-    );
+    try {
+      // This might throw an exception as the document might not be created right away
+      final document = await _getTeamRawDocument(teamId);
+
+      yield* watchDocument(
+        AppConstants.resourceDataBaseId,
+        AppConstants.teamsCollectionId,
+        document.$id,
+        additionalChannels: ['memberships'],
+      ).map(
+        (document) => TeamDocumentModel.fromJson(document.data),
+      );
+    } on Exception catch (_) {
+      log(
+        'Could not get team right away',
+        name: runtimeType.toString(),
+      );
+      // If the document was not created right away, listen to collection changes
+      // When the document is created, listen to document changes
+      late final RealtimeSubscription collectionChangesSubscription;
+      late final StreamController<TeamDocumentModel> streamController;
+      bool subscriptionClosed = false;
+      streamController = StreamController(
+        onCancel: () async {
+          if(!subscriptionClosed) {
+            subscriptionClosed = true;
+            collectionChangesSubscription.close();
+          }
+          streamController.close();
+        },
+      );
+
+      // Subscribe to collection changes
+      collectionChangesSubscription = realtime.subscribe(
+        [
+          'databases.${AppConstants.resourceDataBaseId}'
+              '.collections.${AppConstants.teamsCollectionId}'
+              '.documents'
+        ],
+      );
+
+      collectionChangesSubscription.stream.listen(
+        (event) async {
+          // A team document was created in the database
+          if (event.events
+              .contains('databases.${AppConstants.resourceDataBaseId}'
+                  '.collections.${AppConstants.teamsCollectionId}'
+                  '.documents.*.create')) {
+            final createdDocTeamId = event.payload['teamId'];
+            // Document is for the current team
+            if (createdDocTeamId == teamId) {
+              log(
+                'Team document created, watching changes',
+                name: runtimeType.toString(),
+              );
+              // Watch said document changes
+              streamController.addStream(
+                watchDocument(
+                  AppConstants.resourceDataBaseId,
+                  AppConstants.teamsCollectionId,
+                  event.payload['\$id'],
+                  additionalChannels: ['memberships'],
+                ).map(
+                  (document) => TeamDocumentModel.fromJson(document.data),
+                ),
+              );
+              if(!subscriptionClosed) {
+                subscriptionClosed = true;
+                // Close the collection subscription
+                collectionChangesSubscription.close();
+              }
+            }
+          }
+        },
+        onError: (e, s) => streamController.addError(e, s),
+      );
+
+      // Retry to get document just in case it was created between the first try and the subscription
+      try {
+        final document = await _getTeamRawDocument(teamId);
+
+        log('Better luck the second time', name: 'Team creation');
+        streamController.close();
+        yield* watchDocument(
+          AppConstants.resourceDataBaseId,
+          AppConstants.teamsCollectionId,
+          document.$id,
+          additionalChannels: ['memberships'],
+        ).map(
+          (document) => TeamDocumentModel.fromJson(document.data),
+        );
+        collectionChangesSubscription.close();
+      } on Exception catch (_) {
+        log('Could not get the second time', name: 'Team creation');
+      }
+
+      yield* streamController.stream;
+    }
   }
 
   Future<models.Document> _getTeamRawDocument(String teamId) async {

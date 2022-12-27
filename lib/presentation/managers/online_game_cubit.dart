@@ -71,16 +71,23 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
     final created = await _createGame(userName);
 
     if (created) {
+      // Wait a second for the teams document to be created
+      Future.delayed(const Duration(seconds: 1));
+
       _initializeSubscriptions();
       if (resources != null) {
         setResources(resources);
       }
     } else {
+      // Emit error state
       emit(
         OnlineGameState.error(
           Failure.createGame('Failed to create game'),
         ),
       );
+      // Wait 1 sec and emit initial state
+      await Future.delayed(const Duration(seconds: 1));
+      emit(OnlineGameState.initial());
     }
   }
 
@@ -99,7 +106,14 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
         setResources(resources);
       }
     } else {
-      emit(OnlineGameState.error(Failure.gameJoin('Failed to join game')));
+      emit(
+        OnlineGameState.error(
+          Failure.gameJoin('Failed to join game'),
+        ),
+      );
+      // Wait 1 sec and emit initial state
+      await Future.delayed(const Duration(seconds: 1));
+      emit(OnlineGameState.initial());
     }
   }
 
@@ -107,21 +121,36 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
     final leaveEither = await _leaveGame();
 
     leaveEither.fold(
-      (f) => emit(
-        OnlineGameState.error(
-          Failure.gameLeave('Could not leave game'),
-        ),
-      ),
+      (f) async {
+        final previousState = state;
+        // Emit error state
+        emit(
+          OnlineGameState.error(
+            Failure.gameLeave('Could not leave game'),
+          ),
+        );
+        // Wait 1 sec and return to previous state
+        await Future.delayed(const Duration(seconds: 1));
+        emit(previousState);
+      },
       (result) async {
         if (result) {
           await _closeSubscriptions();
+          // Reset cache resources
+          _lastInfo = null;
+          _lastResources = null;
           emit(OnlineGameState.initial());
         } else {
+          final previousState = state;
+          // Emit error state
           emit(
             OnlineGameState.error(
               Failure.gameLeave('Could not leave game'),
             ),
           );
+          // Wait 1 sec and return to previous state
+          await Future.delayed(const Duration(seconds: 1));
+          emit(previousState);
         }
       },
     );
@@ -132,42 +161,44 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
   }
 
   void _initializeSubscriptions() {
-    _gameInfoSubscription =
-        _watchGameInfo().listen((Either<Failure, GameInfo> data) {
-      data.fold(
-        (failure) {
-          // On failure, check if the game still exists
-          // If so do nothing, otherwise, reset cubit
-        },
-        (info) {
-          _lastInfo = info;
+    _gameInfoSubscription = _watchGameInfo().listen(
+      (Either<Failure, GameInfo> data) {
+        data.fold(
+          (failure) {
+            // On failure, check if the game still exists
+            // If so do nothing, otherwise, reset cubit
+          },
+          (info) {
+            _lastInfo = info;
+            emit(
+              OnlineGameState.loaded(
+                Game(
+                  info: info,
+                  resources: _lastResources ?? [],
+                ),
+              ),
+            );
+          },
+        );
+      },
+      onError: (e, s) {
+        log('Error subscription game', error: e, stackTrace: s);
+        if (e is AppwriteException) {
+          if (e.code == 404) {
+            _closeSubscriptions();
+            emit(OnlineGameState.initial());
+          }
+        } else {
           emit(
-            OnlineGameState.loaded(
-              Game(
-                info: info,
-                resources: _lastResources ?? [],
+            OnlineGameState.error(
+              Failure.failure(
+                e.toString(),
               ),
             ),
           );
-        },
-      );
-    }, onError: (e, s) {
-      log('Error subscription game', error: e, stackTrace: s);
-      if (e is AppwriteException) {
-        if (e.code == 404) {
-          _closeSubscriptions();
-          emit(OnlineGameState.initial());
         }
-      } else {
-        emit(
-          OnlineGameState.error(
-            Failure.failure(
-              e.toString(),
-            ),
-          ),
-        );
-      }
-    });
+      },
+    );
 
     _userResourcesSubscription = _watchGameResources().listen(
       (Either<Failure, List<UserResources>> data) {

@@ -15,7 +15,7 @@ import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.d
 
 part 'resource_cubit.freezed.dart';
 
-@lazySingleton
+@singleton
 class ResourceCubit extends Cubit<ResourceState> {
   ResourceCubit(this.getResources, this.setResources)
       : super(ResourceState.initial());
