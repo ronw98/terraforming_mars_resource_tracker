@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/tabs/current_game/current_game_tab.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/resources_tab.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/standard_projects_tab.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/tab_item.dart';
@@ -16,7 +17,7 @@ class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
@@ -26,12 +27,17 @@ class _HomeContentState extends State<HomeContent> {
                 child: TabBar(
                   tabs: [
                     TabItem(
-                      widthFactor: 0.4,
+                      widthFactor: 0.3,
                       text: LocaleKeys.home.tabs.resources.translate(context),
                     ),
                     TabItem(
-                      widthFactor: 0.4,
+                      widthFactor: 0.3,
                       text: LocaleKeys.home.tabs.projects.translate(context),
+                    ),
+                    TabItem(
+                      widthFactor: 0.3,
+                      text:
+                          LocaleKeys.home.tabs.current_game.translate(context),
                     )
                   ],
                   isScrollable: true,
@@ -44,6 +50,7 @@ class _HomeContentState extends State<HomeContent> {
           children: [
             ResourcesTab(),
             StandardProjectsTab(),
+            CurrentGameTab(),
           ],
         ),
       ),
