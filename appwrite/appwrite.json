@@ -63,7 +63,9 @@
                 ".packages",
                 ".dart_tool"
             ],
-            "execute": [],
+            "execute": [
+                "users"
+            ],
             "events": [],
             "schedule": "",
             "timeout": 15
