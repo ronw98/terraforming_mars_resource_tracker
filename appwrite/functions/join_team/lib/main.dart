@@ -40,15 +40,14 @@ Future<void> start(final req, final res) async {
   print(req.payload);
   final client = Client();
 
+  final String apiKey = req.variables['API_KEY'];
+  final String serverEndpoint = req.variables['SERVER_ENDPOINT'];
+  final String projectId = req.variables['APPWRITE_FUNCTION_PROJECT_ID'];
+
   client
-      .setEndpoint('https://192.168.1.82/v1')
-      .setProject('63a19394a9a11f708b98')
-  // TODO use variables
-      .setKey(
-          '3ca4e064905131d9c9bede1455edcfa180fabe233ad753e476b4ff5f71890168e368'
-          'd49976bcfc007757adfb55f37c380a512563120d427c31bd13b4b04bce4e4735b8c8'
-          'ac5c87d2616848cc764e3bcf7c6c3bc8e7dab3b8ec870f4dfef256a63375c0a5e324'
-          '1d3aeb8887b7d049185187051153650c373349c65b544372f4e3')
+      .setEndpoint(serverEndpoint)
+      .setProject(projectId)
+      .setKey(apiKey)
       .setSelfSigned(status: true);
 
   final Teams teams = Teams(client);
@@ -100,7 +99,7 @@ Future<void> start(final req, final res) async {
       name: userName,
       email: userEmail,
       roles: [],
-      url: 'https://192.168.1.82',
+      url: serverEndpoint.replaceFirst('/v1', ''),
     );
 
     // Update team document so that all watching refresh

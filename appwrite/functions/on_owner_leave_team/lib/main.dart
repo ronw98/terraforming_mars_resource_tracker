@@ -15,34 +15,34 @@ import 'package:dart_appwrite/dart_appwrite.dart';
   If an error is thrown, a response with code 500 will be returned.
 */
 
-class Req {
-  final Map<String, dynamic> variables = {
-    'APPWRITE_FUNCTION_EVENT_DATA': jsonEncode(
-      {
-        "\$id": "63a8798162d4ebefc0ae",
-        "\$createdAt": "2022-12-25T16:25:37.404+00:00",
-        "\$updatedAt": "2022-12-25T16:25:37.404+00:00",
-        "userId": "63a86af3a24f405d737a",
-        "userName": "",
-        "userEmail": "",
-        "teamId": "63a86a7d81bba8b33679",
-        "teamName": "",
-        "invited": "2022-12-25T16:25:37.404+00:00",
-        "joined": "2022-12-25T16:25:37.404+00:00",
-        "confirm": true,
-        "roles": ["owner"],
-      },
-    ),
-  };
-}
-
-class Res {
-  void send(String text, {int? status}) {}
-}
-
-void main() {
-  start(Req(), Res());
-}
+// class Req {
+//   final Map<String, dynamic> variables = {
+//     'APPWRITE_FUNCTION_EVENT_DATA': jsonEncode(
+//       {
+//         "\$id": "63a8798162d4ebefc0ae",
+//         "\$createdAt": "2022-12-25T16:25:37.404+00:00",
+//         "\$updatedAt": "2022-12-25T16:25:37.404+00:00",
+//         "userId": "63a86af3a24f405d737a",
+//         "userName": "",
+//         "userEmail": "",
+//         "teamId": "63a86a7d81bba8b33679",
+//         "teamName": "",
+//         "invited": "2022-12-25T16:25:37.404+00:00",
+//         "joined": "2022-12-25T16:25:37.404+00:00",
+//         "confirm": true,
+//         "roles": ["owner"],
+//       },
+//     ),
+//   };
+// }
+//
+// class Res {
+//   void send(String text, {int? status}) {}
+// }
+//
+// void main() {
+//   start(Req(), Res());
+// }
 
 const databaseId = '63a1950e5d318d12092c';
 const gameCollectionId = '63a1951eac9d9d366a0d';
@@ -52,16 +52,14 @@ Future<void> start(final req, final res) async {
   try {
     final client = Client();
 
+    final apiKey = req.variables['API_KEY'];
+    final serverEndpoint = req.variables['SERVER_ENDPOINT'];
+    final projectId = req.variables['APPWRITE_FUNCTION_PROJECT_ID'];
+
     client
-        .setEndpoint('https://192.168.1.31/v1')
-        .setProject('63a19394a9a11f708b98')
-    // TODO use variables
-        .setKey(
-          '1b169af4f4c03998ed85bf954e839b38a1aae033f3afe2830c65894798c374583d99'
-          '542695113f761c808897a8549cac430b7be4c3521638dad96eb52bc3cdc5ccb42e47'
-          'e836f45a8a0c79a256ea6cea0966a6a8d130f42f7fb4a9a0eee0e935c3b959c1fd94'
-          '7df2905ac4a88d586b97219069e61387618c7d5658f227e3ce4b',
-        )
+        .setEndpoint(serverEndpoint)
+        .setProject(projectId)
+        .setKey(apiKey)
         .setSelfSigned(status: true);
 
     final databases = Databases(client);

@@ -35,16 +35,14 @@ Future<void> start(final req, final res) async {
   try {
     final client = Client();
 
+    final apiKey = req.variables['API_KEY'];
+    final serverEndpoint = req.variables['SERVER_ENDPOINT'];
+    final projectId = req.variables['APPWRITE_FUNCTION_PROJECT_ID'];
+
     client
-        .setEndpoint('https://192.168.1.31/v1')
-        .setProject('63a19394a9a11f708b98')
-    // TODO use variables
-        .setKey(
-          '93a3b7b7c6bbe5c1aa0b978df5fa828499624cd2e06ba4f3d1b72308ce45c2bea0'
-          '6f8130340e2b868a075d1d9f41a668dd9713051b49e86949baa42ebf49745c0d3e'
-          'baf0d7620e0cd79d7a4d379db8e25a30769bed0c45f869f5dd6c1590d706c45344'
-          '81f42b290b9054a2bf4d075a7d9141f866619a20d43abd7eb645ee5e92',
-        )
+        .setEndpoint(serverEndpoint)
+        .setProject(projectId)
+        .setKey(apiKey)
         .setSelfSigned(status: true);
 
     final database = Databases(client);
@@ -66,8 +64,6 @@ Future<void> start(final req, final res) async {
     final teamCode = await _generateTeamValidCode(database);
 
     print(teamCode);
-
-    // res.send('OK', status: 200);
 
     await database.createDocument(
       databaseId: '63a1950e5d318d12092c',
