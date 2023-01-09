@@ -16,6 +16,8 @@ import 'package:uuid/uuid.dart';
 abstract class TeamsDataSource {
   Future<models.Team?> getCurrentTeam();
 
+  Future<List<models.Team>> getTeams();
+
   Future<models.MembershipList> getTeamsMemberships(String teamId);
 
   Future<models.Membership?> getCurrentUserTeamMembership(
@@ -236,5 +238,11 @@ class TeamsDataSourceImpl
       ),
     );
     return execution.statusCode >= 200 && execution.statusCode < 300;
+  }
+
+  @override
+  Future<List<models.Team>> getTeams() async {
+    final teams = await serviceLocator<Teams>().list();
+    return teams.teams;
   }
 }

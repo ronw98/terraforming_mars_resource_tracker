@@ -87,21 +87,22 @@ mixin AppwriteDatabaseDataSource {
     subscription.stream.listen(
       (event) async {
         try {
-          if (streamController.isClosed) {
-            return;
+          if (!streamController.isClosed) {
+            streamController.add(
+              await getCollection(
+                databaseId,
+                collectionId,
+                queries,
+              ),
+            );
           }
-          streamController.add(
-            await getCollection(
-              databaseId,
-              collectionId,
-              queries,
-            ),
-          );
         } on AppwriteException catch (e, s) {
           streamController.addError(e, s);
         }
       },
-      onError: (e, s) => streamController.addError(e, s),
+      onError: (e, s) {
+        if (!streamController.isClosed) streamController.addError(e, s);
+      },
     );
 
     return streamController.stream;

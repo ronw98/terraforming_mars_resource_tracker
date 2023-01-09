@@ -31,6 +31,20 @@ class GamesRepositoryImpl implements GamesRepository {
         password: 'defaultPassword',
       );
 
+      // Leave all previous games
+
+      // Get current user id
+      final currentAccount = await serviceLocator<Account>().get();
+      final userId = currentAccount.$id;
+
+      final allTeams = await teamsDataSource.getTeams();
+      for (final team in allTeams) {
+        final membership = await teamsDataSource.getCurrentUserTeamMembership(
+            userId, team.$id);
+        if (membership != null)
+          await teamsDataSource.deleteMembership(team.$id, membership.$id);
+      }
+
       final team = await teamsDataSource.createTeam(gameName);
       return GameInfo.incomplete(
         id: team.$id,
@@ -181,7 +195,8 @@ class GamesRepositoryImpl implements GamesRepository {
         email: newEmail,
         password: 'defaultPassword',
       );
-      final joined = await teamsDataSource.joinTeam(inviteCode, userName, newEmail);
+      final joined =
+          await teamsDataSource.joinTeam(inviteCode, userName, newEmail);
       return joined;
     } on AppwriteException catch (e, s) {
       log(

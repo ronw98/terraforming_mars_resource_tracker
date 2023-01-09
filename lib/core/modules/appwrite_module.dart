@@ -6,7 +6,7 @@ import 'package:tm_ressource_tracker/core/injection.dart';
 abstract class AppWriteModule {
   Client get client => Client()
       // TODO: Use production url
-      .setEndpoint('https://192.168.1.31/v1')
+      .setEndpoint('https://192.168.230.109/v1')
       .setProject('63a19394a9a11f708b98')
       .setSelfSigned(status: true);
 

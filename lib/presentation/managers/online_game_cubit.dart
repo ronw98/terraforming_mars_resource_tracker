@@ -71,13 +71,13 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
     final created = await _createGame(userName);
 
     if (created) {
-      // Wait a second for the teams document to be created
-      Future.delayed(const Duration(seconds: 1));
-
-      _initializeSubscriptions();
-      if (resources != null) {
-        setResources(resources);
-      }
+      _initializeSubscriptions(
+        onTeamCreatedCallback: () {
+          if (resources != null) {
+            setResources(resources);
+          }
+        },
+      );
     } else {
       // Emit error state
       emit(
@@ -160,7 +160,9 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
     _uploadResources(resources);
   }
 
-  void _initializeSubscriptions() {
+  void _initializeSubscriptions({
+    Function()? onTeamCreatedCallback,
+  }) {
     _gameInfoSubscription = _watchGameInfo().listen(
       (Either<Failure, GameInfo> data) {
         data.fold(
@@ -169,6 +171,9 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
             // If so do nothing, otherwise, reset cubit
           },
           (info) {
+            if (_lastInfo == null && onTeamCreatedCallback != null) {
+              onTeamCreatedCallback();
+            }
             _lastInfo = info;
             emit(
               OnlineGameState.loaded(
@@ -184,7 +189,10 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
       onError: (e, s) {
         log('Error subscription game', error: e, stackTrace: s);
         if (e is AppwriteException) {
+          // Team document deleted
           if (e.code == 404) {
+            _lastInfo = null;
+            _lastResources = null;
             _closeSubscriptions();
             emit(OnlineGameState.initial());
           }

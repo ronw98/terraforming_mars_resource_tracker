@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/entities/game_info.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
@@ -37,7 +39,13 @@ class UploadResources {
         info.id,
         resources,
       );
-    } on Exception catch (_) {
+    } on Exception catch (e, s) {
+      log(
+        'Error uploading resources',
+        name: 'UploadResources',
+        error: e,
+        stackTrace: s,
+      );
       return false;
     }
   }
