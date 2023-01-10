@@ -32,14 +32,14 @@ class NoCurrentGameWidget extends StatelessWidget {
                 onPressed: () => _joinGame(context),
                 icon: Icon(Icons.group_add_outlined),
                 label: Text(
-                  LocaleKeys.game.no_game.translate(context),
+                  LocaleKeys.game.join_game.translate(context),
                 ),
               ),
               ElevatedButton.icon(
                 onPressed: () => _createGame(context),
                 icon: Icon(Icons.extension_outlined),
                 label: Text(
-                  LocaleKeys.game.no_game.translate(context),
+                  LocaleKeys.game.create_game.translate(context),
                 ),
               ),
             ],

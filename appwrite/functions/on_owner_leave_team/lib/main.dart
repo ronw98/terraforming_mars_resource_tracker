@@ -44,9 +44,9 @@ import 'package:dart_appwrite/dart_appwrite.dart';
 //   start(Req(), Res());
 // }
 
-const databaseId = '63a1950e5d318d12092c';
-const gameCollectionId = '63a1951eac9d9d366a0d';
-const teamCollectionId = '63a740a49ed18ab26e6d';
+const databaseId = '63bd3f445063816087a0';
+const gameCollectionId = '63bd417320516eea0652';
+const teamCollectionId = '63bd3f4c90e5f37232cc';
 
 Future<void> start(final req, final res) async {
   try {
