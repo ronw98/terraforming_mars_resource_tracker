@@ -66,8 +66,8 @@ Future<void> start(final req, final res) async {
     print(teamCode);
 
     await database.createDocument(
-      databaseId: '63a1950e5d318d12092c',
-      collectionId: '63a740a49ed18ab26e6d',
+      databaseId: '63bd3f445063816087a0',
+      collectionId: '63bd3f4c90e5f37232cc',
       documentId: ID.unique(),
       data: {
         'teamId': createdTeamId,
@@ -89,8 +89,8 @@ Future<void> start(final req, final res) async {
 Future<String> _generateTeamValidCode(Databases databases) async {
   final List<String> teamCodes = await databases
       .listDocuments(
-        databaseId: '63a1950e5d318d12092c',
-        collectionId: '63a740a49ed18ab26e6d',
+        databaseId: '63bd3f445063816087a0',
+        collectionId: '63bd3f4c90e5f37232cc',
       )
       .then(
         (documents) => documents.documents

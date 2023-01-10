@@ -1,13 +1,14 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:injectable/injectable.dart';
+import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
 
 @module
 abstract class AppWriteModule {
   Client get client => Client()
       // TODO: Use production url
-      .setEndpoint('https://10.31.1.114/v1')
-      .setProject('63a19394a9a11f708b98')
+      .setEndpoint('https://tm.reblochor.dev/v1')
+      .setProject(AppConstants.projectId)
       .setSelfSigned(status: true);
 
   Realtime get realtime => Realtime(serviceLocator());

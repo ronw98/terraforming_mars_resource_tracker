@@ -53,8 +53,8 @@ class UserResourcesDataSourceImpl
   @override
   Future<void> deleteUserResources(String userId) async {
     final documents = await databases.listDocuments(
-      databaseId: AppConstants.resourceDataBaseId,
-      collectionId: AppConstants.resourceCollectionId,
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.gameCollectionId,
       queries: [
         Query.equal('userId', userId),
       ],
@@ -62,8 +62,8 @@ class UserResourcesDataSourceImpl
     for (final doc in documents.documents) {
       if (doc.$permissions.contains(Permission.delete(Role.user(userId)))) {
         await databases.deleteDocument(
-          databaseId: AppConstants.resourceDataBaseId,
-          collectionId: AppConstants.resourceCollectionId,
+          databaseId: AppConstants.databaseId,
+          collectionId: AppConstants.gameCollectionId,
           documentId: doc.$id,
         );
       }
@@ -73,8 +73,8 @@ class UserResourcesDataSourceImpl
   @override
   Future<List<UserResourcesModel>> getGamesResources(String userId) async {
     final userResourcesDocs = await databases.listDocuments(
-      databaseId: AppConstants.resourceDataBaseId,
-      collectionId: AppConstants.resourceCollectionId,
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.gameCollectionId,
       queries: [
         Query.notEqual('userId', userId),
       ],
@@ -89,8 +89,8 @@ class UserResourcesDataSourceImpl
   @override
   Stream<List<UserResourcesModel>> watchGamesResources(String userId) {
     return watchCollection(
-      AppConstants.resourceDataBaseId,
-      AppConstants.resourceCollectionId,
+      AppConstants.databaseId,
+      AppConstants.gameCollectionId,
       [
         Query.notEqual('userId', userId),
       ],
@@ -110,8 +110,8 @@ class UserResourcesDataSourceImpl
   ) async {
     // Get current document
     final documents = await databases.listDocuments(
-      databaseId: AppConstants.resourceDataBaseId,
-      collectionId: AppConstants.resourceCollectionId,
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.gameCollectionId,
       queries: [
         Query.equal('userId', userId),
       ],
@@ -126,8 +126,8 @@ class UserResourcesDataSourceImpl
     }
     final documentId = documents.documents.first.$id;
     await databases.updateDocument(
-      databaseId: AppConstants.resourceDataBaseId,
-      collectionId: AppConstants.resourceCollectionId,
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.gameCollectionId,
       documentId: documentId,
       data: userResourcesModel.toJson(),
     );
@@ -141,8 +141,8 @@ class UserResourcesDataSourceImpl
     UserResourcesModel userResourcesModel,
   ) async {
     await databases.createDocument(
-      databaseId: AppConstants.resourceDataBaseId,
-      collectionId: AppConstants.resourceCollectionId,
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.gameCollectionId,
       documentId: serviceLocator<Uuid>().v4(),
       data: userResourcesModel.toJson(),
       permissions: [
@@ -161,8 +161,8 @@ class UserResourcesDataSourceImpl
   @override
   Future<bool> userHasUploadedResources(String userId) async {
     final documents = await databases.listDocuments(
-      databaseId: AppConstants.resourceDataBaseId,
-      collectionId: AppConstants.resourceCollectionId,
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.gameCollectionId,
       queries: [
         Query.equal('userId', userId),
       ],

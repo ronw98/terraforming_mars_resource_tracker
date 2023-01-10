@@ -107,7 +107,7 @@ class TeamsDataSourceImpl
       final document = await _getTeamRawDocument(teamId);
 
       yield* watchDocument(
-        AppConstants.resourceDataBaseId,
+        AppConstants.databaseId,
         AppConstants.teamsCollectionId,
         document.$id,
         additionalChannels: ['memberships'],
@@ -137,7 +137,7 @@ class TeamsDataSourceImpl
       // Subscribe to collection changes
       collectionChangesSubscription = realtime.subscribe(
         [
-          'databases.${AppConstants.resourceDataBaseId}'
+          'databases.${AppConstants.databaseId}'
               '.collections.${AppConstants.teamsCollectionId}'
               '.documents'
         ],
@@ -147,7 +147,7 @@ class TeamsDataSourceImpl
         (event) async {
           // A team document was created in the database
           if (event.events
-              .contains('databases.${AppConstants.resourceDataBaseId}'
+              .contains('databases.${AppConstants.databaseId}'
                   '.collections.${AppConstants.teamsCollectionId}'
                   '.documents.*.create')) {
             final createdDocTeamId = event.payload['teamId'];
@@ -160,7 +160,7 @@ class TeamsDataSourceImpl
               // Watch said document changes
               streamController.addStream(
                 watchDocument(
-                  AppConstants.resourceDataBaseId,
+                  AppConstants.databaseId,
                   AppConstants.teamsCollectionId,
                   event.payload['\$id'],
                   additionalChannels: ['memberships'],
@@ -186,7 +186,7 @@ class TeamsDataSourceImpl
         log('Better luck the second time', name: 'Team creation');
         streamController.close();
         yield* watchDocument(
-          AppConstants.resourceDataBaseId,
+          AppConstants.databaseId,
           AppConstants.teamsCollectionId,
           document.$id,
           additionalChannels: ['memberships'],
@@ -204,7 +204,7 @@ class TeamsDataSourceImpl
 
   Future<models.Document> _getTeamRawDocument(String teamId) async {
     final documents = await databases.listDocuments(
-      databaseId: AppConstants.resourceDataBaseId,
+      databaseId: AppConstants.databaseId,
       collectionId: AppConstants.teamsCollectionId,
       queries: [
         Query.equal('teamId', teamId),
