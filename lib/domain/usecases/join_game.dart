@@ -1,7 +1,9 @@
-
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/exceptions.dart';
+import 'package:tm_ressource_tracker/domain/failures.dart';
 import 'package:tm_ressource_tracker/domain/repositories/games_repository.dart';
+import 'package:tm_ressource_tracker/domain/usecases/anonymous_login.dart';
 
 /// Joins a game with an inviteCode
 ///
@@ -12,28 +14,33 @@ import 'package:tm_ressource_tracker/domain/repositories/games_repository.dart';
 @injectable
 class JoinGame {
   final GamesRepository gamesRepository;
+  final AnonymousLogin anonymousLogin;
 
-  JoinGame(this.gamesRepository);
+  JoinGame(this.gamesRepository, this.anonymousLogin);
 
-  Future<bool> call(String userName, String inviteCode) async {
+  Future<Either<Failure, bool>> call(String userName, String inviteCode) async {
     bool leaveResult;
     try {
+      await anonymousLogin();
       leaveResult = await gamesRepository.leaveGame();
-
     } on NoCurrentGameException catch (_) {
       leaveResult = true;
-    } on Exception catch(_) {
-      return false;
+    } on Exception catch (_) {
+      return Left(Failure.gameJoin());
     }
     try {
       if (leaveResult) {
-        return await gamesRepository.joinGame(inviteCode, userName);
+        final res = await gamesRepository.joinGame(inviteCode, userName);
+        return res.fold(
+          (l) => Left(l),
+          (r) => Right(r >= 200 && r < 300),
+        );
       }
-      return false;
+      return Right(false);
     } on CustomException catch (_) {
-      return false;
+      return Left(Failure.gameJoin());
     } on Exception catch (_) {
-      return false;
+      return Left(Failure.gameJoin());
     }
   }
 }

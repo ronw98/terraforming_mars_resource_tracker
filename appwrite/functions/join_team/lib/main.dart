@@ -34,7 +34,7 @@ import 'package:dart_appwrite/dart_appwrite.dart';
 //   start(Req(), Res());
 // }
 
-enum ResultType { teamNotFound, tooManyTeams, success }
+enum ResultType { teamNotFound, tooManyTeams, unknown, success }
 
 Future<void> start(final req, final res) async {
   print(req.payload);
@@ -75,16 +75,14 @@ Future<void> start(final req, final res) async {
     if (documents.documents.isEmpty) {
       print('Documents empty');
       res.json(
-        {'type': ResultType.teamNotFound},
-        status: 404,
+        {'type': ResultType.teamNotFound.name, 'status': 404},
       );
       return;
     }
     if (documents.documents.length > 1) {
       print('Too many documents');
       res.json(
-        {'type': ResultType.tooManyTeams},
-        status: 406,
+        {'type': ResultType.tooManyTeams.name, 'status': 404},
       );
       return;
     }
@@ -94,7 +92,7 @@ Future<void> start(final req, final res) async {
 
     print('Team ID: $teamId');
 
-    final result = await teams.createMembership(
+    await teams.createMembership(
       teamId: teamId,
       name: userName,
       email: userEmail,
@@ -104,11 +102,13 @@ Future<void> start(final req, final res) async {
 
     // Update team document so that all watching refresh
 
-    res.json(result.toMap(), status: 200);
+    res.json({'type': ResultType.success.name, 'status': 200});
   } on Exception catch (e, s) {
     print('Error adding user to team');
     print(e.toString());
     print(s.toString());
-    res.send('Error', status: 500);
+    res.json(
+      {'type': ResultType.unknown.name, 'status': 500},
+    );
   }
 }

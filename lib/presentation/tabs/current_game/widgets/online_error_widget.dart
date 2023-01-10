@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/presentation/extension/failure_ext.dart';
 import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 
@@ -40,7 +41,7 @@ class _OnlineErrorWidgetState extends State<OnlineErrorWidget> {
       listener: (context, state) {
         state.whenOrNull(
           error: (failure) {
-            _displayText = failure.reason;
+            _displayText = failure.reason(context);
             if (_displayText?.isNotEmpty ?? false) {
               currentTimer = Timer(const Duration(seconds: 3), _onTimerEnd);
               setState(() {});

@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:tm_ressource_tracker/domain/entities/game_info.dart';
+import 'package:tm_ressource_tracker/domain/failures.dart';
 
 abstract class GamesRepository {
   /// Creates a game
@@ -6,8 +8,8 @@ abstract class GamesRepository {
 
   /// Makes the user join a game using an [inviteCode]
   ///
-  /// Returns the joined game
-  Future<bool> joinGame(String inviteCode, String userName);
+  /// Returns either a [Failure] or request result code
+  Future<Either<Failure, int>> joinGame(String inviteCode, String userName);
 
   /// Leaves the current game and deletes all user data in said game
   Future<bool> leaveGame();

@@ -20,6 +20,8 @@
     },
     "no_game": "Aucune partie en cours",
     "join_game": "Rejoindre une partie",
+    "join_error": "Erreur au moment de rejoindre la partie",
+    "invalid_join_code": "Code d'invitation invalide",
     "create_game": "Créer une partie",
     "unknown_error": "Erreur inconnue, essayez de redémarrer l'application",
     "join_dialog": {

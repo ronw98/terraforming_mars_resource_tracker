@@ -27,7 +27,7 @@ abstract class TeamsDataSource {
 
   Future<models.Team> createTeam(String? name);
 
-  Future<bool> joinTeam(String teamCode, String userName, String userEmail);
+  Future<int> joinTeam(String teamCode, String userName, String userEmail);
 
   Future<bool> deleteMembership(String teamId, String membershipId);
 
@@ -126,7 +126,7 @@ class TeamsDataSourceImpl
       bool subscriptionClosed = false;
       streamController = StreamController(
         onCancel: () async {
-          if(!subscriptionClosed) {
+          if (!subscriptionClosed) {
             subscriptionClosed = true;
             collectionChangesSubscription.close();
           }
@@ -146,10 +146,9 @@ class TeamsDataSourceImpl
       collectionChangesSubscription.stream.listen(
         (event) async {
           // A team document was created in the database
-          if (event.events
-              .contains('databases.${AppConstants.databaseId}'
-                  '.collections.${AppConstants.teamsCollectionId}'
-                  '.documents.*.create')) {
+          if (event.events.contains('databases.${AppConstants.databaseId}'
+              '.collections.${AppConstants.teamsCollectionId}'
+              '.documents.*.create')) {
             final createdDocTeamId = event.payload['teamId'];
             // Document is for the current team
             if (createdDocTeamId == teamId) {
@@ -168,7 +167,7 @@ class TeamsDataSourceImpl
                   (document) => TeamDocumentModel.fromJson(document.data),
                 ),
               );
-              if(!subscriptionClosed) {
+              if (!subscriptionClosed) {
                 subscriptionClosed = true;
                 // Close the collection subscription
                 collectionChangesSubscription.close();
@@ -225,7 +224,7 @@ class TeamsDataSourceImpl
   }
 
   @override
-  Future<bool> joinTeam(
+  Future<int> joinTeam(
       String teamCode, String userName, String userEmail) async {
     final execution = await serviceLocator<Functions>().createExecution(
       functionId: AppConstants.joinTeamFnId,
@@ -237,7 +236,8 @@ class TeamsDataSourceImpl
         },
       ),
     );
-    return execution.statusCode >= 200 && execution.statusCode < 300;
+    final Map<String, dynamic> response = jsonDecode(execution.response);
+    return response['status'] ?? 500;
   }
 
   @override

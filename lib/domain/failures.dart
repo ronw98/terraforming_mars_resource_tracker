@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'failures.freezed.dart';
 
+enum GameJoinFailure { unknown, invalidCode }
+
 @freezed
 class Failure with _$Failure {
   const Failure._();
@@ -10,7 +12,9 @@ class Failure with _$Failure {
 
   const factory Failure.gameLeave([String? reason]) = _GameLeaveFailure;
 
-  const factory Failure.gameJoin([String? reason]) = _GameJoinFailure;
+  const factory Failure.gameJoin([
+    @Default(GameJoinFailure.unknown) GameJoinFailure reason,
+  ]) = _GameJoinFailure;
 
   const factory Failure.watchGame([String? reason]) = _GameWatchingFailure;
 
@@ -29,7 +33,4 @@ class Failure with _$Failure {
         resumeGame: (_) => 'ResumeGameFailure',
         createGame: (_) => 'CreateGameFailure',
       );
-
-  @override
-  String toString() => reason == null ? '$label' : '$label: $reason';
 }

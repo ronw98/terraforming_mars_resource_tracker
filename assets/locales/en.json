@@ -15,6 +15,8 @@
   "game": {
     "no_game": "No ongoing game",
     "join_game": "Join game",
+    "join_error": "Failed to join game",
+    "invalid_join_code": "Invalid invite code",
     "create_game": "Create game",
     "create_dialog": {
       "confirm": "Create game!",

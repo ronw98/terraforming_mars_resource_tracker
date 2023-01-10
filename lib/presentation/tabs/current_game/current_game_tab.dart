@@ -19,7 +19,7 @@ class CurrentGameTab extends StatelessWidget {
         children: [
           verticalSpacer,
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: OnlineErrorWidget(),
           ),
           BlocBuilder<OnlineGameCubit, OnlineGameState>(

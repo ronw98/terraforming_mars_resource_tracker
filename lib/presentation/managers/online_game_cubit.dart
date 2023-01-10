@@ -98,23 +98,42 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
   ) async {
     emit(OnlineGameState.loading());
 
-    final joined = await _joinGame(userName, inviteCode);
+    final joinedEither = await _joinGame(userName, inviteCode);
 
-    if (joined) {
-      _initializeSubscriptions();
-      if (resources != null) {
-        setResources(resources);
-      }
-    } else {
-      emit(
-        OnlineGameState.error(
-          Failure.gameJoin('Failed to join game'),
-        ),
-      );
-      // Wait 1 sec and emit initial state
-      await Future.delayed(const Duration(seconds: 1));
-      emit(OnlineGameState.initial());
-    }
+    joinedEither.fold(
+      (f) async {
+        f.maybeMap(
+          gameJoin: (f) => emit(
+            OnlineGameState.error(f),
+          ),
+          orElse: () => emit(
+            OnlineGameState.error(
+              Failure.gameJoin(),
+            ),
+          ),
+        );
+        // Wait 1 sec and emit initial state
+        await Future.delayed(const Duration(seconds: 1));
+        emit(OnlineGameState.initial());
+      },
+      (joined) async {
+        if (joined) {
+          _initializeSubscriptions();
+          if (resources != null) {
+            setResources(resources);
+          }
+        } else {
+          emit(
+            OnlineGameState.error(
+              Failure.gameJoin(GameJoinFailure.unknown),
+            ),
+          );
+          // Wait 1 sec and emit initial state
+          await Future.delayed(const Duration(seconds: 1));
+          emit(OnlineGameState.initial());
+        }
+      },
+    );
   }
 
   void leaveGame() async {

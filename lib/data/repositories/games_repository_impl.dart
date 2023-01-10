@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
@@ -9,6 +10,7 @@ import 'package:tm_ressource_tracker/data/datasources/remote/user_resources_data
 import 'package:tm_ressource_tracker/data/models/team_document_model.dart';
 import 'package:tm_ressource_tracker/domain/entities/game_info.dart';
 import 'package:tm_ressource_tracker/domain/exceptions.dart';
+import 'package:tm_ressource_tracker/domain/failures.dart';
 import 'package:tm_ressource_tracker/domain/repositories/games_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -185,7 +187,7 @@ class GamesRepositoryImpl implements GamesRepository {
   }
 
   @override
-  Future<bool> joinGame(String inviteCode, String userName) async {
+  Future<Either<Failure, int>> joinGame(String inviteCode, String userName) async {
     try {
       final newEmail = userName +
           serviceLocator<Uuid>().v4().substring(0, 6) +
@@ -195,9 +197,15 @@ class GamesRepositoryImpl implements GamesRepository {
         email: newEmail,
         password: 'defaultPassword',
       );
-      final joined =
+      final joinedResult =
           await teamsDataSource.joinTeam(inviteCode, userName, newEmail);
-      return joined;
+      if(joinedResult >= 200 && joinedResult < 300) {
+        return Right(joinedResult);
+      }
+      if(joinedResult == 404) {
+        return Left(Failure.gameJoin(GameJoinFailure.invalidCode));
+      }
+      return Left(Failure.gameJoin());
     } on AppwriteException catch (e, s) {
       log(
         'Error while joining game',
