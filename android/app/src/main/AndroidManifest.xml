@@ -38,5 +38,21 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+       <activity android:name="com.linusu.flutter_web_auth_2.CallbackActivity" android:exported="true">
+           <intent-filter android:label="flutter_web_auth_2">
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="appwrite-callback-63a19394a9a11f708b98" />
+           </intent-filter>
+           <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+           <intent-filter android:autoVerify="true">
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="https" android:host="192.168.1.44"/>
+           </intent-filter>
+       </activity>
     </application>
 </manifest>

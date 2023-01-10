@@ -14,7 +14,7 @@ class EditValueButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           padding: EdgeInsets.all(0),
-          primary: Colors.teal,
+          foregroundColor: Colors.teal,
         ),
         onPressed: onPressed,
         child: Text(

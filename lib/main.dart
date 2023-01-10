@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
 import 'package:tm_ressource_tracker/core/locale/locale_helper.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
+import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/pages/home/home_page.dart';
 import 'package:tm_ressource_tracker/presentation/theme/app_theme.dart';
@@ -28,6 +29,7 @@ void main() async {
   );
 
   await configureDependencies();
+
   runApp(ResourceTracker());
 }
 
@@ -37,10 +39,13 @@ class ResourceTracker extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ResourceCubit>(
-          create: (_) => sl()..loadResources(),
+          create: (_) => serviceLocator()..loadResources(),
         ),
         BlocProvider<ConfigurationCubit>(
-          create: (_) => sl()..loadConfig(),
+          create: (_) => serviceLocator()..loadConfig(),
+        ),
+        BlocProvider<OnlineGameCubit>(
+          create: (_) => serviceLocator()..initialize(),
         ),
       ],
       child: MaterialApp(

@@ -184,7 +184,8 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
     if (lock) {
       return;
     }
-    sl<ResourceCubit>().addStockOrProduction(
+    // TODO: Use [BlocProvider.of]
+    serviceLocator<ResourceCubit>().addStockOrProduction(
       resourceType: widget.resourceType,
       stockChange: stockChange.value,
       productionChange: prodChange.value,

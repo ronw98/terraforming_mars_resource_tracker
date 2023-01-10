@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/assets.dart';
 
+class TMColors {
+  const TMColors._();
+  static const Color dialogBackgroundColor = const Color.fromRGBO(
+    187,
+    182,
+    179,
+    1,
+  );
+}
+
 ThemeData appTheme = ThemeData(
   fontFamily: Fonts.enterSansman,
   primaryColor: Color.fromARGB(255, 140, 80, 38),

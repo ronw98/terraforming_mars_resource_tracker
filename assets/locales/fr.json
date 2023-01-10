@@ -8,7 +8,25 @@
   "home": {
     "tabs": {
       "resources": "Ressources",
-      "projects": "Projets standards"
+      "projects": "Projets standards",
+      "current_game": "Partie en cours"
+    }
+  },
+  "game": {
+    "create_dialog": {
+      "confirm": "Commencer la partie !",
+      "user_name": "Pseudo",
+      "title": "Choisissez un nom"
+    },
+    "no_game": "Aucune partie en cours",
+    "join_game": "Rejoindre une partie",
+    "create_game": "Créer une partie",
+    "unknown_error": "Erreur inconnue, essayez de redémarrer l'application",
+    "join_dialog": {
+      "title": "Rejoindre une partie",
+      "invite_code": "Code de partie (6 caractères)",
+      "user_name": "Pseudo",
+      "confirm": "Rejoindre !"
     }
   },
   "settings": {
@@ -19,6 +37,11 @@
         "text": "Réinitialiser les paramètres?\n(Cette opération n'est pas annulable)",
         "confirm": "Réinitialiser"
       }
+    },
+    "delete_data": {
+      "button": "Supprimer les données utilisateur",
+      "success": "Données utilisateur supprimées",
+      "error": "Erreur lors de la suppression des données, réessayez plus tard ou envoyez un mail à reblochor@gmail.com"
     },
     "general_settings": "Paramètres généraux",
     "edit_with_keyboard": "Modifier les valeurs au clavier",

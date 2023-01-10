@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/custom_card.dart';
+import 'package:tm_ressource_tracker/presentation/theme/app_theme.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
 class ConfirmDialog extends StatelessWidget {
   const ConfirmDialog({
@@ -21,7 +21,7 @@ class ConfirmDialog extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       backgroundColor: Colors.transparent,
       content: CustomCard(
-        backgroundColor: const Color.fromRGBO(187, 182, 179, 1),
+        backgroundColor: TMColors.dialogBackgroundColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

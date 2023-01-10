@@ -15,7 +15,7 @@ import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.d
 
 part 'resource_cubit.freezed.dart';
 
-@lazySingleton
+@singleton
 class ResourceCubit extends Cubit<ResourceState> {
   ResourceCubit(this.getResources, this.setResources)
       : super(ResourceState.initial());
@@ -78,7 +78,7 @@ class ResourceCubit extends Cubit<ResourceState> {
         resourcesCopy.energy = resourcesCopy.energy.copyWith(stock: 0);
         resourcesCopy.energy = resourcesCopy.energy.produce();
 
-        final settings = sl<ConfigurationCubit>().state.mapOrNull(
+        final settings = serviceLocator<ConfigurationCubit>().state.mapOrNull(
               loaded: (loaded) => loaded.configuration.settings,
             );
         if (settings != null) {

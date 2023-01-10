@@ -1,0 +1,74 @@
+{
+    "projectId": "63a19394a9a11f708b98",
+    "projectName": "Terraforming Mars",
+    "functions": [
+        {
+            "$id": "63a1cc3051efa1e55327",
+            "name": "join_team",
+            "runtime": "dart-2.17",
+            "path": "functions/join_team",
+            "entrypoint": "lib/main.dart",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "execute": [
+                "users"
+            ],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        },
+        {
+            "$id": "63a7455b53ff9acf2855",
+            "name": "on_team_created",
+            "runtime": "dart-2.17",
+            "path": "functions/on_team_created",
+            "entrypoint": "lib/main.dart",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "execute": [],
+            "events": [
+                "teams.*.create"
+            ],
+            "schedule": "",
+            "timeout": 60
+        },
+        {
+            "$id": "63a870478d277f5e686d",
+            "name": "on_owner_leave_team",
+            "runtime": "dart-2.17",
+            "path": "functions/on_owner_leave_team",
+            "entrypoint": "lib/main.dart",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "execute": [],
+            "events": [
+                "teams.*.memberships.*.delete"
+            ],
+            "schedule": "",
+            "timeout": 15
+        },
+        {
+            "$id": "63b5a96d7dcff5f4a023",
+            "name": "delete_user_data",
+            "runtime": "dart-2.17",
+            "path": "functions/delete_user_data",
+            "entrypoint": "lib/main.dart",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "execute": [
+                "users"
+            ],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        }
+    ]
+}

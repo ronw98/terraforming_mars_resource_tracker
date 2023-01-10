@@ -53,7 +53,8 @@ class TerraformingRatingWidget extends StatelessWidget {
                     child: EditValueButton(
                       text: '-1',
                       onPressed: () {
-                        sl<ResourceCubit>().modifyStockOrProduction(
+                        // TODO: Use [BlocProvider.of]
+                        serviceLocator<ResourceCubit>().modifyStockOrProduction(
                           resourceType: ResourceType.terraformingRating,
                           newStock: stock - 1,
                         );
@@ -92,7 +93,8 @@ class TerraformingRatingWidget extends StatelessWidget {
                     child: EditValueButton(
                       text: '+1',
                       onPressed: () {
-                        sl<ResourceCubit>().modifyStockOrProduction(
+                        // TODO: Use [BlocProvider.of]
+                        serviceLocator<ResourceCubit>().modifyStockOrProduction(
                           resourceType: ResourceType.terraformingRating,
                           newStock: stock + 1,
                         );

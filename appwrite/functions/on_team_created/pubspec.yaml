@@ -1,0 +1,17 @@
+name: appwrite_function
+description: An appwrite function that creates a unique joining code when a team is created. 
+  The code is written in a document containing said code along with the team ID. 
+  Only members of the team can read this document.
+  Only allowed api keys can delete the document.
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies: 
+  dart_appwrite: ^7.1.0
+  uuid: ^3.0.7
+      
+dev_dependencies:
+  lints: ^2.0.1
