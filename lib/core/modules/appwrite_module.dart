@@ -6,7 +6,6 @@ import 'package:tm_ressource_tracker/core/injection.dart';
 @module
 abstract class AppWriteModule {
   Client get client => Client()
-      // TODO: Use production url
       .setEndpoint('https://tm.reblochor.dev/v1')
       .setProject(AppConstants.projectId)
       .setSelfSigned(status: true);
