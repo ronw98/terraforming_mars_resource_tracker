@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/current_game/views/online_game_view.dart';
@@ -40,8 +42,10 @@ class CurrentGameTab extends StatelessWidget {
                     ),
                   ),
                 ),
-                orElse: () => const Center(
-                  child: Text('Unknown error, try to restart the app'),
+                orElse: () => Center(
+                  child: Text(
+                    LocaleKeys.game.unknown_error.translate(context),
+                  ),
                 ),
               );
             },

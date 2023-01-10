@@ -5,6 +5,7 @@ import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
 import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
+import 'package:tm_ressource_tracker/presentation/pages/settings/delete_user_data_button.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/tm_default_page.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/category_separator_widget.dart';
@@ -145,6 +146,12 @@ class SettingsPage extends StatelessWidget {
                                   .toList(),
                             ),
                           ),
+                          verticalBigSpacer,
+                          FractionallySizedBox(
+                            widthFactor: 1,
+                            child: DeleteUserDataButton(),
+                          ),
+                          verticalSpacer,
                         ],
                       ),
                       orElse: () => const NoneWidget(),
@@ -168,7 +175,7 @@ class SettingsPage extends StatelessWidget {
         cancel: LocaleKeys.common.cancel.translate(context),
       ),
     );
-    if (reset??false) {
+    if (reset ?? false) {
       BlocProvider.of<ConfigurationCubit>(context).reset();
     }
   }

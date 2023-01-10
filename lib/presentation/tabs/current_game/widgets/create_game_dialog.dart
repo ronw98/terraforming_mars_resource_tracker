@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/theme/app_theme.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
@@ -39,13 +41,17 @@ class _CreateGameDialogState extends State<CreateGameDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Select a name'),
+              Text(
+                LocaleKeys.game.create_dialog.title.translate(context),
+              ),
               verticalBigSpacer,
               TextField(
                 controller: _nameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  label: Text('User name'),
+                  label: Text(
+                    LocaleKeys.game.create_dialog.user_name.translate(context),
+                  ),
                 ),
               ),
               verticalBigSpacer,
@@ -62,7 +68,9 @@ class _CreateGameDialogState extends State<CreateGameDialog> {
                         }
                       },
                 icon: Icon(Icons.check),
-                label: Text('Create game!'),
+                label: Text(
+                  LocaleKeys.game.create_dialog.confirm.translate(context),
+                ),
               ),
             ],
           ),

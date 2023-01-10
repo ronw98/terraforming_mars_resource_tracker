@@ -1,4 +1,3 @@
-import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,12 +30,6 @@ void main() async {
 
   await configureDependencies();
 
-  // Initialize appwrite account
-  try {
-    await serviceLocator<Account>().get();
-  } catch (_) {
-    await serviceLocator<Account>().createAnonymousSession();
-  }
   runApp(ResourceTracker());
 }
 

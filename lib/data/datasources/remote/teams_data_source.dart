@@ -228,7 +228,7 @@ class TeamsDataSourceImpl
   Future<bool> joinTeam(
       String teamCode, String userName, String userEmail) async {
     final execution = await serviceLocator<Functions>().createExecution(
-      functionId: '63a1cc3051efa1e55327',
+      functionId: AppConstants.joinTeamFnId,
       data: jsonEncode(
         {
           'team_code': teamCode,

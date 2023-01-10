@@ -10,7 +10,23 @@
       "resources": "Resources",
       "projects": "Standard projects",
       "current_game": "Current game"
-
+    }
+  },
+  "game": {
+    "no_game": "No ongoing game",
+    "join_game": "Join game",
+    "create_game": "Create game",
+    "create_dialog": {
+      "confirm": "Create game!",
+      "user_name": "Username",
+      "title": "Select a name"
+    },
+    "unknown_error": "Unknown error, try to restart the app",
+    "join_dialog": {
+      "title": "Joining game",
+      "invite_code": "Invite code (6 characters)",
+      "user_name": "Username",
+      "confirm": "Join!"
     }
   },
   "settings": {
@@ -21,6 +37,11 @@
         "text": "Reset settings?\n(Cannot be undone)",
         "confirm": "Reset"
       }
+    },
+    "delete_data": {
+      "button": "Delete user data",
+      "success": "User data deleted",
+      "error": "Failed to delete data, retry later or send an email to reblochor@gmail.com"
     },
     "general_settings": "General Settings",
     "edit_with_keyboard": "Edit values with keyboard",
@@ -94,7 +115,7 @@
       "error": "Project error",
       "success": "Project completed"
     },
-    "names" :{
+    "names": {
       "city": "City",
       "greenery": "Greenery",
       "ocean": "Ocean",

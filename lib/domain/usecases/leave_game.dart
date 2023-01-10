@@ -13,7 +13,8 @@ class LeaveGame {
 
   Future<Either<Failure, bool>> call() async {
     try {
-      return Right(await repository.leaveGame());
+      final leaveResult = await repository.leaveGame();
+      return Right(leaveResult);
     } on GameRepositoryException catch (e) {
       return Left(Failure.gameLeave(e.message));
     } on Exception catch (_) {

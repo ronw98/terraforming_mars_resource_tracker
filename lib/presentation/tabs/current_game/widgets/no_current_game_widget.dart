@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
@@ -22,17 +24,23 @@ class NoCurrentGameWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('No ongoing game'),
+              Text(
+                LocaleKeys.game.no_game.translate(context),
+              ),
               verticalSpacer,
               ElevatedButton.icon(
                 onPressed: () => _joinGame(context),
                 icon: Icon(Icons.group_add_outlined),
-                label: Text('Join game'),
+                label: Text(
+                  LocaleKeys.game.no_game.translate(context),
+                ),
               ),
               ElevatedButton.icon(
                 onPressed: () => _createGame(context),
                 icon: Icon(Icons.extension_outlined),
-                label: Text('Create game'),
+                label: Text(
+                  LocaleKeys.game.no_game.translate(context),
+                ),
               ),
             ],
           ),
