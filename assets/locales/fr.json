@@ -3,7 +3,9 @@
     "cancel": "Annuler",
     "confirm": "OK",
     "app_name": "TM calculateur",
-    "icon_button": "Bouton icône"
+    "icon_button": "Bouton icône",
+    "experimental": "Experimentale",
+    "experimental_text": "Cette fonctionalité est expérimentale et peut tomber en panne.\nVous pouvez signaler les bugs aux développeurs en utilisant leur adresse mail."
   },
   "home": {
     "tabs": {

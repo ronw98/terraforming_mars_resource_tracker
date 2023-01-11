@@ -3,7 +3,9 @@
     "cancel": "Cancel",
     "confirm": "OK",
     "app_name": "TM Calculator",
-    "icon_button": "Icon button"
+    "icon_button": "Icon button",
+    "experimental": "Experimental",
+    "experimental_text": "This feature is experimental, and might not work properly.\nFeel free to report bugs to the developer using their email address"
   },
   "home": {
     "tabs": {

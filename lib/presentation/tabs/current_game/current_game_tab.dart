@@ -8,10 +8,17 @@ import 'package:tm_ressource_tracker/presentation/tabs/current_game/views/online
 import 'package:tm_ressource_tracker/presentation/tabs/current_game/widgets/no_current_game_widget.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/current_game/widgets/online_error_widget.dart';
 import 'package:tm_ressource_tracker/presentation/theme/app_theme.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/experimental_button.dart';
 
-class CurrentGameTab extends StatelessWidget {
+class CurrentGameTab extends StatefulWidget {
   const CurrentGameTab({Key? key}) : super(key: key);
 
+  @override
+  State<CurrentGameTab> createState() => _CurrentGameTabState();
+}
+
+class _CurrentGameTabState extends State<CurrentGameTab>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -22,6 +29,7 @@ class CurrentGameTab extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: OnlineErrorWidget(),
           ),
+          const ExperimentalButton(),
           BlocBuilder<OnlineGameCubit, OnlineGameState>(
             buildWhen: (previous, next) => next.maybeMap(
               error: (_) => false,
@@ -54,4 +62,7 @@ class CurrentGameTab extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
