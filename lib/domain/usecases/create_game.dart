@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/repositories/games_repository.dart';
 import 'package:tm_ressource_tracker/domain/usecases/anonymous_login.dart';
@@ -18,7 +20,13 @@ class CreateGame {
       await anonymousLogin();
       await repository.createGame('TMGame', userName);
       return true;
-    } on Exception catch (_) {
+    } on Exception catch (e, s) {
+      log(
+        'Error creating game',
+        name: 'CreateGame',
+        error: e,
+        stackTrace: s,
+      );
       return false;
     }
   }

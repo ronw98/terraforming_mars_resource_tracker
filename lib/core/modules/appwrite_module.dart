@@ -7,12 +7,15 @@ import 'package:tm_ressource_tracker/core/injection.dart';
 abstract class AppWriteModule {
   Client get client => Client()
       .setEndpoint('https://tm.reblochor.dev/v1')
-      .setProject(AppConstants.projectId)
-      .setSelfSigned(status: true);
+      .setProject(AppConstants.projectId);
 
   Realtime get realtime => Realtime(serviceLocator());
+
   Databases get databases => Databases(serviceLocator());
+
   Account get account => Account(serviceLocator());
+
   Teams get teams => Teams(serviceLocator());
+
   Functions get functions => Functions(serviceLocator());
 }
