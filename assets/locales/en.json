@@ -31,7 +31,9 @@
       "invite_code": "Invite code (6 characters)",
       "user_name": "Username",
       "confirm": "Join!"
-    }
+    },
+    "your_resources": "Your resources"
+
   },
   "settings": {
     "page_title": "Settings",
@@ -71,6 +73,7 @@
   },
   "resources": {
     "produce": "Produce",
+    "production_error": "Production error",
     "reset": {
       "button_text": "Reset",
       "dialog": {
