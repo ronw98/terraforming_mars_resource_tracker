@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
@@ -35,7 +36,24 @@ class ResourcesTab extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: TMTextButton(
-            onTap: BlocProvider.of<ResourceCubit>(context).produce,
+            onTap: () async {
+              final scaffoldMessenger = ScaffoldMessenger.of(context);
+              HapticFeedback.vibrate();
+              final result =
+                  await BlocProvider.of<ResourceCubit>(context).produce();
+              if (!scaffoldMessenger.mounted) {
+                return;
+              }
+              if (!result) {
+                scaffoldMessenger.showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      LocaleKeys.resources.production_error.translate(context),
+                    ),
+                  ),
+                );
+              }
+            },
             child: Text(
               LocaleKeys.resources.produce.translate(context),
               style: Theme.of(context).textTheme.displaySmall,

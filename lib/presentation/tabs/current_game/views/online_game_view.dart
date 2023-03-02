@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/game.dart';
+import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/current_game/widgets/user_resources_widget.dart';
+import 'package:tm_ressource_tracker/presentation/views/resource_summary/resources_summary_widget.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
 class OnlineGameView extends StatelessWidget {
@@ -46,6 +49,13 @@ class OnlineGameView extends StatelessWidget {
                   ),
                 ),
               ),
+            ...[
+              ResourcesSummaryWidget(
+                topWidget: Text(
+                  LocaleKeys.game.your_resources.translate(context),
+                ),
+              ),
+            ],
             if (game.resources.isNotEmpty) ...[
               verticalSpacer,
               ...game.resources.map(

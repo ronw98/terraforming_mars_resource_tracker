@@ -62,8 +62,8 @@ class ResourceCubit extends Cubit<ResourceState> {
     );
   }
 
-  void produce() {
-    state.whenOrNull(
+  Future<bool> produce() async {
+    return await state.maybeWhen(
       loaded: (resources) async {
         final resourcesCopy = {...resources};
         resourcesCopy.credits = resourcesCopy.credits.produce(
@@ -89,7 +89,9 @@ class ResourceCubit extends Cubit<ResourceState> {
         }
         await setResources(resourcesCopy.values.toList());
         emit(ResourceState.loaded(resources: resourcesCopy));
+        return true;
       },
+      orElse: () => false,
     );
   }
 
@@ -103,7 +105,7 @@ class ResourceCubit extends Cubit<ResourceState> {
 
   void undo() async {
     final newState = previousStates.lastOrNull;
-    if(newState == null) {
+    if (newState == null) {
       return;
     }
     previousStates.removeLast();

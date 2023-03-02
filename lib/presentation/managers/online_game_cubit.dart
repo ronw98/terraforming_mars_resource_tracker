@@ -188,6 +188,9 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
           (failure) {
             // On failure, check if the game still exists
             // If so do nothing, otherwise, reset cubit
+            // TODO check for network interruptions to reconnect
+            log('NETWORK ERROR');
+
           },
           (info) {
             if (_lastInfo == null && onTeamCreatedCallback != null) {
@@ -260,6 +263,11 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
     await _userResourcesSubscription?.cancel();
     _gameInfoSubscription = null;
     _userResourcesSubscription = null;
+  }
+
+  Future<void> restart() async {
+    await _closeSubscriptions();
+    initialize();
   }
 
   @override

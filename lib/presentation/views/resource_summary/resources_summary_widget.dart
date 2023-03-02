@@ -8,7 +8,12 @@ import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 
 class ResourcesSummaryWidget extends StatelessWidget {
-  const ResourcesSummaryWidget({Key? key}) : super(key: key);
+  const ResourcesSummaryWidget({
+    Key? key,
+    this.topWidget,
+  }) : super(key: key);
+
+  final Widget? topWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +24,23 @@ class ResourcesSummaryWidget extends StatelessWidget {
           loaded: (_) => CustomCard(
             child: Padding(
               padding: const EdgeInsets.all(defaultPadding),
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                spacing: bigPadding,
-                runSpacing: smallPadding,
-                children: ResourceType.values
-                    .map((type) => ResourceMinimalDisplayLocalWrapper(resourceType: type))
-                    .toList(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (topWidget != null) ...[
+                    topWidget!,
+                    verticalSpacer,
+                  ],
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: bigPadding,
+                    runSpacing: smallPadding,
+                    children: ResourceType.values
+                        .map((type) => ResourceMinimalDisplayLocalWrapper(
+                            resourceType: type))
+                        .toList(),
+                  ),
+                ],
               ),
             ),
           ),
