@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
@@ -9,7 +10,7 @@ class ResourceHistoryWidget extends StatelessWidget {
     this.textStyle,
     required this.label,
   }) : super(key: key);
-  final List<int> history;
+  final List<HistoryItem> history;
   final TextStyle? textStyle;
   final String label;
 
@@ -27,12 +28,22 @@ class ResourceHistoryWidget extends StatelessWidget {
               reverse: true,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: history
-                    .map(
-                  (value) =>
-                      [Text('$value', style: textStyle), horizontalSpacer],
-                )
-                    .fold(
+                children: history.map(
+                  (item) {
+                    return [
+                      Container(
+                        decoration: item.isProductionPhase
+                            ? BoxDecoration(
+                                color: Color(0xFFfbb800),
+                              )
+                            : BoxDecoration(),
+                        padding: EdgeInsets.all(1),
+                        child: Text('${item.value}', style: textStyle),
+                      ),
+                      horizontalSpacer,
+                    ];
+                  },
+                ).fold(
                   [],
                   (previousValue, element) => previousValue..addAll(element),
                 ),

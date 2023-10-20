@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'resource_model.freezed.dart';
+
 part 'resource_model.g.dart';
 
 @freezed
@@ -23,7 +24,7 @@ class ResourcesModel with _$ResourcesModel {
 class TerraformingRatingModel with _$TerraformingRatingModel {
   const factory TerraformingRatingModel({
     int? stock,
-    List<int>? stockHistory,
+    List<HistoryItemModel>? stockHistory,
   }) = _TerraformingRatingModel;
 
   factory TerraformingRatingModel.fromJson(Map<String, dynamic> json) =>
@@ -35,11 +36,22 @@ class PrimaryResourceModel with _$PrimaryResourceModel {
   const factory PrimaryResourceModel({
     String? type,
     int? stock,
-    List<int>? stockHistory,
+    List<HistoryItemModel>? stockHistory,
     int? production,
-    List<int>? productionHistory,
+    List<HistoryItemModel>? productionHistory,
   }) = _PrimaryResourceModel;
 
   factory PrimaryResourceModel.fromJson(Map<String, dynamic> json) =>
       _$PrimaryResourceModelFromJson(json);
+}
+
+@freezed
+class HistoryItemModel with _$HistoryItemModel {
+  const factory HistoryItemModel({
+    int? value,
+    bool? isProductionPhase,
+  }) = _HistoryItemModel;
+
+  factory HistoryItemModel.fromJson(Map<String, dynamic> json) =>
+      _$HistoryItemModelFromJson(json);
 }

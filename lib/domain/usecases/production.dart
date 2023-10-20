@@ -12,7 +12,7 @@ class ProduceOneResource {
       stock: newStock,
       stockHistory: [
         ...resource.stockHistory,
-        if (resource.stock != newStock) newStock,
+        HistoryItem.produced(newStock),
       ],
     );
   }

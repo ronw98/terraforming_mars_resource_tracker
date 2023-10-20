@@ -1,3 +1,5 @@
+// ignore_for_file: unused_result
+
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
@@ -46,7 +48,7 @@ class EditOneResource {
             ...currentResources.terraformingRating.stockHistory,
             if (newStock != null &&
                 newStock != currentResources.terraformingRating.stock)
-              newStock,
+              HistoryItem.standard(newStock),
           ],
         ),
       );
@@ -60,14 +62,14 @@ class EditOneResource {
                 ...currentResources.credits.stockHistory,
                 if (newStock != null &&
                     newStock != currentResources.credits.stock)
-                  newStock,
+                  HistoryItem.standard(newStock),
               ],
               production: newProduction ?? currentResources.credits.production,
               productionHistory: [
                 ...currentResources.credits.productionHistory,
                 if (newProduction != null &&
                     newProduction != currentResources.credits.production)
-                  newProduction,
+                  HistoryItem.standard(newProduction),
               ],
             ),
           ),
@@ -79,14 +81,14 @@ class EditOneResource {
                 ...currentResources.plants.stockHistory,
                 if (newStock != null &&
                     newStock != currentResources.plants.stock)
-                  newStock,
+                  HistoryItem.standard(newStock),
               ],
               production: newProduction ?? currentResources.plants.production,
               productionHistory: [
                 ...currentResources.plants.productionHistory,
                 if (newProduction != null &&
                     newProduction != currentResources.plants.production)
-                  newProduction,
+                  HistoryItem.standard(newProduction),
               ],
             ),
           ),
@@ -98,14 +100,14 @@ class EditOneResource {
                 ...currentResources.steel.stockHistory,
                 if (newStock != null &&
                     newStock != currentResources.steel.stock)
-                  newStock,
+                  HistoryItem.standard(newStock),
               ],
               production: newProduction ?? currentResources.steel.production,
               productionHistory: [
                 ...currentResources.steel.productionHistory,
                 if (newProduction != null &&
                     newProduction != currentResources.steel.production)
-                  newProduction,
+                  HistoryItem.standard(newProduction),
               ],
             ),
           ),
@@ -117,14 +119,14 @@ class EditOneResource {
                 ...currentResources.titanium.stockHistory,
                 if (newStock != null &&
                     newStock != currentResources.titanium.stock)
-                  newStock,
+                  HistoryItem.standard(newStock),
               ],
               production: newProduction ?? currentResources.titanium.production,
               productionHistory: [
                 ...currentResources.titanium.productionHistory,
                 if (newProduction != null &&
                     newProduction != currentResources.titanium.production)
-                  newProduction,
+                  HistoryItem.standard(newProduction),
               ],
             ),
           ),
@@ -136,14 +138,14 @@ class EditOneResource {
                 ...currentResources.energy.stockHistory,
                 if (newStock != null &&
                     newStock != currentResources.energy.stock)
-                  newStock,
+                  HistoryItem.standard(newStock),
               ],
               production: newProduction ?? currentResources.energy.production,
               productionHistory: [
                 ...currentResources.energy.productionHistory,
                 if (newProduction != null &&
                     newProduction != currentResources.energy.production)
-                  newProduction,
+                  HistoryItem.standard(newProduction),
               ],
             ),
           ),
@@ -154,14 +156,14 @@ class EditOneResource {
               stockHistory: [
                 ...currentResources.heat.stockHistory,
                 if (newStock != null && newStock != currentResources.heat.stock)
-                  newStock,
+                  HistoryItem.standard(newStock),
               ],
               production: newProduction ?? currentResources.heat.production,
               productionHistory: [
                 ...currentResources.heat.productionHistory,
                 if (newProduction != null &&
                     newProduction != currentResources.heat.production)
-                  newProduction,
+                  HistoryItem.standard(newProduction),
               ],
             ),
           ),
@@ -217,12 +219,13 @@ class EditResources {
       stock: currentResource.stock + resourceTransaction.stock,
       stockHistory: [
         ...currentResource.stockHistory,
-        if (currentResource.stock != newStock) newStock,
+        if (currentResource.stock != newStock) HistoryItem.standard(newStock),
       ],
       production: currentResource.production + resourceTransaction.production,
       productionHistory: [
         ...currentResource.productionHistory,
-        if (currentResource.production != newProduction) newProduction,
+        if (currentResource.production != newProduction)
+          HistoryItem.standard(newProduction),
       ],
     );
   }

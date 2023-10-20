@@ -1,3 +1,5 @@
+// ignore_for_file: unused_result
+
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resources.dart';
@@ -77,7 +79,7 @@ class PerformStandardProject {
               production: newResourceProduction,
               productionHistory: [
                 ...primaryResource.productionHistory,
-                newResourceProduction,
+                HistoryItem.standard(newResourceProduction),
               ],
             ) as T;
           }
@@ -93,14 +95,14 @@ class PerformStandardProject {
                 stock: newResourceStock,
                 stockHistory: [
                   ...finalResource.stockHistory,
-                  newResourceStock,
+                  HistoryItem.standard(newResourceStock),
                 ],
               ),
             TerraformingRating() => finalResource.copyWith(
                 stock: newResourceStock,
                 stockHistory: [
                   ...finalResource.stockHistory,
-                  newResourceStock,
+                  HistoryItem.standard(newResourceStock),
                 ],
               ),
           } as T;
@@ -127,7 +129,7 @@ class PerformStandardProject {
               production: newResourceProduction,
               productionHistory: [
                 ...finalResource.productionHistory,
-                newResourceProduction,
+                HistoryItem.standard(newResourceProduction),
               ],
             ) as T;
           }
@@ -143,14 +145,14 @@ class PerformStandardProject {
                 stock: newResourceStock,
                 stockHistory: [
                   ...finalResource.stockHistory,
-                  newResourceStock,
+                  HistoryItem.standard(newResourceStock),
                 ],
               ),
             TerraformingRating() => finalResource.copyWith(
                 stock: newResourceStock,
                 stockHistory: [
                   ...finalResource.stockHistory,
-                  newResourceStock,
+                  HistoryItem.standard(newResourceStock),
                 ],
               ),
           } as T;

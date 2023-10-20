@@ -15,7 +15,7 @@ enum ResourceType {
 sealed class Resource {
   int get stock;
 
-  List<int> get stockHistory;
+  List<HistoryItem> get stockHistory;
 
   ResourceType get type;
 }
@@ -26,7 +26,7 @@ class TerraformingRating with _$TerraformingRating implements Resource {
 
   const factory TerraformingRating({
     required int stock,
-    required List<int> stockHistory,
+    required List<HistoryItem> stockHistory,
   }) = _TerraformingRating;
 
   @override
@@ -40,8 +40,30 @@ class PrimaryResource with _$PrimaryResource implements Resource {
   const factory PrimaryResource({
     required ResourceType type,
     required int stock,
-    required List<int> stockHistory,
+    required List<HistoryItem> stockHistory,
     required int production,
-    required List<int> productionHistory,
+    required List<HistoryItem> productionHistory,
   }) = _PrimaryResource;
+}
+
+@freezed
+class HistoryItem with _$HistoryItem {
+  const factory HistoryItem({
+    required int value,
+    required bool isProductionPhase,
+  }) = _HistoryItem;
+
+  factory HistoryItem.standard(int value) {
+    return HistoryItem(
+      value: value,
+      isProductionPhase: false,
+    );
+  }
+
+  factory HistoryItem.produced(int value) {
+    return HistoryItem(
+      value: value,
+      isProductionPhase: true,
+    );
+  }
 }

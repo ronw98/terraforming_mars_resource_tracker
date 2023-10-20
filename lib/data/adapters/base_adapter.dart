@@ -35,6 +35,16 @@ abstract class BaseAdapter<E, M> {
         [];
   }
 
+  /// Converts a list of models to a list of non nullable entities,
+  /// ignoring invalid models
+  List<E> enforceModelsToEntities(Iterable<M>? models) {
+    return models
+        ?.map((model) => modelToEntity(model))
+        .whereType<E>()
+        .toList(growable: true) ??
+        [];
+  }
+
   /// Converts a list of entities to a list of models,
   List<M> entitiesToModels(Iterable<E>? entities) {
     return entities

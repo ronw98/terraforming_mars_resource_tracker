@@ -48,13 +48,17 @@ class ResourcesAdapter extends BaseAdapter<Resources, ResourcesModel> {
 @injectable
 class TerraformingRatingAdapter
     extends BaseAdapter<TerraformingRating, TerraformingRatingModel> {
-  const TerraformingRatingAdapter();
+  const TerraformingRatingAdapter(this._historyItemAdapter);
+
+  final HistoryItemAdapter _historyItemAdapter;
 
   @override
   TerraformingRating modelToEntity(TerraformingRatingModel source) {
     return TerraformingRating(
       stock: source.stock!,
-      stockHistory: source.stockHistory!,
+      stockHistory: _historyItemAdapter.enforceModelsToEntities(
+        source.stockHistory!,
+      ),
     );
   }
 
@@ -62,7 +66,9 @@ class TerraformingRatingAdapter
   TerraformingRatingModel entityToModel(TerraformingRating source) {
     return TerraformingRatingModel(
       stock: source.stock,
-      stockHistory: source.stockHistory,
+      stockHistory: _historyItemAdapter.entitiesToModels(
+        source.stockHistory,
+      ),
     );
   }
 }
@@ -70,7 +76,9 @@ class TerraformingRatingAdapter
 @injectable
 class PrimaryResourceAdapter
     extends BaseAdapter<PrimaryResource, PrimaryResourceModel> {
-  const PrimaryResourceAdapter();
+  const PrimaryResourceAdapter(this._historyItemAdapter);
+
+  final HistoryItemAdapter _historyItemAdapter;
 
   @override
   PrimaryResource modelToEntity(PrimaryResourceModel source) {
@@ -79,9 +87,13 @@ class PrimaryResourceAdapter
         (value) => value.name == source.type,
       ),
       stock: source.stock!,
-      stockHistory: source.stockHistory!,
+      stockHistory: _historyItemAdapter.enforceModelsToEntities(
+        source.stockHistory!,
+      ),
       production: source.production!,
-      productionHistory: source.productionHistory!,
+      productionHistory: _historyItemAdapter.enforceModelsToEntities(
+        source.productionHistory!,
+      ),
     );
   }
 
@@ -90,9 +102,32 @@ class PrimaryResourceAdapter
     return PrimaryResourceModel(
       type: source.type.name,
       stock: source.stock,
-      stockHistory: source.stockHistory,
+      stockHistory: _historyItemAdapter.entitiesToModels(
+        source.stockHistory,
+      ),
       production: source.production,
-      productionHistory: source.productionHistory,
+      productionHistory: _historyItemAdapter.entitiesToModels(
+        source.productionHistory,
+      ),
+    );
+  }
+}
+
+@injectable
+class HistoryItemAdapter extends BaseAdapter<HistoryItem, HistoryItemModel> {
+  @override
+  HistoryItem modelToEntity(HistoryItemModel source) {
+    return HistoryItem(
+      value: source.value!,
+      isProductionPhase: source.isProductionPhase!,
+    );
+  }
+
+  @override
+  HistoryItemModel entityToModel(HistoryItem source) {
+    return HistoryItemModel(
+      value: source.value,
+      isProductionPhase: source.isProductionPhase,
     );
   }
 }

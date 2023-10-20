@@ -22,8 +22,8 @@ class PrimaryResourceWidget extends StatelessWidget {
   final ResourceType type;
   final int stock;
   final int production;
-  final List<int> stockHistory;
-  final List<int> productionHistory;
+  final List<HistoryItem> stockHistory;
+  final List<HistoryItem> productionHistory;
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,7 @@ class TerraformingRatingWidget extends StatelessWidget {
   }) : super(key: key);
 
   final int stock;
-  final List<int> stockHistory;
+  final List<HistoryItem> stockHistory;
 
   @override
   Widget build(BuildContext context) {
