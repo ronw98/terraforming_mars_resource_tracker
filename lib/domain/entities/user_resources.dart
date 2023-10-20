@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/resources.dart';
 
 part 'user_resources.freezed.dart';
 
@@ -14,6 +14,6 @@ class UserResources with _$UserResources {
     required String userName,
 
     /// The user's resources with stock and production
-    required Map<ResourceType, Resource> resources,
+    required Resources resources,
   }) = _UserResources;
 }

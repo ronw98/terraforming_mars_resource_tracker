@@ -1,76 +1,87 @@
+import 'package:injectable/injectable.dart';
+import 'package:tm_ressource_tracker/data/adapters/base_adapter.dart';
 import 'package:tm_ressource_tracker/data/models/user_resources_model.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/resources.dart';
 import 'package:tm_ressource_tracker/domain/entities/user_resources.dart';
 
-UserResources userResourcesModelToEntity(UserResourcesModel model) =>
-    UserResources(
-      userId: model.userId,
-      userName: model.userName,
-      resources: {
-        ResourceType.terraformingRating: Resource.terraformingLevel(
-          stock: model.nt_stock!,
+@injectable
+class UserResourcesAdapter
+    extends BaseAdapter<UserResources, UserResourcesModel> {
+  @override
+  UserResources modelToEntity(UserResourcesModel source) {
+    return UserResources(
+      userId: source.userId,
+      userName: source.userName,
+      resources: Resources(
+        terraformingRating: TerraformingRating(
+          stock: source.nt_stock!,
           stockHistory: [],
         ),
-        ResourceType.credit: Resource.primaryResource(
-          type: ResourceType.credit,
-          stock: model.credit_stock!,
+        credits: PrimaryResource(
+          type: ResourceType.credits,
+          stock: source.credit_stock!,
           stockHistory: [],
-          production: model.credit_prod!,
+          production: source.credit_prod!,
           productionHistory: [],
         ),
-        ResourceType.plant: Resource.primaryResource(
-          type: ResourceType.plant,
-          stock: model.plant_stock!,
+        plants: PrimaryResource(
+          type: ResourceType.plants,
+          stock: source.plant_stock!,
           stockHistory: [],
-          production: model.plant_prod!,
+          production: source.plant_prod!,
           productionHistory: [],
         ),
-        ResourceType.steel: Resource.primaryResource(
+        steel: PrimaryResource(
           type: ResourceType.steel,
-          stock: model.steel_stock!,
+          stock: source.steel_stock!,
           stockHistory: [],
-          production: model.steel_prod!,
+          production: source.steel_prod!,
           productionHistory: [],
         ),
-        ResourceType.titanium: Resource.primaryResource(
+        titanium: PrimaryResource(
           type: ResourceType.titanium,
-          stock: model.titanium_stock!,
+          stock: source.titanium_stock!,
           stockHistory: [],
-          production: model.titanium_prod!,
+          production: source.titanium_prod!,
           productionHistory: [],
         ),
-        ResourceType.energy: Resource.primaryResource(
+        energy: PrimaryResource(
           type: ResourceType.energy,
-          stock: model.energy_stock!,
+          stock: source.energy_stock!,
           stockHistory: [],
-          production: model.energy_prod!,
+          production: source.energy_prod!,
           productionHistory: [],
         ),
-        ResourceType.heat: Resource.primaryResource(
+        heat: PrimaryResource(
           type: ResourceType.heat,
-          stock: model.heat_stock!,
+          stock: source.heat_stock!,
           stockHistory: [],
-          production: model.heat_prod!,
+          production: source.heat_prod!,
           productionHistory: [],
         ),
-      },
+      ),
     );
+  }
 
-UserResourcesModel userResourcesEntityToModel(UserResources entity) =>
-    UserResourcesModel(
-      userId: entity.userId,
-      credit_prod: entity.resources[ResourceType.credit]?.production,
-      credit_stock: entity.resources[ResourceType.credit]?.stock,
-      energy_prod: entity.resources[ResourceType.energy]?.production,
-      energy_stock: entity.resources[ResourceType.energy]?.stock,
-      heat_prod: entity.resources[ResourceType.heat]?.production,
-      heat_stock: entity.resources[ResourceType.heat]?.stock,
-      nt_stock: entity.resources[ResourceType.terraformingRating]?.stock,
-      plant_prod: entity.resources[ResourceType.plant]?.production,
-      plant_stock: entity.resources[ResourceType.plant]?.stock,
-      steel_prod: entity.resources[ResourceType.steel]?.production,
-      steel_stock: entity.resources[ResourceType.steel]?.stock,
-      titanium_prod: entity.resources[ResourceType.titanium]?.production,
-      titanium_stock: entity.resources[ResourceType.titanium]?.stock,
-      userName: entity.userName,
+  @override
+  UserResourcesModel entityToModel(UserResources source) {
+    return UserResourcesModel(
+      userId: source.userId,
+      credit_prod: source.resources.credits.production,
+      credit_stock: source.resources.credits.stock,
+      energy_prod: source.resources.energy.production,
+      energy_stock: source.resources.energy.stock,
+      heat_prod: source.resources.heat.production,
+      heat_stock: source.resources.heat.stock,
+      nt_stock: source.resources.terraformingRating.stock,
+      plant_prod: source.resources.plants.production,
+      plant_stock: source.resources.plants.stock,
+      steel_prod: source.resources.steel.production,
+      steel_stock: source.resources.steel.stock,
+      titanium_prod: source.resources.titanium.production,
+      titanium_stock: source.resources.titanium.stock,
+      userName: source.userName,
     );
+  }
+}

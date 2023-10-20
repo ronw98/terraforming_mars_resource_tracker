@@ -21,8 +21,52 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # https://dart.dev/tools/linter-rules#always_put_required_named_parameters_first
+    - always_put_required_named_parameters_first
+    # https://dart.dev/tools/linter-rules#always_use_package_imports
+    - always_use_package_imports
+    # https://dart.dev/tools/linter-rules#avoid_empty_else
+    - avoid_empty_else
+    # https://dart.dev/tools/linter-rules#avoid_unused_constructor_parameters
+    - avoid_unused_constructor_parameters
+    # https://dart.dev/tools/linter-rules#deprecated_consistency
+    - deprecated_consistency
+    # https://dart.dev/tools/linter-rules#directives_ordering
+    - directives_ordering
+    # https://dart.dev/tools/linter-rules#lines_longer_than_80_chars
+    - lines_longer_than_80_chars
+    # https://dart.dev/tools/linter-rules#literal_only_boolean_expressions
+    - literal_only_boolean_expressions
+    # https://dart.dev/tools/linter-rules#missing_whitespace_between_adjacent_strings
+    - missing_whitespace_between_adjacent_strings
+    # https://dart.dev/tools/linter-rules#only_throw_errors
+    - only_throw_errors
+    # https://dart.dev/tools/linter-rules#package_api_docs
+    - package_api_docs
+    # https://dart.dev/tools/linter-rules#parameter_assignments
+    - parameter_assignments
+    # https://dart.dev/tools/linter-rules#prefer_single_quotes
+    - prefer_single_quotes
+    # https://dart.dev/tools/linter-rules#require_trailing_commas
+    - require_trailing_commas
+    # https://dart.dev/tools/linter-rules#sort_constructors_first
+    - sort_constructors_first
+    # https://dart.dev/tools/linter-rules#sort_pub_dependencies
+    - sort_pub_dependencies
+    # https://dart.dev/tools/linter-rules#unnecessary_parenthesis
+    - unnecessary_parenthesis
+    # https://dart.dev/tools/linter-rules#unnecessary_to_list_in_spreads
+    - unnecessary_to_list_in_spreads
+    # https://dart.dev/tools/linter-rules#use_colored_box
+    - use_colored_box
+    # https://dart.dev/tools/linter-rules#use_decorated_box
+    - use_decorated_box
+    # https://dart.dev/tools/linter-rules#use_if_null_to_convert_nulls_to_bools
+    - use_if_null_to_convert_nulls_to_bools
+    # https://dart.dev/tools/linter-rules#use_string_buffers
+    - use_string_buffers
+    # https://dart.dev/tools/linter-rules#valid_regexps
+    - valid_regexps
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

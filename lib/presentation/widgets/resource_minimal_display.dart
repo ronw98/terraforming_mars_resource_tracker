@@ -5,8 +5,8 @@ import 'package:tm_ressource_tracker/presentation/spacers.dart';
 
 class ResourceMinimalDisplay extends StatelessWidget {
   const ResourceMinimalDisplay({
-    Key? key,
     required this.resource,
+    Key? key,
   }) : super(key: key);
 
   final Resource resource;
@@ -15,10 +15,10 @@ class ResourceMinimalDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = TextStyle(fontSize: 15);
 
+    final resource = this.resource;
     final resourceType = resource.type;
-    return resource.map(
-      terraformingLevel: (tr) {
-        return Row(
+    return switch (resource) {
+      TerraformingRating() => Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Image(
@@ -26,12 +26,10 @@ class ResourceMinimalDisplay extends StatelessWidget {
               height: 40,
             ),
             horizontalSmallSpacer,
-            Text(tr.stock.toString(), style: style)
+            Text(resource.stock.toString(), style: style)
           ],
-        );
-      },
-      primaryResource: (resource) {
-        return Row(
+        ),
+      PrimaryResource() => Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Image(image: resourceType.resourceImage, height: 40),
@@ -51,8 +49,7 @@ class ResourceMinimalDisplay extends StatelessWidget {
               ],
             ),
           ],
-        );
-      },
-    );
+        ),
+    };
   }
 }

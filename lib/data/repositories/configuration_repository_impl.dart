@@ -1,36 +1,53 @@
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/data/adapters/adapters.dart';
-import 'package:tm_ressource_tracker/data/datasources/local/configuration_datasource.dart';
+import 'package:tm_ressource_tracker/data/datasources/local/shared_preferences_datasource.dart';
 import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
+import 'package:tm_ressource_tracker/data/models/settings_model.dart';
+import 'package:tm_ressource_tracker/data/models/standard_project_config_model.dart';
 import 'package:tm_ressource_tracker/domain/entities/configuration.dart';
 import 'package:tm_ressource_tracker/domain/repositories/configuration_repository.dart';
 
 @Injectable(as: ConfigurationRepository)
 class ConfigurationRepositoryImpl implements ConfigurationRepository {
-  final ConfigurationDataSourceLocal configurationDataSource;
+  ConfigurationRepositoryImpl(this._dataSource);
 
-  ConfigurationRepositoryImpl(this.configurationDataSource);
+  static const _settingsKey = 'settings';
+  static const _projectsKey = 'projects';
+  final SharedPreferencesDataSource _dataSource;
 
   @override
   Future<Configuration> getConfig() async {
-    final settingsModel = configurationDataSource.getSettings();
-    final projectsConfigModel = configurationDataSource.getStandardProjects();
+    try {
+      final settingsModel = _dataSource.getData(
+        _settingsKey,
+        SettingsModel.fromJson,
+      );
+      final projectsConfigModel = _dataSource.getData(
+        _projectsKey,
+        StandardProjectConfigModel.fromJson,
+      );
 
-    final settings = modelToEntity(
-          settingsModel,
-          settingsModelToEntity,
-        ) ??
-        defaultSettings;
-    final projectsConfig = modelToEntity(
-          projectsConfigModel,
-          standardProjectConfigModelToEntity,
-        ) ??
-        defaultProjectConfig;
+      final settings = modelToEntity(
+            settingsModel,
+            settingsModelToEntity,
+          ) ??
+          defaultSettings;
+      final projectsConfig = modelToEntity(
+            projectsConfigModel,
+            standardProjectConfigModelToEntity,
+          ) ??
+          defaultProjectConfig;
 
-    return Configuration(
-      settings: settings,
-      standardProjectConfig: projectsConfig,
-    );
+      return Configuration(
+        settings: settings,
+        standardProjectConfig: projectsConfig,
+      );
+    } on Exception catch (_) {
+      return Configuration(
+        settings: defaultSettings,
+        standardProjectConfig: defaultProjectConfig,
+      );
+    }
   }
 
   @override
@@ -40,8 +57,9 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
       configuration.standardProjectConfig,
     );
 
-    final settingsOK = await configurationDataSource.setSettings(settingsModel);
-    final projectsOK = await configurationDataSource.setStandardProjects(
+    final settingsOK = await _dataSource.setData(_settingsKey, settingsModel);
+    final projectsOK = await _dataSource.setData(
+      _projectsKey,
       projectsConfigModel,
     );
 

@@ -1,29 +1,23 @@
 import 'package:injectable/injectable.dart';
-import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/local_game.dart';
 import 'package:tm_ressource_tracker/domain/repositories/resource_repository.dart';
 import 'package:tm_ressource_tracker/domain/repositories/user_repository.dart';
 import 'package:tm_ressource_tracker/domain/usecases/upload_resources.dart';
 
 /// Sets resources locally and online
 @injectable
-class SetResources {
-  final ResourceRepository repository;
+class SetLocalGame {
+  SetLocalGame(this.repository, this.uploadResources, this.userRepository);
+
+  final LocalGameRepository repository;
   final UploadResources uploadResources;
   final UserRepository userRepository;
 
-  SetResources(this.repository, this.uploadResources, this.userRepository);
-
-  Future<bool> call(List<Resource> resources) async {
+  Future<bool> call(LocalGame game) async {
     final connected = await userRepository.isConnected();
-    if(connected) {
-      uploadResources.call(
-        Map.fromEntries(
-          resources.map(
-            (r) => MapEntry(r.type, r),
-          ),
-        ),
-      );
+    if (connected) {
+      uploadResources.call(game.resources);
     }
-    return await repository.setResources(resources);
+    return await repository.setGame(game);
   }
 }

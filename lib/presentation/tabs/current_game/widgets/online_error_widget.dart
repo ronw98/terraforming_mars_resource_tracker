@@ -41,7 +41,7 @@ class _OnlineErrorWidgetState extends State<OnlineErrorWidget> {
       listener: (context, state) {
         state.whenOrNull(
           error: (failure) {
-            _displayText = failure.reason(context);
+            _displayText = failure.translateReason(context);
             if (_displayText?.isNotEmpty ?? false) {
               currentTimer = Timer(const Duration(seconds: 3), _onTimerEnd);
               setState(() {});

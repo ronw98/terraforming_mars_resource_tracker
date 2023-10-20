@@ -4,33 +4,44 @@ part 'resource.freezed.dart';
 
 enum ResourceType {
   terraformingRating,
-  credit,
+  credits,
   steel,
   titanium,
-  plant,
+  plants,
   energy,
   heat;
 }
 
-@freezed
-class Resource with _$Resource {
-  const Resource._();
+sealed class Resource {
+  int get stock;
 
-  const factory Resource.terraformingLevel({
-    @Default(ResourceType.terraformingRating) ResourceType type,
+  List<int> get stockHistory;
+
+  ResourceType get type;
+}
+
+@freezed
+class TerraformingRating with _$TerraformingRating implements Resource {
+  const TerraformingRating._();
+
+  const factory TerraformingRating({
     required int stock,
     required List<int> stockHistory,
-  }) = TerraformingLevel;
+  }) = _TerraformingRating;
 
-  const factory Resource.primaryResource({
+  @override
+  ResourceType get type => ResourceType.terraformingRating;
+}
+
+@freezed
+class PrimaryResource with _$PrimaryResource implements Resource {
+  const PrimaryResource._();
+
+  const factory PrimaryResource({
     required ResourceType type,
     required int stock,
     required List<int> stockHistory,
     required int production,
     required List<int> productionHistory,
-  }) = PrimaryResource;
-
-  int? get production => mapOrNull(
-        primaryResource: (r) => r.production,
-      );
+  }) = _PrimaryResource;
 }

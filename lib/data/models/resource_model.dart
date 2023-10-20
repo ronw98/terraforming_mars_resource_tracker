@@ -1,24 +1,45 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'resource_model.freezed.dart';
-
 part 'resource_model.g.dart';
 
 @freezed
-class ResourceModel with _$ResourceModel {
-  const factory ResourceModel.terraformingLevel({
-    required int stock,
-    required List<int> stockHistory,
-  }) = TerraformingLevelModel;
+class ResourcesModel with _$ResourcesModel {
+  const factory ResourcesModel({
+    TerraformingRatingModel? terraformingRating,
+    PrimaryResourceModel? credits,
+    PrimaryResourceModel? plants,
+    PrimaryResourceModel? steel,
+    PrimaryResourceModel? titanium,
+    PrimaryResourceModel? energy,
+    PrimaryResourceModel? heat,
+  }) = _ResourcesModel;
 
-  const factory ResourceModel.primaryResource({
-    required String type,
-    required int stock,
-    required List<int> stockHistory,
-    required int production,
-    required List<int> productionHistory,
-  }) = PrimaryResourceModel;
+  factory ResourcesModel.fromJson(Map<String, dynamic> json) =>
+      _$ResourcesModelFromJson(json);
+}
 
-  factory ResourceModel.fromJson(Map<String, dynamic> json) =>
-      _$ResourceModelFromJson(json);
+@freezed
+class TerraformingRatingModel with _$TerraformingRatingModel {
+  const factory TerraformingRatingModel({
+    int? stock,
+    List<int>? stockHistory,
+  }) = _TerraformingRatingModel;
+
+  factory TerraformingRatingModel.fromJson(Map<String, dynamic> json) =>
+      _$TerraformingRatingModelFromJson(json);
+}
+
+@freezed
+class PrimaryResourceModel with _$PrimaryResourceModel {
+  const factory PrimaryResourceModel({
+    String? type,
+    int? stock,
+    List<int>? stockHistory,
+    int? production,
+    List<int>? productionHistory,
+  }) = _PrimaryResourceModel;
+
+  factory PrimaryResourceModel.fromJson(Map<String, dynamic> json) =>
+      _$PrimaryResourceModelFromJson(json);
 }

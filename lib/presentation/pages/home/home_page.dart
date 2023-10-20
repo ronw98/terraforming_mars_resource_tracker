@@ -21,17 +21,22 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: TMAppBar(
             actions: [
-              BlocBuilder<ResourceCubit, ResourceState>(
-                buildWhen: (previous, current) => current is ResourcesLoaded,
+              BlocBuilder<LocalGameCubit, LocalGameState>(
+                buildWhen: (previous, current) {
+                  return current.maybeMap(
+                    orElse: () => false,
+                    loaded: (_) => true,
+                  );
+                },
                 builder: (context, state) {
-                  if (!BlocProvider.of<ResourceCubit>(context).canUndo) {
+                  if (!BlocProvider.of<LocalGameCubit>(context).canUndo) {
                     return const NoneWidget();
                   }
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
                       onPressed: () {
-                        BlocProvider.of<ResourceCubit>(context).undo();
+                        BlocProvider.of<LocalGameCubit>(context).undo();
                       },
                       icon: Icon(Icons.undo),
                     ),

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:tm_ressource_tracker/core/injection.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/user_resources.dart';
+import 'package:tm_ressource_tracker/domain/usecases/resource_use_cases.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/resource_minimal_display.dart';
 
 class UserResourcesWidget extends StatelessWidget {
   const UserResourcesWidget({
-    Key? key,
     required this.userResources,
+    Key? key,
   }) : super(key: key);
 
   final UserResources userResources;
@@ -31,7 +33,10 @@ class UserResourcesWidget extends StatelessWidget {
               children: ResourceType.values
                   .map(
                     (type) => ResourceMinimalDisplay(
-                      resource: userResources.resources[type]!,
+                      resource: serviceLocator<ResourceFromType>()(
+                        userResources.resources,
+                        type,
+                      ),
                     ),
                   )
                   .toList(),

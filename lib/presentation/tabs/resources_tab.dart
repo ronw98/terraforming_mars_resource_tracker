@@ -38,9 +38,8 @@ class ResourcesTab extends StatelessWidget {
           child: TMTextButton(
             onTap: () async {
               final scaffoldMessenger = ScaffoldMessenger.of(context);
-              HapticFeedback.vibrate();
               final result =
-                  await BlocProvider.of<ResourceCubit>(context).produce();
+                  await BlocProvider.of<LocalGameCubit>(context).produce();
               if (!scaffoldMessenger.mounted) {
                 return;
               }
@@ -75,17 +74,19 @@ class ResourcesTab extends StatelessWidget {
 
   void _onResourceWidgetTapped(
       BuildContext context, ResourceType resourceType) {
-    if (resourceType != ResourceType.terraformingRating) ;
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (_) => ResourceEditionBottomSheet(
-        resourceType: resourceType,
-      ),
-    );
+    if (resourceType != ResourceType.terraformingRating) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (_) => ResourceEditionBottomSheet(
+          resourceType: resourceType,
+        ),
+      );
+    }
   }
 
   void _onReset(BuildContext context) async {
+    HapticFeedback.vibrate();
     final reset = await showDialog(
       context: context,
       builder: (_) => ConfirmDialog(
@@ -95,7 +96,7 @@ class ResourcesTab extends StatelessWidget {
       ),
     );
     if (reset) {
-      BlocProvider.of<ResourceCubit>(context).reset();
+      BlocProvider.of<LocalGameCubit>(context).reset();
     }
   }
 }

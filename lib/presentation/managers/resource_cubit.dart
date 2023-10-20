@@ -2,60 +2,66 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:tm_ressource_tracker/core/injection.dart';
-import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/local_game.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
-import 'package:tm_ressource_tracker/domain/usecases/get_resources.dart';
-import 'package:tm_ressource_tracker/domain/usecases/set_resources.dart';
+import 'package:tm_ressource_tracker/domain/usecases/get_local_game.dart';
+import 'package:tm_ressource_tracker/domain/usecases/perform_standard_project.dart';
+import 'package:tm_ressource_tracker/domain/usecases/production.dart';
+import 'package:tm_ressource_tracker/domain/usecases/resource_use_cases.dart';
+import 'package:tm_ressource_tracker/domain/usecases/set_local_game.dart';
 import 'package:tm_ressource_tracker/domain/utils/resource_utils.dart';
-import 'package:tm_ressource_tracker/presentation/extension/number_extension.dart';
-import 'package:tm_ressource_tracker/presentation/extension/resources_extension.dart';
-import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
+import 'package:vibration/vibration.dart';
 
 part 'resource_cubit.freezed.dart';
 
-@singleton
-class ResourceCubit extends Cubit<ResourceState> {
-  ResourceCubit(this.getResources, this.setResources)
-      : super(ResourceState.initial());
+@injectable
+class LocalGameCubit extends Cubit<LocalGameState> {
+  LocalGameCubit(
+    this.getLocalGame,
+    this.setLocalGame,
+    this._isStandardProjectDoable,
+    this._produce,
+    this._performStandardProject,
+    this._editOneResource,
+    this._singleResourceTransaction,
+  ) : super(LocalGameState.initial());
 
-  final GetResources getResources;
-  final SetResources setResources;
+  final GetLocalGame getLocalGame;
+  final SetLocalGame setLocalGame;
+  final IsStandardProjectDoable _isStandardProjectDoable;
+  final PerformStandardProject _performStandardProject;
+  final Produce _produce;
+  final EditOneResource _editOneResource;
+  final SingleResourceTransaction _singleResourceTransaction;
+  final List<LocalGame> previousGameStates = [];
 
-  final List<ResourcesLoaded> previousStates = [];
-
-  bool get canUndo => previousStates.isNotEmpty;
+  bool get canUndo => previousGameStates.isNotEmpty;
 
   void loadResources() async {
-    emit(ResourceState.loading());
-    final resourcesMaybe = await getResources();
-    if (resourcesMaybe == null) {
-      emit(ResourceState.error());
+    emit(LocalGameState.loading());
+    final game = await getLocalGame();
+    if (game == null) {
+      emit(LocalGameState.error());
     } else {
-      emit(ResourceState.loaded(resources: resourcesMaybe));
+      emit(LocalGameState.loaded(game: game));
     }
   }
 
   Future<bool> onProjectTap(StandardProject project) {
     return state.maybeWhen(
-      loaded: (resources) async {
-        if (!resources.canDoStandardProject(project)) {
+      loaded: (game) async {
+        final standardProjectDoable = _isStandardProjectDoable(
+          project,
+          game.resources,
+        );
+        if (!standardProjectDoable) {
           return false;
         }
-        Map<ResourceType, Resource> resourcesCopy = {...resources};
-        resourcesCopy = _updateResourcesWithCost(
-          resourcesCopy,
-          project.cost,
-          false,
-        );
-        resourcesCopy = _updateResourcesWithCost(
-          resourcesCopy,
-          project.reward,
-          true,
-        );
-        await setResources(resourcesCopy.values.toList());
-        emit(ResourceState.loaded(resources: resourcesCopy));
+        final newResources = _performStandardProject(project, game.resources);
+        final newGameState = game.copyWith(resources: newResources);
+        await setLocalGame(newGameState);
+        emit(LocalGameState.loaded(game: newGameState));
         return true;
       },
       orElse: () async => false,
@@ -64,31 +70,14 @@ class ResourceCubit extends Cubit<ResourceState> {
 
   Future<bool> produce() async {
     return await state.maybeWhen(
-      loaded: (resources) async {
-        final resourcesCopy = {...resources};
-        resourcesCopy.credits = resourcesCopy.credits.produce(
-          additionalStock: resourcesCopy.terraformingRating.stock,
+      loaded: (oldGameState) async {
+        final updatedGameState = await _produce(oldGameState);
+        Vibration.vibrate(
+          pattern: [100, 50, 300],
+          intensities: [100, 1, 200],
         );
-        resourcesCopy.steel = resourcesCopy.steel.produce();
-        resourcesCopy.titanium = resourcesCopy.titanium.produce();
-        resourcesCopy.plant = resourcesCopy.plant.produce();
-        resourcesCopy.heat = resourcesCopy.heat.produce(
-          additionalStock: resourcesCopy.energy.stock,
-        );
-        resourcesCopy.energy = resourcesCopy.energy.copyWith(stock: 0);
-        resourcesCopy.energy = resourcesCopy.energy.produce();
-
-        final settings = serviceLocator<ConfigurationCubit>().state.mapOrNull(
-              loaded: (loaded) => loaded.configuration.settings,
-            );
-        if (settings != null) {
-          if (settings.useTurmoil) {
-            resourcesCopy.terraformingRating = resourcesCopy.terraformingRating
-                .copyWith(stock: resourcesCopy.terraformingRating.stock - 1);
-          }
-        }
-        await setResources(resourcesCopy.values.toList());
-        emit(ResourceState.loaded(resources: resourcesCopy));
+        await setLocalGame(updatedGameState);
+        emit(LocalGameState.loaded(game: updatedGameState));
         return true;
       },
       orElse: () => false,
@@ -96,68 +85,34 @@ class ResourceCubit extends Cubit<ResourceState> {
   }
 
   void reset() {
-    state.whenOrNull(loaded: (resources) async {
-      final newResources = defaultResources;
-      await setResources(newResources.values.toList());
-      emit(ResourceState.loaded(resources: newResources));
-    });
+    state.whenOrNull(
+      loaded: (resources) async {
+        final newGame = defaultGame;
+        await setLocalGame(newGame);
+        emit(LocalGameState.loaded(game: newGame));
+      },
+    );
   }
 
   void undo() async {
-    final newState = previousStates.lastOrNull;
-    if (newState == null) {
+    final newGame = previousGameStates.lastOrNull;
+    if (newGame == null) {
       return;
     }
-    previousStates.removeLast();
-    await setResources(newState.resources.values.toList());
-    super.emit(newState);
+    previousGameStates.removeLast();
+    await setLocalGame(newGame);
+    super.emit(LocalGameState.loaded(game: newGame));
   }
 
   @override
-  void emit(ResourceState newState) {
-    if (previousStates.length == 3) {
-      previousStates.removeAt(0);
+  void emit(LocalGameState newState) {
+    if (previousGameStates.length == 3) {
+      previousGameStates.removeAt(0);
     }
-    state.mapOrNull(loaded: (loaded) => previousStates.add(loaded));
-    super.emit(newState);
-  }
-
-  Map<ResourceType, Resource> _updateResourcesWithCost(
-    Map<ResourceType, Resource> resources,
-    List<CostResource> cost,
-    bool isReward,
-  ) {
-    final factor = isReward ? 1 : -1;
-    cost.forEach(
-      (costResource) {
-        costResource.mapOrNull(
-          stock: (stockCost) {
-            final resource = resources[stockCost.type]!;
-            final newStock = resource.stock + factor * stockCost.value;
-            resources[stockCost.type] = resource.copyWith(
-              stock: newStock,
-              stockHistory: newStock != resource.stock
-                  ? resource.stockHistory.addIfNotNull(newStock)
-                  : resource.stockHistory,
-            );
-          },
-          production: (prodCost) {
-            final resource = resources[prodCost.type];
-            if (resource is! PrimaryResource) {
-              return;
-            }
-            final newProd = resource.production + factor * prodCost.value;
-            resources[prodCost.type] = resource.copyWith(
-              production: newProd,
-              productionHistory: resource.production != newProd
-                  ? resource.productionHistory.addIfNotNull(newProd)
-                  : resource.productionHistory,
-            );
-          },
-        );
-      },
+    state.mapOrNull(
+      loaded: (loaded) => previousGameStates.add(loaded.game),
     );
-    return resources;
+    super.emit(newState);
   }
 
   void addStockOrProduction({
@@ -169,20 +124,17 @@ class ResourceCubit extends Cubit<ResourceState> {
       return;
     }
     state.whenOrNull(
-      loaded: (resources) {
-        final resource = resources[resourceType];
-        final oldStock = resource?.stock;
-        final oldProduction = resource?.mapOrNull(
-          primaryResource: (r) => r.production,
+      loaded: (oldGame) async {
+        final newResources = _singleResourceTransaction(
+          oldGame.resources,
+          resourceType,
+          stockChange,
+          productionChange,
         );
-
-        final newStock = oldStock.add(stockChange);
-        final newProduction = oldProduction.add(productionChange);
-
-        modifyStockOrProduction(
-          resourceType: resourceType,
-          newProduction: newProduction,
-          newStock: newStock,
+        final newGame = oldGame.copyWith(resources: newResources);
+        await setLocalGame(newGame);
+        emit(
+          LocalGameState.loaded(game: newGame),
         );
       },
     );
@@ -197,42 +149,30 @@ class ResourceCubit extends Cubit<ResourceState> {
       return;
     }
     state.whenOrNull(
-      loaded: (resources) async {
-        final resourcesCopy = {...resources};
-        final oldResource = resourcesCopy[resourceType]!;
-        resourcesCopy[resourceType] = oldResource.map(
-          primaryResource: (resource) => PrimaryResource(
-            type: resource.type,
-            stock: newStock ?? resource.stock,
-            stockHistory: newStock != resource.stock
-                ? resource.stockHistory.addIfNotNull(newStock)
-                : resource.stockHistory,
-            production: newProduction ?? resource.production,
-            productionHistory: newProduction != resource.production
-                ? resource.productionHistory.addIfNotNull(newProduction)
-                : resource.productionHistory,
-          ),
-          terraformingLevel: (resource) => resource.copyWith(
-            stock: newStock ?? resource.stock,
-            stockHistory: resource.stockHistory.addIfNotNull(newStock),
-          ),
+      loaded: (oldGameState) async {
+        final newResources = _editOneResource(
+          oldGameState.resources,
+          resourceType,
+          newStock,
+          newProduction,
         );
-        await setResources(resourcesCopy.values.toList());
-        emit(ResourceState.loaded(resources: resourcesCopy));
+        final newGameState = oldGameState.copyWith(resources: newResources);
+        await setLocalGame(newGameState);
+        emit(LocalGameState.loaded(game: newGameState));
       },
     );
   }
 }
 
 @freezed
-class ResourceState with _$ResourceState {
-  const factory ResourceState.loaded({
-    required Map<ResourceType, Resource> resources,
-  }) = ResourcesLoaded;
+class LocalGameState with _$LocalGameState {
+  const factory LocalGameState.loaded({
+    required LocalGame game,
+  }) = _GameLoaded;
 
-  const factory ResourceState.error() = ResourcesError;
+  const factory LocalGameState.error() = _GameError;
 
-  const factory ResourceState.loading() = ResourcesLoading;
+  const factory LocalGameState.loading() = _GameLoading;
 
-  const factory ResourceState.initial() = ResourcesInitial;
+  const factory LocalGameState.initial() = _Initial;
 }

@@ -4,7 +4,7 @@ import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 
 extension FailureExt on Failure {
-  String? reason(BuildContext context) {
+  String? translateReason(BuildContext context) {
     return when(
       failure: (r) => r,
       gameLeave: (r) => r,

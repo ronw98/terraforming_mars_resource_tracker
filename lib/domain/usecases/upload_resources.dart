@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/entities/game_info.dart';
-import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/resources.dart';
 import 'package:tm_ressource_tracker/domain/repositories/games_repository.dart';
 import 'package:tm_ressource_tracker/domain/repositories/user_resources_repository.dart';
 
@@ -14,7 +14,7 @@ class UploadResources {
   final GamesRepository gamesRepository;
   final UserResourcesRepository userResourcesRepository;
 
-  Future<bool> call(Map<ResourceType, Resource> resources) async {
+  Future<bool> call(Resources resources) async {
     final bool userHasUploadedResources;
     try {
       userHasUploadedResources =

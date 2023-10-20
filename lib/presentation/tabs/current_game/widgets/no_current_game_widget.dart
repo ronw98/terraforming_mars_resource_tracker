@@ -51,7 +51,7 @@ class NoCurrentGameWidget extends StatelessWidget {
 
   void _joinGame(BuildContext context) async {
     final cubit = BlocProvider.of<OnlineGameCubit>(context);
-    final resourceCubit = BlocProvider.of<ResourceCubit>(context);
+    final resourceCubit = BlocProvider.of<LocalGameCubit>(context);
 
     final info = await showDialog<JoinInfo>(
       context: context,
@@ -61,14 +61,16 @@ class NoCurrentGameWidget extends StatelessWidget {
 
     final resources = resourceCubit.isClosed
         ? null
-        : resourceCubit.state.mapOrNull(loaded: (loaded) => loaded.resources);
+        : resourceCubit.state.mapOrNull(
+            loaded: (loaded) => loaded.game.resources,
+          );
 
     cubit.joinGame(info.userName, info.inviteCode, resources);
   }
 
   void _createGame(BuildContext context) async {
     final cubit = BlocProvider.of<OnlineGameCubit>(context);
-    final resourceCubit = BlocProvider.of<ResourceCubit>(context);
+    final resourceCubit = BlocProvider.of<LocalGameCubit>(context);
 
     final userName = await showDialog<String>(
       context: context,
@@ -81,7 +83,9 @@ class NoCurrentGameWidget extends StatelessWidget {
 
     final resources = resourceCubit.isClosed
         ? null
-        : resourceCubit.state.mapOrNull(loaded: (loaded) => loaded.resources);
+        : resourceCubit.state.mapOrNull(
+            loaded: (loaded) => loaded.game.resources,
+          );
     cubit.createGame(userName, resources);
   }
 }

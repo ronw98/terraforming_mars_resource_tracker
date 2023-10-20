@@ -2,6 +2,7 @@
     package="org.reblochor.tm_ressource_tracker">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application
         android:icon="@mipmap/app_icon"
         android:label="Terraforming Mars Calculator">

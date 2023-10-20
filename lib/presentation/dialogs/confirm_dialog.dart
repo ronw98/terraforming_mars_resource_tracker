@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tm_ressource_tracker/presentation/theme/app_theme.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
@@ -47,7 +48,10 @@ class ConfirmDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
-                  onTap: () => Navigator.pop(context, true),
+                  onTap: () {
+                    HapticFeedback.vibrate();
+                    Navigator.pop(context, true);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Align(
@@ -62,7 +66,10 @@ class ConfirmDialog extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Navigator.pop(context, false),
+                  onTap: () {
+                    HapticFeedback.vibrate();
+                    Navigator.pop(context, false);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Align(

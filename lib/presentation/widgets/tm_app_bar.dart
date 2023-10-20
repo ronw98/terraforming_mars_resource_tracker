@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/constants.dart';
+import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
+import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 
-class TMAppBar extends StatelessWidget with PreferredSizeWidget {
+class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TMAppBar({
-    Key? key,
     required this.title,
+    Key? key,
     this.actions,
   }) : super(key: key);
 
@@ -16,9 +19,30 @@ class TMAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 18),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(fontSize: 18),
+          ),
+          BlocSelector<LocalGameCubit, LocalGameState, int?>(
+            selector: (state) {
+              return state.whenOrNull(
+                loaded: (game) => game.generationNumber,
+              );
+            },
+            builder: (context, genNumber) {
+              if (genNumber == null) return const NoneWidget();
+              return Text(
+                'Gen#$genNumber',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.grey.shade400,
+                    ),
+              );
+            },
+          )
+        ],
       ),
       actionsIconTheme: IconThemeData(
         color: Colors.white,

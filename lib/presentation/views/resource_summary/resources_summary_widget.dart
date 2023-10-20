@@ -17,7 +17,7 @@ class ResourcesSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ResourceCubit, ResourceState>(
+    return BlocBuilder<LocalGameCubit, LocalGameState>(
       buildWhen: (previous, next) => previous.runtimeType != next.runtimeType,
       builder: (context, state) {
         return state.maybeMap(

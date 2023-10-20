@@ -1,6 +1,7 @@
-import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/local_game.dart';
 
-abstract class ResourceRepository {
-  Future<Map<ResourceType, Resource>?> getResources();
-  Future<bool> setResources(List<Resource> resources);
+abstract class LocalGameRepository {
+  Future<LocalGame?> getGame();
+
+  Future<bool> setGame(LocalGame resources);
 }

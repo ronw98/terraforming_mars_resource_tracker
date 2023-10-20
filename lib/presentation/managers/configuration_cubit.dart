@@ -138,7 +138,7 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
         costCopy.add(
           CostResource.stock(
             value: 0,
-            type: ResourceType.credit,
+            type: ResourceType.credits,
           ),
         );
         final newStandardProject = isCost

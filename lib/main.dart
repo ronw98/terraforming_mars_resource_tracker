@@ -41,7 +41,7 @@ void main() async {
 
 /// Adds Let's Encrypt base certificate to the list of trusted certificates
 ///
-/// Fixes a problem on Anfroid 7-
+/// Fixes a problem on Android 7-
 Future<void> _checkTrustedCertificates() async {
   if (Platform.isAndroid) {
     final androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -64,7 +64,7 @@ class ResourceTracker extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ResourceCubit>(
+        BlocProvider<LocalGameCubit>(
           create: (_) => serviceLocator()..loadResources(),
         ),
         BlocProvider<ConfigurationCubit>(

@@ -12,14 +12,17 @@ abstract class UserResourcesDataSource {
 
   Future<List<UserResourcesModel>> getGamesResources(String userId);
 
-  // TODO: maybe actually query current user resources but put them first in the list
+  // TODO: actually query current user resources but put them first in the list
   Stream<List<UserResourcesModel>> watchGamesResources(String userId);
 
   /// Updates the user's resources document
   ///
-  /// Returns true if the update successes
-  /// Throws [DocumentNotFoundException] if the document to update could not be found
-  /// Throws [TooManyResultsException] if more than one document could be updated
+  /// Returns true if the update successes.
+  ///
+  /// Throws [DocumentNotFoundException] if the document to update could not be
+  /// .found
+  /// Throws [TooManyResultsException] if more than one document could be
+  /// updated.
   Future<bool> updateUserResources(
     String userId,
     UserResourcesModel userResourcesModel,

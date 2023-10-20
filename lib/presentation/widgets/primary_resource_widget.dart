@@ -11,12 +11,12 @@ import 'package:tm_ressource_tracker/presentation/widgets/text_editable_value.da
 
 class PrimaryResourceWidget extends StatelessWidget {
   const PrimaryResourceWidget({
-    Key? key,
     required this.type,
     required this.stock,
     required this.production,
     required this.stockHistory,
     required this.productionHistory,
+    Key? key,
   }) : super(key: key);
 
   final ResourceType type;
@@ -60,7 +60,7 @@ class PrimaryResourceWidget extends StatelessWidget {
                             editable: true,
                             value: stock,
                             onValueChanged: (newValue) {
-                              BlocProvider.of<ResourceCubit>(context)
+                              BlocProvider.of<LocalGameCubit>(context)
                                   .modifyStockOrProduction(
                                 resourceType: type,
                                 newStock: newValue,
@@ -83,7 +83,7 @@ class PrimaryResourceWidget extends StatelessWidget {
                             value: production,
                             style: TextStyle(color: Colors.brown),
                             onValueChanged: (newValue) {
-                              BlocProvider.of<ResourceCubit>(context)
+                              BlocProvider.of<LocalGameCubit>(context)
                                   .modifyStockOrProduction(
                                 resourceType: type,
                                 newProduction: newValue,

@@ -1,47 +1,45 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
-import 'package:tm_ressource_tracker/data/adapters/resource_adapter.dart';
-import 'package:tm_ressource_tracker/data/datasources/local/resource_datasource_local.dart';
-import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/data/adapters/local_game_adapter.dart';
+import 'package:tm_ressource_tracker/data/datasources/local/shared_preferences_datasource.dart';
+import 'package:tm_ressource_tracker/data/models/local_game_model.dart';
+import 'package:tm_ressource_tracker/domain/entities/local_game.dart';
 import 'package:tm_ressource_tracker/domain/repositories/resource_repository.dart';
 import 'package:tm_ressource_tracker/domain/utils/resource_utils.dart';
 
-@Injectable(as: ResourceRepository)
-class ResourceRepositoryImpl implements ResourceRepository {
-  final ResourceDataSourceLocal resourceDataSourceLocal;
+@Injectable(as: LocalGameRepository)
+class LocalGameRepositoryImpl implements LocalGameRepository {
+  LocalGameRepositoryImpl(this._dataSource, this._gameAdapter);
 
-  const ResourceRepositoryImpl({required this.resourceDataSourceLocal});
+  static const _gameKey = 'game';
+
+  final SharedPreferencesDataSource _dataSource;
+  final LocalGameAdapter _gameAdapter;
 
   @override
-  Future<Map<ResourceType, Resource>?> getResources() async {
+  Future<LocalGame?> getGame() async {
     try {
-      final resourceModels = resourceDataSourceLocal.getResources();
-      if (resourceModels == null) {
-        return defaultResources;
-      }
-      return Map.fromEntries(
-        resourceModels.map(
-          (model) {
-            final entity = resourceModelToEntity(model);
-            return MapEntry(entity.type, entity);
-          },
-        ),
+      final gameModel = _dataSource.getData(
+        _gameKey,
+        LocalGameModel.fromJson,
       );
-    } catch (_) {
-      return null;
+      return _gameAdapter.modelToEntity(gameModel!);
+    } catch (e, s) {
+      log('Error getting game', error: e, stackTrace: s);
+      return defaultGame;
     }
   }
 
   @override
-  Future<bool> setResources(List<Resource> resources) async {
+  Future<bool> setGame(LocalGame game) async {
     try {
-      return resourceDataSourceLocal.setResources(
-        resources
-            .map(
-              (resource) => resourceEntityToModel(resource),
-            )
-            .toList(),
+      return _dataSource.setData(
+        _gameKey,
+        _gameAdapter.entityToModel(game),
       );
-    } catch (e) {
+    } catch (e, s) {
+      log('Error setting game', error: e, stackTrace: s);
       return false;
     }
   }

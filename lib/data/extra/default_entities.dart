@@ -28,7 +28,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 23,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [
@@ -44,7 +44,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 25,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [
@@ -54,7 +54,7 @@ enum DefaultStandardProjects {
             ),
             CostResource.production(
               value: 1,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
         );
@@ -64,7 +64,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 18,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [
@@ -80,7 +80,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 11,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [
@@ -96,7 +96,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 14,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [
@@ -112,7 +112,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 5,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [
@@ -144,7 +144,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 8,
-              type: ResourceType.plant,
+              type: ResourceType.plants,
             ),
           ],
           reward: [
@@ -160,7 +160,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 15,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [
@@ -176,7 +176,7 @@ enum DefaultStandardProjects {
           cost: [
             CostResource.stock(
               value: 17,
-              type: ResourceType.credit,
+              type: ResourceType.credits,
             ),
           ],
           reward: [

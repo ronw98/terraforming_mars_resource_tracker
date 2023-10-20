@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
@@ -29,8 +30,9 @@ class StandardProjectsTab extends StatelessWidget {
                         .map(
                           (project) => GestureDetector(
                             onTap: () async {
+                              HapticFeedback.vibrate();
                               final result =
-                                  await BlocProvider.of<ResourceCubit>(context)
+                                  await BlocProvider.of<LocalGameCubit>(context)
                                       .onProjectTap(project);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

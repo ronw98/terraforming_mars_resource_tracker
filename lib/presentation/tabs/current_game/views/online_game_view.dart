@@ -67,8 +67,10 @@ class OnlineGameView extends StatelessWidget {
             ],
             verticalBigSpacer,
             ElevatedButton(
-              onPressed: () =>
-                  BlocProvider.of<OnlineGameCubit>(context).leaveGame(),
+              onPressed: () {
+                HapticFeedback.vibrate();
+                BlocProvider.of<OnlineGameCubit>(context).leaveGame();
+              },
               child: Text('Leave game'),
             ),
           ],

@@ -17,7 +17,7 @@ class StockCostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return type == ResourceType.credit
+    return type == ResourceType.credits
         ? CreditStockCost(value: value)
         : NonCreditStockCost(
             type: type,

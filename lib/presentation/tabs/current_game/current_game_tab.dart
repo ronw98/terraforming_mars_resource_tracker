@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
@@ -24,6 +25,7 @@ class _CurrentGameTabState extends State<CurrentGameTab>
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
+    HapticFeedback.vibrate();
     await BlocProvider.of<OnlineGameCubit>(context).restart();
   }
 

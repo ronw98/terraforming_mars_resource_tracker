@@ -63,8 +63,11 @@ mixin AppwriteDatabaseDataSource {
   }
 
   @protected
-  Stream<DocumentList> watchCollection(String databaseId, String collectionId,
-      [List<String> queries = const []]) {
+  Stream<DocumentList> watchCollection(
+    String databaseId,
+    String collectionId, [
+    List<String> queries = const [],
+  ]) {
     late final StreamController<DocumentList> streamController;
     late final RealtimeSubscription subscription;
 
@@ -83,7 +86,8 @@ mixin AppwriteDatabaseDataSource {
         );
 
     subscription = realtime.subscribe(
-        ['databases.$databaseId.collections.$collectionId.documents']);
+      ['databases.$databaseId.collections.$collectionId.documents'],
+    );
     subscription.stream.listen(
       (event) async {
         try {

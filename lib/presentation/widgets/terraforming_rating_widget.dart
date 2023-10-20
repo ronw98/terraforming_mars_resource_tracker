@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/assets.dart';
-import 'package:tm_ressource_tracker/core/injection.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
@@ -13,9 +12,9 @@ import 'package:tm_ressource_tracker/presentation/widgets/text_editable_value.da
 
 class TerraformingRatingWidget extends StatelessWidget {
   const TerraformingRatingWidget({
-    Key? key,
     required this.stock,
     required this.stockHistory,
+    Key? key,
   }) : super(key: key);
 
   final int stock;
@@ -53,11 +52,10 @@ class TerraformingRatingWidget extends StatelessWidget {
                     child: EditValueButton(
                       text: '-1',
                       onPressed: () {
-                        // TODO: Use [BlocProvider.of]
-                        serviceLocator<ResourceCubit>().modifyStockOrProduction(
-                          resourceType: ResourceType.terraformingRating,
-                          newStock: stock - 1,
-                        );
+                        context.read<LocalGameCubit>().modifyStockOrProduction(
+                              resourceType: ResourceType.terraformingRating,
+                              newStock: stock - 1,
+                            );
                       },
                     ),
                   ),
@@ -74,7 +72,7 @@ class TerraformingRatingWidget extends StatelessWidget {
                       value: stock,
                       style: TextStyle(fontSize: 20),
                       onValueChanged: (newValue) {
-                        BlocProvider.of<ResourceCubit>(context)
+                        BlocProvider.of<LocalGameCubit>(context)
                             .modifyStockOrProduction(
                           resourceType: ResourceType.terraformingRating,
                           newStock: newValue,
@@ -93,11 +91,10 @@ class TerraformingRatingWidget extends StatelessWidget {
                     child: EditValueButton(
                       text: '+1',
                       onPressed: () {
-                        // TODO: Use [BlocProvider.of]
-                        serviceLocator<ResourceCubit>().modifyStockOrProduction(
-                          resourceType: ResourceType.terraformingRating,
-                          newStock: stock + 1,
-                        );
+                        context.read<LocalGameCubit>().modifyStockOrProduction(
+                              resourceType: ResourceType.terraformingRating,
+                              newStock: stock + 1,
+                            );
                       },
                     ),
                   ),

@@ -18,40 +18,39 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 3.0.2+11
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^8.1.3
   dartz: ^0.10.1
-  equatable: ^2.0.3
-  shared_preferences: ^2.0.15
-  get_it: ^7.1.3
-  injectable: ^2.1.0
-  json_annotation: ^4.0.0
-  cupertino_icons: ^1.0.2
+  shared_preferences: ^2.2.2
+  get_it: ^7.6.4
+  injectable: ^2.3.2
+  json_annotation: ^4.8.1
   auto_size_text: ^3.0.0
-  sliver_tools: ^0.2.7
-  flutter_i18n: ^0.32.3
-  logger: ^1.1.0
+  sliver_tools: ^0.2.12
+  flutter_i18n: ^0.33.0
+  logger: ^2.0.2+1
   json_locale_generator: ^0.2.4
-  collection: ^1.16.0
+  collection: ^1.17.1
   appwrite: ^8.1.0
-  uuid: ^3.0.7
+  uuid: ^4.1.0
   device_info: ^2.0.3
   pull_to_refresh: ^2.0.0
+  vibration: ^1.7.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.1.11
-  freezed: ^2.1.0+1
+  build_runner: ^2.4.6
+  freezed: ^2.4.5
   r_flutter: ^0.9.0
-  injectable_generator: ^2.1.3
-  json_serializable: ^6.3.0
+  injectable_generator: ^2.4.1
+  json_serializable: ^6.7.1
 
 flutter:
   fonts:

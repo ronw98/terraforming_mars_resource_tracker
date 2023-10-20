@@ -8,7 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/domain/entities/game.dart';
 import 'package:tm_ressource_tracker/domain/entities/game_info.dart';
-import 'package:tm_ressource_tracker/domain/entities/resource.dart';
+import 'package:tm_ressource_tracker/domain/entities/resources.dart';
 import 'package:tm_ressource_tracker/domain/entities/user_resources.dart';
 import 'package:tm_ressource_tracker/domain/failures.dart';
 import 'package:tm_ressource_tracker/domain/usecases/create_game.dart';
@@ -63,9 +63,10 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
     }
   }
 
+  // TODO: usecase
   void createGame(
     String userName,
-    Map<ResourceType, Resource>? resources,
+    Resources? resources,
   ) async {
     emit(OnlineGameState.loading());
     final created = await _createGame(userName);
@@ -94,7 +95,7 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
   void joinGame(
     String userName,
     String inviteCode,
-    Map<ResourceType, Resource>? resources,
+    Resources? resources,
   ) async {
     emit(OnlineGameState.loading());
 
@@ -175,7 +176,7 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
     );
   }
 
-  void setResources(Map<ResourceType, Resource> resources) {
+  void setResources(Resources resources) {
     _uploadResources(resources);
   }
 
@@ -190,7 +191,6 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
             // If so do nothing, otherwise, reset cubit
             // TODO check for network interruptions to reconnect
             log('NETWORK ERROR');
-
           },
           (info) {
             if (_lastInfo == null && onTeamCreatedCallback != null) {

@@ -8,6 +8,7 @@ part 'standard_project.freezed.dart';
 class StandardProject with _$StandardProject {
   const factory StandardProject({
     required String id,
+    // TODO: do not use list, use direct resources
     required List<CostResource> cost,
     required List<CostResource> reward,
     DefaultStandardProjects? defaultType,

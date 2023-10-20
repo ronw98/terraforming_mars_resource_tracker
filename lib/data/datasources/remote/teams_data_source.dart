@@ -31,16 +31,21 @@ abstract class TeamsDataSource {
 
   Future<bool> deleteMembership(String teamId, String membershipId);
 
-  /// Returns a stream watching changes on the team document corresponding to the [teamId]
+  /// Returns a stream watching changes on the team document corresponding to
+  /// the [teamId].
   ///
-  /// Throws [DocumentNotFoundException] if no document corresponding to the [teamId] was found
-  /// Throws [TooManyResultsException] if more than one document corresponding to the [teamId] were found
+  /// Throws [DocumentNotFoundException] if no document corresponding to the
+  /// [teamId] was found.
+  /// Throws [TooManyResultsException] if more than one document corresponding
+  /// to the [teamId] were found.
   Stream<TeamDocumentModel> watchTeamDocument(String teamId);
 
   /// Returns the team document corresponding to the [teamId]
   ///
-  /// Throws [DocumentNotFoundException] if no document corresponding to the [teamId] was found
-  /// Throws [TooManyResultsException] if more than one document corresponding to the [teamId] were found
+  /// Throws [DocumentNotFoundException] if no document corresponding to the
+  /// [teamId] was found.
+  /// Throws [TooManyResultsException] if more than one document corresponding
+  /// to the [teamId] were found.
   Future<TeamDocumentModel> getTeamDocument(String teamId);
 }
 
@@ -103,7 +108,8 @@ class TeamsDataSourceImpl
   @override
   Stream<TeamDocumentModel> watchTeamDocument(String teamId) async* {
     try {
-      // This might throw an exception as the document might not be created right away
+      // This might throw an exception as the document might not be created
+      // right away.
       final document = await _getTeamRawDocument(teamId);
 
       yield* watchDocument(
@@ -119,7 +125,8 @@ class TeamsDataSourceImpl
         'Could not get team right away',
         name: runtimeType.toString(),
       );
-      // If the document was not created right away, listen to collection changes
+      // If the document was not created right away, listen to collection
+      // changes.
       // When the document is created, listen to document changes
       late final RealtimeSubscription collectionChangesSubscription;
       late final StreamController<TeamDocumentModel> streamController;
@@ -178,7 +185,8 @@ class TeamsDataSourceImpl
         onError: (e, s) => streamController.addError(e, s),
       );
 
-      // Retry to get document just in case it was created between the first try and the subscription
+      // Retry to get document just in case it was created between the first try
+      // and the subscription.
       try {
         final document = await _getTeamRawDocument(teamId);
 
@@ -225,7 +233,10 @@ class TeamsDataSourceImpl
 
   @override
   Future<int> joinTeam(
-      String teamCode, String userName, String userEmail) async {
+    String teamCode,
+    String userName,
+    String userEmail,
+  ) async {
     final execution = await serviceLocator<Functions>().createExecution(
       functionId: AppConstants.joinTeamFnId,
       data: jsonEncode(

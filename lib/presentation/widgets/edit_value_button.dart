@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EditValueButton extends StatelessWidget {
   EditValueButton({required this.text, required this.onPressed});
@@ -16,7 +17,10 @@ class EditValueButton extends StatelessWidget {
           padding: EdgeInsets.all(0),
           foregroundColor: Colors.teal,
         ),
-        onPressed: onPressed,
+        onPressed: () {
+          HapticFeedback.vibrate();
+          onPressed();
+        },
         child: Text(
           text,
           style: TextStyle(fontSize: 20),
