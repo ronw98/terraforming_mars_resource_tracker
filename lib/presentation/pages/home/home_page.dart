@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
@@ -36,6 +37,7 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
                       onPressed: () {
+                        HapticFeedback.vibrate();
                         BlocProvider.of<LocalGameCubit>(context).undo();
                       },
                       icon: Icon(Icons.undo),
