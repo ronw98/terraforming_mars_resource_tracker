@@ -49,3 +49,8 @@ User data, whether personal or not, is not shared with third parties.
 ### Deleting user data
 
 Users can delete their data anytime in the app's settings.
+- Go to the settings page (top right corner gear icon)
+- Scroll down to the bottom of the page
+- Click "Delete user data"
+
+As long as you don't create or join a game and only use the app locally, no data will be collected.
