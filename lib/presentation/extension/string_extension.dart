@@ -6,17 +6,7 @@ extension StringExt on String {
 
   String get last => this[length-1];
 
-  String translate(
-      BuildContext context, {
-        final String? fallbackKey,
-        final Map<String, String>? translationParams,
-      }) =>
-      FlutterI18n.translate(
-        context,
-        this,
-        fallbackKey: fallbackKey,
-        translationParams: translationParams,
-      );
+
 
   String plural(BuildContext context, int cardinality) => FlutterI18n.plural(
     context,

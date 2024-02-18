@@ -32,6 +32,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace "org.reblochor.tm_ressource_tracker"
     compileSdkVersion 34
 
     // Avoid error message collision and allow to not disabled android.useNewApkCreator=false which might case some apk installation issues

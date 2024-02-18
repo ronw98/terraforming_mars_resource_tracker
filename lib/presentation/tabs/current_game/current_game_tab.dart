@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/current_game/views/online_game_view.dart';
@@ -75,7 +75,7 @@ class _CurrentGameTabState extends State<CurrentGameTab>
                     ),
                     orElse: () => Center(
                       child: Text(
-                        LocaleKeys.game.unknown_error.translate(context),
+                        LocaleKeys.game.unknown_error().translate(context),
                       ),
                     ),
                   );

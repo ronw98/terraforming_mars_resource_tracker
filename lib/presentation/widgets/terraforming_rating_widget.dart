@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/assets.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
@@ -23,7 +23,7 @@ class TerraformingRatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label =
-        LocaleKeys.resources.names.terraforming_rating.translate(context);
+        LocaleKeys.resources.names.terraforming_rating().translate(context);
     return Tooltip(
       message: label,
       child: CustomCard(
@@ -43,12 +43,9 @@ class TerraformingRatingWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Tooltip(
-                    message: LocaleKeys
-                        .resources.tooltips.terraforming_rating.remove
-                        .translate(
-                      context,
-                      translationParams: {'value': '1'},
-                    ),
+                    message: LocaleKeys.resources.tooltips.terraforming_rating
+                        .remove(value: '1')
+                        .translate(context),
                     child: EditValueButton(
                       text: '-1',
                       onPressed: () {
@@ -61,12 +58,9 @@ class TerraformingRatingWidget extends StatelessWidget {
                   ),
                   horizontalBigSpacer,
                   Tooltip(
-                    message: LocaleKeys
-                        .resources.tooltips.terraforming_rating.current
-                        .translate(
-                      context,
-                      translationParams: {'value': '$stock'},
-                    ),
+                    message: LocaleKeys.resources.tooltips.terraforming_rating
+                        .current(value: '$stock')
+                        .translate(context),
                     child: TextEditableValue(
                       editable: true,
                       value: stock,
@@ -82,12 +76,9 @@ class TerraformingRatingWidget extends StatelessWidget {
                   ),
                   horizontalBigSpacer,
                   Tooltip(
-                    message: LocaleKeys
-                        .resources.tooltips.terraforming_rating.add
-                        .translate(
-                      context,
-                      translationParams: {'value': '1'},
-                    ),
+                    message: LocaleKeys.resources.tooltips.terraforming_rating
+                        .add(value: '1')
+                        .translate(context),
                     child: EditValueButton(
                       text: '+1',
                       onPressed: () {

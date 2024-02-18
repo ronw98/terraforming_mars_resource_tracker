@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 
 class ShapeIconButton extends StatelessWidget {
   ShapeIconButton({
@@ -10,7 +11,7 @@ class ShapeIconButton extends StatelessWidget {
     String? semanticsKey,
     this.padding = const EdgeInsets.all(15),
     this.shape = const CircleBorder(),
-  })  : semanticsKey = semanticsKey ?? LocaleKeys.common.icon_button,
+  })  : semanticsKey = semanticsKey,
         super(key: key);
 
   final Function() onPressed;
@@ -23,7 +24,8 @@ class ShapeIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: semanticsKey,
+      message:
+          semanticsKey ?? LocaleKeys.common.icon_button().translate(context),
       padding: EdgeInsets.all(0),
       child: RawMaterialButton(
         onPressed: onPressed,

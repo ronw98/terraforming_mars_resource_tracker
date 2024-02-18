@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/pages/home/home_content.dart';
 import 'package:tm_ressource_tracker/presentation/pages/settings/settings_page.dart';
@@ -56,11 +56,11 @@ class HomePage extends StatelessWidget {
                     );
                   },
                   icon: Icon(Icons.settings),
-                  tooltip: LocaleKeys.settings.page_title.translate(context),
+                  tooltip: LocaleKeys.settings.page_title().translate(context),
                 ),
               ),
             ],
-            title: LocaleKeys.common.app_name.translate(context),
+            title: LocaleKeys.common.app_name().translate(context),
           ),
           body: SafeArea(
             child: HomeContent(),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/pages/settings/delete_user_data_button.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
@@ -24,7 +24,7 @@ class SettingsPage extends StatelessWidget {
     return TMDefaultPage(
       pageContent: Scaffold(
         appBar: TMAppBar(
-          title: LocaleKeys.settings.page_title.translate(context),
+          title: LocaleKeys.settings.page_title().translate(context),
         ),
         body: SafeArea(
           child: CustomCard(
@@ -37,7 +37,8 @@ class SettingsPage extends StatelessWidget {
                       loaded: (config) => Column(
                         children: [
                           CategorySeparatorWidget(
-                            text: LocaleKeys.settings.general_settings
+                            text: LocaleKeys.settings
+                                .general_settings()
                                 .translate(context),
                           ),
                           Padding(
@@ -47,7 +48,8 @@ class SettingsPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 SwitchWidget(
-                                  title: LocaleKeys.settings.edit_with_keyboard
+                                  title: LocaleKeys.settings
+                                      .edit_with_keyboard()
                                       .translate(context),
                                   value: config.settings.editValuesWithText,
                                   onChanged: (value) {
@@ -62,7 +64,8 @@ class SettingsPage extends StatelessWidget {
                                 verticalSpacer,
                                 TMTextButton(
                                   child: Text(
-                                    LocaleKeys.settings.reset.button_text
+                                    LocaleKeys.settings.reset
+                                        .button_text()
                                         .translate(context),
                                   ),
                                   onTap: () => _onResetSettingsTap(context),
@@ -72,7 +75,8 @@ class SettingsPage extends StatelessWidget {
                           ),
                           verticalBigSpacer,
                           CategorySeparatorWidget(
-                            text: LocaleKeys.settings.extensions
+                            text: LocaleKeys.settings
+                                .extensions()
                                 .translate(context),
                           ),
                           Padding(
@@ -82,9 +86,11 @@ class SettingsPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 SwitchWidget(
-                                  title: LocaleKeys.settings.turmoil.title
+                                  title: LocaleKeys.settings.turmoil
+                                      .title()
                                       .translate(context),
-                                  subtitle: LocaleKeys.settings.turmoil.subtitle
+                                  subtitle: LocaleKeys.settings.turmoil
+                                      .subtitle()
                                       .translate(context),
                                   value: config.settings.useTurmoil,
                                   onChanged: (value) {
@@ -98,7 +104,8 @@ class SettingsPage extends StatelessWidget {
                                 ),
                                 verticalSpacer,
                                 SwitchWidget(
-                                  title: LocaleKeys.settings.venus.title
+                                  title: LocaleKeys.settings.venus
+                                      .title()
                                       .translate(context),
                                   value: config.settings.useVenus,
                                   onChanged: (value) {
@@ -111,7 +118,8 @@ class SettingsPage extends StatelessWidget {
                                   },
                                 ),
                                 SwitchWidget(
-                                  title: LocaleKeys.settings.colonies.title
+                                  title: LocaleKeys.settings.colonies
+                                      .title()
                                       .translate(context),
                                   value: config.settings.useColonies,
                                   onChanged: (value) {
@@ -127,7 +135,8 @@ class SettingsPage extends StatelessWidget {
                             ),
                           ),
                           CategorySeparatorWidget(
-                            text: LocaleKeys.settings.standard_projects.title
+                            text: LocaleKeys.settings.standard_projects
+                                .title()
                                 .translate(context),
                           ),
                           Padding(
@@ -170,9 +179,9 @@ class SettingsPage extends StatelessWidget {
     final bool? reset = await showDialog(
       context: context,
       builder: (_) => ConfirmDialog(
-        text: LocaleKeys.settings.reset.dialog.text.translate(context),
-        confirm: LocaleKeys.settings.reset.dialog.confirm.translate(context),
-        cancel: LocaleKeys.common.cancel.translate(context),
+        text: LocaleKeys.settings.reset.dialog.text().translate(context),
+        confirm: LocaleKeys.settings.reset.dialog.confirm().translate(context),
+        cancel: LocaleKeys.common.cancel().translate(context),
       ),
     );
     if (reset ?? false) {

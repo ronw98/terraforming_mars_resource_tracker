@@ -4,7 +4,7 @@ import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/marker_or_resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/resource_selection_widget.dart';
@@ -32,8 +32,8 @@ class StandardProjectEditSection extends StatelessWidget {
       children: [
         CategorySeparatorWidget(
           text: (isCost
-                  ? LocaleKeys.settings.standard_projects.edit.cost
-                  : LocaleKeys.settings.standard_projects.edit.reward)
+                  ? LocaleKeys.settings.standard_projects.edit.cost()
+                  : LocaleKeys.settings.standard_projects.edit.reward())
               .translate(context),
         ),
         ...resources.map(

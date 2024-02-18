@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/theme/app_theme.dart';
@@ -54,14 +55,14 @@ class _JoinGameDialogState extends State<JoinGameDialog> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(LocaleKeys.game.join_dialog.title.translate(context)),
+              Text(LocaleKeys.game.join_dialog.title().translate(context)),
               verticalBigSpacer,
               TextField(
                 controller: _codeController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text(
-                    LocaleKeys.game.join_dialog.invite_code.translate(context),
+                    LocaleKeys.game.join_dialog.invite_code().translate(context),
                   ),
                 ),
               ),
@@ -71,7 +72,7 @@ class _JoinGameDialogState extends State<JoinGameDialog> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text(
-                    LocaleKeys.game.join_dialog.user_name.translate(context),
+                    LocaleKeys.game.join_dialog.user_name().translate(context),
                   ),
                 ),
               ),
@@ -95,7 +96,7 @@ class _JoinGameDialogState extends State<JoinGameDialog> {
                       },
                 icon: Icon(Icons.check),
                 label: Text(
-                  LocaleKeys.game.join_dialog.confirm.translate(context),
+                  LocaleKeys.game.join_dialog.confirm().translate(context),
                 ),
               ),
             ],

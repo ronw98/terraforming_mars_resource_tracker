@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
 import 'package:tm_ressource_tracker/domain/usecases/delete_user_data.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 
 class DeleteUserDataButton extends StatefulWidget {
   const DeleteUserDataButton({Key? key}) : super(key: key);
@@ -30,8 +30,12 @@ class _DeleteUserDataButtonState extends State<DeleteUserDataButton> {
             SnackBar(
               content: Text(
                 result
-                    ? LocaleKeys.settings.delete_data.success.translate(context)
-                    : LocaleKeys.settings.delete_data.error.translate(context),
+                    ? LocaleKeys.settings.delete_data
+                        .success()
+                        .translate(context)
+                    : LocaleKeys.settings.delete_data
+                        .error()
+                        .translate(context),
               ),
             ),
           );
@@ -51,7 +55,7 @@ class _DeleteUserDataButtonState extends State<DeleteUserDataButton> {
             : Icon(Icons.delete_forever),
       ),
       label: Text(
-        LocaleKeys.settings.delete_data.button.translate(context),
+        LocaleKeys.settings.delete_data.button().translate(context),
       ),
     );
   }

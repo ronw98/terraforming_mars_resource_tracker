@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
@@ -74,7 +74,7 @@ class _ExperimentalButtonState extends State<ExperimentalButton>
                           Icon(Icons.info),
                           horizontalSmallSpacer,
                           Text(
-                            LocaleKeys.common.experimental.translate(context),
+                            LocaleKeys.common.experimental().translate(context),
                           ),
                           Spacer(),
                           IconButton(
@@ -93,7 +93,8 @@ class _ExperimentalButtonState extends State<ExperimentalButton>
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: Text(
-                            LocaleKeys.common.experimental_text
+                            LocaleKeys.common
+                                .experimental_text()
                                 .translate(context),
                             style: TextStyle(fontSize: 12),
                           ),

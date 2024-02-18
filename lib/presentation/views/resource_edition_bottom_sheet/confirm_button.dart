@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 
 class EditionConfirmButton extends StatelessWidget {
   const EditionConfirmButton({
@@ -31,7 +31,7 @@ class EditionConfirmButton extends StatelessWidget {
               onPressed: null,
               icon: Icon(Icons.check),
               label: Text(
-                LocaleKeys.common.confirm.translate(context),
+                LocaleKeys.common.confirm().translate(context),
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(

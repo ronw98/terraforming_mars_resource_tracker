@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:json_locale/json_locale.dart';
 import 'package:tm_ressource_tracker/assets.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
@@ -6,8 +7,7 @@ import 'package:tm_ressource_tracker/jsons.dart';
 extension ResourceTypeExt on ResourceType {
   AssetImage get resourceImage {
     return switch (this) {
-      ResourceType.terraformingRating =>
-      Images.terraformRating,
+      ResourceType.terraformingRating => Images.terraformRating,
       ResourceType.credits => Images.credits,
       ResourceType.steel => Images.steel,
       ResourceType.titanium => Images.titanium,
@@ -17,16 +17,16 @@ extension ResourceTypeExt on ResourceType {
     };
   }
 
-  String get resourceKey {
+  Translatable get resourceKey {
     return switch (this) {
       ResourceType.terraformingRating =>
-      LocaleKeys.resources.names.terraforming_rating,
-      ResourceType.credits => LocaleKeys.resources.names.credits,
-      ResourceType.steel => LocaleKeys.resources.names.steel,
-      ResourceType.titanium => LocaleKeys.resources.names.titanium,
-      ResourceType.plants => LocaleKeys.resources.names.plants,
-      ResourceType.energy => LocaleKeys.resources.names.energy,
-      ResourceType.heat => LocaleKeys.resources.names.heat,
+        LocaleKeys.resources.names.terraforming_rating(),
+      ResourceType.credits => LocaleKeys.resources.names.credits(),
+      ResourceType.steel => LocaleKeys.resources.names.steel(),
+      ResourceType.titanium => LocaleKeys.resources.names.titanium(),
+      ResourceType.plants => LocaleKeys.resources.names.plants(),
+      ResourceType.energy => LocaleKeys.resources.names.energy(),
+      ResourceType.heat => LocaleKeys.resources.names.heat(),
     };
   }
 }

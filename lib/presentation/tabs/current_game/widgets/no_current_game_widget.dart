@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
@@ -25,21 +26,21 @@ class NoCurrentGameWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                LocaleKeys.game.no_game.translate(context),
+                LocaleKeys.game.no_game().translate(context),
               ),
               verticalSpacer,
               ElevatedButton.icon(
                 onPressed: () => _joinGame(context),
                 icon: Icon(Icons.group_add_outlined),
                 label: Text(
-                  LocaleKeys.game.join_game.translate(context),
+                  LocaleKeys.game.join_game().translate(context),
                 ),
               ),
               ElevatedButton.icon(
                 onPressed: () => _createGame(context),
                 icon: Icon(Icons.extension_outlined),
                 label: Text(
-                  LocaleKeys.game.create_game.translate(context),
+                  LocaleKeys.game.create_game().translate(context),
                 ),
               ),
             ],

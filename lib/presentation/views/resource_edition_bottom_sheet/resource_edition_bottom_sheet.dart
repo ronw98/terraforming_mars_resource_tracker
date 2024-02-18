@@ -7,8 +7,8 @@ import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/domain/usecases/resource_use_cases.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/builders/config_builder.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/resource_type_extension.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/views/resource_edition_bottom_sheet/confirm_button.dart';
@@ -112,7 +112,8 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
                           ),
                           verticalBigSpacer,
                           CategorySeparatorWidget(
-                            text: LocaleKeys.resources.edition.stock
+                            text: LocaleKeys.resources.edition
+                                .stock()
                                 .translate(context),
                           ),
                           ValueListenableBuilder<int>(
@@ -136,7 +137,8 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
                             ),
                           ),
                           CategorySeparatorWidget(
-                            text: LocaleKeys.resources.edition.production
+                            text: LocaleKeys.resources.edition
+                                .production()
                                 .translate(context),
                           ),
                           ValueListenableBuilder<int>(
@@ -162,18 +164,21 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
                             ),
                           ),
                           CategorySeparatorWidget(
-                            text: LocaleKeys.resources.history.title
+                            text: LocaleKeys.resources.history
+                                .title()
                                 .translate(context),
                           ),
                           if (resource.stockHistory.isNotEmpty)
                             ResourceHistoryWidget(
-                              label: LocaleKeys.resources.history.stock
+                              label: LocaleKeys.resources.history
+                                  .stock()
                                   .translate(context),
                               history: resource.stockHistory,
                             ),
                           if (resource.productionHistory.isNotEmpty)
                             ResourceHistoryWidget(
-                              label: LocaleKeys.resources.history.production
+                              label: LocaleKeys.resources.history
+                                  .production()
                                   .translate(context),
                               history: resource.productionHistory,
                               textStyle: TextStyle(color: Colors.brown),
@@ -202,7 +207,7 @@ class _ResourceEditionBottomSheetState extends State<ResourceEditionBottomSheet>
           stockChange: stockChange.value,
           productionChange: prodChange.value,
         );
-    if(prodChange.value == 0 && stockChange.value == 0 && mounted) {
+    if (prodChange.value == 0 && stockChange.value == 0 && mounted) {
       Navigator.pop(context);
       return;
     }

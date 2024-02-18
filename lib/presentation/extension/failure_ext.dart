@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tm_ressource_tracker/domain/failures.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 
 extension FailureExt on Failure {
   String? translateReason(BuildContext context) {
@@ -11,9 +11,9 @@ extension FailureExt on Failure {
       gameJoin: (r) {
         switch (r) {
           case GameJoinFailure.unknown:
-            return LocaleKeys.game.join_error.translate(context);
+            return LocaleKeys.game.join_error().translate(context);
           case GameJoinFailure.invalidCode:
-            return LocaleKeys.game.invalid_join_code.translate(context);
+            return LocaleKeys.game.invalid_join_code().translate(context);
         }
       },
       watchGame: (r) => r,

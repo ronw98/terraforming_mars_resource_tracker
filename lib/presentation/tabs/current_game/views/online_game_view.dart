@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/game.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/managers/online_game_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/tabs/current_game/widgets/user_resources_widget.dart';
@@ -52,7 +52,7 @@ class OnlineGameView extends StatelessWidget {
             ...[
               ResourcesSummaryWidget(
                 topWidget: Text(
-                  LocaleKeys.game.your_resources.translate(context),
+                  LocaleKeys.game.your_resources().translate(context),
                 ),
               ),
             ],

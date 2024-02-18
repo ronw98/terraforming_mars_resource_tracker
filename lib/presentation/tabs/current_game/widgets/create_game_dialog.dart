@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
 import 'package:tm_ressource_tracker/presentation/theme/app_theme.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
@@ -42,7 +42,7 @@ class _CreateGameDialogState extends State<CreateGameDialog> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                LocaleKeys.game.create_dialog.title.translate(context),
+                LocaleKeys.game.create_dialog.title().translate(context),
               ),
               verticalBigSpacer,
               TextField(
@@ -50,7 +50,9 @@ class _CreateGameDialogState extends State<CreateGameDialog> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text(
-                    LocaleKeys.game.create_dialog.user_name.translate(context),
+                    LocaleKeys.game.create_dialog
+                        .user_name()
+                        .translate(context),
                   ),
                 ),
               ),
@@ -69,7 +71,7 @@ class _CreateGameDialogState extends State<CreateGameDialog> {
                       },
                 icon: Icon(Icons.check),
                 label: Text(
-                  LocaleKeys.game.create_dialog.confirm.translate(context),
+                  LocaleKeys.game.create_dialog.confirm().translate(context),
                 ),
               ),
             ],

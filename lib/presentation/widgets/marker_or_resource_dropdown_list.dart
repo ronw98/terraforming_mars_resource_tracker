@@ -4,6 +4,7 @@ import 'package:tm_ressource_tracker/domain/entities/cost_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/marker_or_resource.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/marker_type_extension.dart';
 import 'package:tm_ressource_tracker/presentation/extension/resource_type_extension.dart';
 import 'package:tm_ressource_tracker/presentation/spacers.dart';
@@ -63,7 +64,9 @@ class _MarkerOrResourceDropdownListState
             child: Column(
               children: [
                 SwitchWidget(
-                  title: LocaleKeys.settings.standard_projects.edit.production,
+                  title: LocaleKeys.settings.standard_projects.edit
+                      .production()
+                      .translate(context),
                   value: production,
                   onChanged: (value) => setState(() {
                     production = value;

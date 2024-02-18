@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/resource_type_extension.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
@@ -48,14 +49,12 @@ class PrimaryResourceWidget extends StatelessWidget {
                         ),
                         verticalSpacer,
                         Tooltip(
-                          message: LocaleKeys.resources.tooltips.stock.current
-                              .translate(
-                            context,
-                            translationParams: {
-                              'unit': type.resourceKey.translate(context),
-                              'value': '$stock',
-                            },
-                          ),
+                          message: LocaleKeys.resources.tooltips.stock
+                              .current(
+                                value: '$stock',
+                                unit: type.resourceKey.translate(context),
+                              )
+                              .translate(context),
                           child: TextEditableValue(
                             editable: true,
                             value: stock,
@@ -69,15 +68,12 @@ class PrimaryResourceWidget extends StatelessWidget {
                           ),
                         ),
                         Tooltip(
-                          message: LocaleKeys
-                              .resources.tooltips.production.current
-                              .translate(
-                            context,
-                            translationParams: {
-                              'unit': type.resourceKey.translate(context),
-                              'value': '$production',
-                            },
-                          ),
+                          message: LocaleKeys.resources.tooltips.production
+                              .current(
+                                unit: type.resourceKey.translate(context),
+                                value: '$production',
+                              )
+                              .translate(context),
                           child: TextEditableValue(
                             editable: true,
                             value: production,

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/standard_project_extension.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/views/resource_summary/resources_summary_widget.dart';
@@ -38,11 +38,13 @@ class StandardProjectsTab extends StatelessWidget {
                                 SnackBar(
                                   content: Text(
                                     result
-                                        ? LocaleKeys.standard_project
-                                            .project_result.success
+                                        ? LocaleKeys
+                                            .standard_project.project_result
+                                            .success()
                                             .translate(context)
-                                        : LocaleKeys.standard_project
-                                            .project_result.error
+                                        : LocaleKeys
+                                            .standard_project.project_result
+                                            .error()
                                             .translate(context),
                                     style: TextStyle(
                                       color: result ? Colors.green : Colors.red,

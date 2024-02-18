@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tm_ressource_tracker/domain/entities/resource.dart';
 import 'package:tm_ressource_tracker/jsons.dart';
 import 'package:tm_ressource_tracker/presentation/dialogs/confirm_dialog.dart';
-import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/managers/resource_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/views/resource_edition_bottom_sheet/resource_edition_bottom_sheet.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/resource_widget.dart';
@@ -50,14 +50,16 @@ class ResourcesTab extends StatelessWidget {
                 scaffoldMessenger.showSnackBar(
                   SnackBar(
                     content: Text(
-                      LocaleKeys.resources.production_error.translate(context),
+                      LocaleKeys.resources
+                          .production_error()
+                          .translate(context),
                     ),
                   ),
                 );
               }
             },
             child: Text(
-              LocaleKeys.resources.produce.translate(context),
+              LocaleKeys.resources.produce().translate(context),
               style: Theme.of(context).textTheme.displaySmall,
             ),
           ),
@@ -66,7 +68,7 @@ class ResourcesTab extends StatelessWidget {
           child: TMTextButton(
             onTap: () => _onReset(context),
             child: Text(
-              LocaleKeys.resources.reset.button_text.translate(context),
+              LocaleKeys.resources.reset.button_text().translate(context),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
@@ -95,9 +97,9 @@ class ResourcesTab extends StatelessWidget {
     final reset = await showDialog(
       context: context,
       builder: (_) => ConfirmDialog(
-        text: LocaleKeys.resources.reset.dialog.text.translate(context),
-        confirm: LocaleKeys.resources.reset.dialog.reset.translate(context),
-        cancel: LocaleKeys.common.cancel.translate(context),
+        text: LocaleKeys.resources.reset.dialog.text().translate(context),
+        confirm: LocaleKeys.resources.reset.dialog.reset().translate(context),
+        cancel: LocaleKeys.common.cancel().translate(context),
       ),
     );
     if (reset) {

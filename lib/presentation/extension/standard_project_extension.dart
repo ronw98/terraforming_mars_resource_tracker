@@ -3,6 +3,7 @@ import 'package:tm_ressource_tracker/data/extra/default_entities.dart';
 import 'package:tm_ressource_tracker/domain/entities/settings.dart';
 import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
 import 'package:tm_ressource_tracker/presentation/extension/default_standard_projects_ext.dart';
+import 'package:tm_ressource_tracker/presentation/extension/locales_ext.dart';
 import 'package:tm_ressource_tracker/presentation/extension/string_extension.dart';
 
 extension StandardProjectsExt on Iterable<StandardProject> {
