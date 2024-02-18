@@ -7,8 +7,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/standard_project_widge
 
 class EditableStandardProjectTile extends StatelessWidget {
   const EditableStandardProjectTile({
-    Key? key,
     required this.project,
+    Key? key,
   }) : super(key: key);
   final StandardProject project;
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart' hide Account;
+import 'package:appwrite/models.dart';
 import 'package:flutter/foundation.dart';
 
 mixin AppwriteDatabaseDataSource {

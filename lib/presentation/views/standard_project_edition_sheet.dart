@@ -10,8 +10,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/unfocus_parent_widget.
 
 class StandardProjectEditionBottomSheet extends StatelessWidget {
   const StandardProjectEditionBottomSheet({
-    Key? key,
     required this.projectId,
+    Key? key,
   }) : super(key: key);
 
   final String projectId;

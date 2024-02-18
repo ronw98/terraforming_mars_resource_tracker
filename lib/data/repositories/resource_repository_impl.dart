@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:injectable/injectable.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/data/adapters/local_game_adapter.dart';
 import 'package:tm_ressource_tracker/data/datasources/local/shared_preferences_datasource.dart';
 import 'package:tm_ressource_tracker/data/models/local_game_model.dart';
@@ -26,7 +25,7 @@ class LocalGameRepositoryImpl implements LocalGameRepository {
       );
       return _gameAdapter.modelToEntity(gameModel!);
     } catch (e, s) {
-      log('Error getting game', error: e, stackTrace: s);
+      logger.e('Error getting game', error: e, stackTrace: s);
       return defaultGame;
     }
   }
@@ -39,7 +38,7 @@ class LocalGameRepositoryImpl implements LocalGameRepository {
         _gameAdapter.entityToModel(game),
       );
     } catch (e, s) {
-      log('Error setting game', error: e, stackTrace: s);
+      logger.e('Error setting game', error: e, stackTrace: s);
       return false;
     }
   }

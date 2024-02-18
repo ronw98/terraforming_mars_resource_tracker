@@ -15,10 +15,10 @@ import 'package:tm_ressource_tracker/presentation/widgets/number_text_edit.dart'
 
 class StandardProjectEditSection extends StatelessWidget {
   const StandardProjectEditSection({
-    Key? key,
     required this.resources,
     required this.projectId,
     required this.isCost,
+    Key? key,
   }) : super(key: key);
 
   final List<CostResource> resources;
@@ -106,7 +106,7 @@ class StandardProjectEditSection extends StatelessWidget {
               ),
             ),
             horizontalBigSpacer,
-            const SizedBox(width: AppConstants.standardProjectItemSize)
+            const SizedBox(width: AppConstants.standardProjectItemSize),
           ],
         ),
       ],

@@ -41,7 +41,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
               );
             },
-          )
+          ),
         ],
       ),
       actionsIconTheme: IconThemeData(

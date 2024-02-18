@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/data/adapters/user_resources_adapter.dart';
 import 'package:tm_ressource_tracker/data/datasources/remote/user_resources_data_source.dart';
 import 'package:tm_ressource_tracker/domain/entities/resources.dart';
@@ -38,9 +37,8 @@ class UserResourcesRepositoryImpl implements UserResourcesRepository {
         _userResourcesAdapter.entityToModel(userResources),
       );
     } catch (e, s) {
-      log(
-        'Error creating user resources',
-        name: 'UserResourcesRepository',
+      logger.e(
+        '[UserResourcesRepository] Error creating user resources',
         stackTrace: s,
         error: e,
       );
@@ -57,9 +55,8 @@ class UserResourcesRepositoryImpl implements UserResourcesRepository {
       await dataSource.deleteUserResources(userId);
       return true;
     } catch (e, s) {
-      log(
-        'Error deleting user resources',
-        name: 'UserResourcesRepository',
+      logger.e(
+        '[UserResourcesRepository] Error deleting user resources',
         stackTrace: s,
         error: e,
       );
@@ -86,9 +83,8 @@ class UserResourcesRepositoryImpl implements UserResourcesRepository {
         _userResourcesAdapter.entityToModel(userResources),
       );
     } catch (e, s) {
-      log(
-        'Error updating user resources',
-        name: 'UserResourcesRepository',
+      logger.e(
+        '[UserResourcesRepository] Error updating user resources',
         stackTrace: s,
         error: e,
       );
@@ -109,9 +105,8 @@ class UserResourcesRepositoryImpl implements UserResourcesRepository {
                 .toList(),
           );
     } catch (e, s) {
-      log(
-        'Error watching user resources',
-        name: 'UserResourcesRepository',
+      logger.e(
+        '[UserResourcesRepository] Error watching user resources',
         stackTrace: s,
         error: e,
       );
@@ -126,9 +121,8 @@ class UserResourcesRepositoryImpl implements UserResourcesRepository {
       final userId = currentUserAccount.$id;
       return await dataSource.userHasUploadedResources(userId);
     } catch (e, s) {
-      log(
-        'Error checking user resources',
-        name: 'UserResourcesRepository',
+      logger.e(
+        '[UserResourcesRepository] Error checking user resources',
         stackTrace: s,
         error: e,
       );

@@ -58,7 +58,7 @@ class CustomCard extends StatelessWidget {
     if (colors.isEmpty) {
       return child;
     }
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         border: Border.all(color: colors.first, width: _borderWidth),
       ),

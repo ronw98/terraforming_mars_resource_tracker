@@ -4,9 +4,9 @@ import 'package:tm_ressource_tracker/presentation/extension/string_extension.dar
 
 class NumberTextEdit extends StatefulWidget {
   const NumberTextEdit({
-    Key? key,
     required this.value,
     required this.onValueChanged,
+    Key? key,
     this.style,
     this.signedString = false,
   }) : super(key: key);
@@ -77,7 +77,7 @@ class _NumberTextEditState extends State<NumberTextEdit> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: const Color.fromARGB(200, 220, 220, 220),
       child: IntrinsicWidth(
         child: TextField(

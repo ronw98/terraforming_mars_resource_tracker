@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class TMDefaultPage extends StatelessWidget {
   const TMDefaultPage({
-    Key? key,
     required this.pageContent,
+    Key? key,
   }) : super(key: key);
 
   final Widget pageContent;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         gradient: SweepGradient(
           center: Alignment.bottomCenter,

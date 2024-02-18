@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/constants.dart';
@@ -14,6 +16,8 @@ class UserDataSourceImpl implements UserDataSource {
     final execution = await serviceLocator<Functions>().createExecution(
       functionId: AppConstants.deleteUserDataFnId,
     );
-    return execution.statusCode >= 200 && execution.statusCode < 300;
+    final statusCode = jsonDecode(execution.responseBody)['status'] as int;
+    return statusCode >= 200 &&
+        statusCode < 300;
   }
 }

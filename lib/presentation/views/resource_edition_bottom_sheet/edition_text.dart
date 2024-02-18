@@ -3,8 +3,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/text_editable_value.da
 
 class EditionText extends StatelessWidget {
   const EditionText({
-    Key? key,
     required this.value,
+    Key? key,
     this.onValueChanged,
     this.textColor,
   }) : super(key: key);

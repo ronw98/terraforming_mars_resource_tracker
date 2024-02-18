@@ -9,7 +9,7 @@ CostResource costResourceModelToEntity(CostResourceModel model) {
   final MarkerType? markerType =
       MarkerType.values.firstWhereOrNull((r) => r.name == model.markerType);
   if (resourceType != null && model.isProduction != null) {
-    return model.isProduction == true
+    return model.isProduction ?? false
         ? CostResource.production(
             value: model.value!,
             type: resourceType,

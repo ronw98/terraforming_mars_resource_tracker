@@ -4,15 +4,15 @@ import 'package:tm_ressource_tracker/presentation/extension/string_extension.dar
 
 class EditionConfirmButton extends StatelessWidget {
   const EditionConfirmButton({
-    Key? key,
     required this.onPressed,
+    Key? key,
   }) : super(key: key);
 
   final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         boxShadow: <BoxShadow>[
           BoxShadow(

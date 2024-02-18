@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CategorySeparatorWidget extends StatelessWidget {
   const CategorySeparatorWidget({
-    Key? key,
     required this.text,
+    Key? key,
   }) : super(key: key);
 
   final String text;

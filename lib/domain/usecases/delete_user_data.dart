@@ -3,9 +3,9 @@ import 'package:tm_ressource_tracker/domain/repositories/user_repository.dart';
 
 @injectable
 class DeleteUserData {
-  final UserRepository userRepository;
-
   DeleteUserData(this.userRepository);
+
+  final UserRepository userRepository;
 
   Future<bool> call() async {
     try {

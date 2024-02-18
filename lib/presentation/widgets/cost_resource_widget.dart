@@ -5,7 +5,7 @@ import 'package:tm_ressource_tracker/presentation/widgets/production_cost_widget
 import 'package:tm_ressource_tracker/presentation/widgets/stock_cost_widget.dart';
 
 class CostResourceWidget extends StatelessWidget {
-  const CostResourceWidget({Key? key, required this.resource})
+  const CostResourceWidget({required this.resource, Key? key})
       : super(key: key);
 
   final CostResource resource;

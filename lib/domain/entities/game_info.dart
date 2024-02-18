@@ -4,7 +4,8 @@ part 'game_info.freezed.dart';
 
 /// Holds miscellaneous information about a game.
 ///
-/// The most important piece of information is the [code] as it allows others to join the game.
+/// The most important piece of information is the [code] as it allows others to
+/// join the game.
 @freezed
 class GameInfo with _$GameInfo {
   const factory GameInfo.incomplete({

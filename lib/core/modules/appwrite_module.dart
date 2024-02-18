@@ -6,7 +6,7 @@ import 'package:tm_ressource_tracker/core/injection.dart';
 @module
 abstract class AppWriteModule {
   Client get client => Client()
-      .setEndpoint('https://tm.reblochor.dev/v1')
+      .setEndpoint('https://terraforming.reblochor.dev/v1')
       .setProject(AppConstants.projectId);
 
   Realtime get realtime => Realtime(serviceLocator());

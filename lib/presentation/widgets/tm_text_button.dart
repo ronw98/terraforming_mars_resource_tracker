@@ -4,9 +4,9 @@ import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
 class TMTextButton extends StatelessWidget {
   const TMTextButton({
-    Key? key,
     required this.child,
     required this.onTap,
+    Key? key,
   }) : super(key: key);
   final Widget child;
   final void Function() onTap;

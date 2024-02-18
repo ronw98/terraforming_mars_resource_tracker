@@ -36,8 +36,11 @@ class ResourcesSummaryWidget extends StatelessWidget {
                     spacing: bigPadding,
                     runSpacing: smallPadding,
                     children: ResourceType.values
-                        .map((type) => ResourceMinimalDisplayLocalWrapper(
-                            resourceType: type))
+                        .map(
+                          (type) => ResourceMinimalDisplayLocalWrapper(
+                            resourceType: type,
+                          ),
+                        )
                         .toList(),
                   ),
                 ],

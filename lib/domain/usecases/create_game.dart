@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:injectable/injectable.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/domain/repositories/games_repository.dart';
 import 'package:tm_ressource_tracker/domain/usecases/anonymous_login.dart';
 
-/// Create a game with a pre-defined name and adds the current user as owner of the game
+/// Create a game with a pre-defined name and adds the current user as owner of
+/// the game.
 ///
 /// TODO: should leave any previous game just in case like in [JoinGame]
 @injectable
@@ -21,9 +21,8 @@ class CreateGame {
       await repository.createGame('TMGame', userName);
       return true;
     } on Exception catch (e, s) {
-      log(
-        'Error creating game',
-        name: 'CreateGame',
+      logger.e(
+        '[CreateGame] Error creating game',
         error: e,
         stackTrace: s,
       );

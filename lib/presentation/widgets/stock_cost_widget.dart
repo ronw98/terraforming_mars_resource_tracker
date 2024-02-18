@@ -7,9 +7,9 @@ import 'package:tm_ressource_tracker/presentation/spacers.dart';
 
 class StockCostWidget extends StatelessWidget {
   const StockCostWidget({
-    Key? key,
     required this.type,
     required this.value,
+    Key? key,
   }) : super(key: key);
 
   final ResourceType type;
@@ -27,7 +27,7 @@ class StockCostWidget extends StatelessWidget {
 }
 
 class CreditStockCost extends StatelessWidget {
-  const CreditStockCost({Key? key, required this.value}) : super(key: key);
+  const CreditStockCost({required this.value, Key? key}) : super(key: key);
 
   final int value;
 
@@ -57,7 +57,7 @@ class CreditStockCost extends StatelessWidget {
 }
 
 class NonCreditStockCost extends StatelessWidget {
-  const NonCreditStockCost({Key? key, required this.type, required this.value})
+  const NonCreditStockCost({required this.type, required this.value, Key? key})
       : super(key: key);
 
   final ResourceType type;

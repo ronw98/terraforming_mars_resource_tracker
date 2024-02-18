@@ -13,10 +13,10 @@ import 'package:tm_ressource_tracker/domain/usecases/anonymous_login.dart';
 /// Returns false otherwise
 @injectable
 class JoinGame {
+  JoinGame(this.gamesRepository, this.anonymousLogin);
+
   final GamesRepository gamesRepository;
   final AnonymousLogin anonymousLogin;
-
-  JoinGame(this.gamesRepository, this.anonymousLogin);
 
   Future<Either<Failure, bool>> call(String userName, String inviteCode) async {
     bool leaveResult;

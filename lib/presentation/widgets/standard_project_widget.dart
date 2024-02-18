@@ -8,8 +8,7 @@ import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
 class StandardProjectWidget extends StatelessWidget {
   const StandardProjectWidget({
-    Key? key,
-    required this.project,
+    required this.project, Key? key,
   }) : super(key: key);
 
   final StandardProject project;

@@ -1,4 +1,5 @@
-import 'dart:developer';
+
+import 'package:tm_ressource_tracker/core/log.dart';
 
 /// Describes the behavior of an adapter converting a model [M] to an entity [E]
 abstract class BaseAdapter<E, M> {
@@ -20,7 +21,7 @@ abstract class BaseAdapter<E, M> {
       }
       return modelToEntity(model);
     } catch (e, s) {
-      log('Error converting model $M to entity $E', error: e, stackTrace: s);
+      logger.e('Error converting model $M to entity $E', error: e, stackTrace: s);
       return null;
     }
   }
