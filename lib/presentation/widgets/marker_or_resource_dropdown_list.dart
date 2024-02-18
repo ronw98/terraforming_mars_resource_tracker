@@ -13,8 +13,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/switch_widget.dart';
 
 class MarkerOrResourceDropdownList extends StatefulWidget {
   const MarkerOrResourceDropdownList({
-    Key? key,
     required this.onItemTap,
+    Key? key,
   }) : super(key: key);
   final void Function(MarkerOrResource markerOrResource) onItemTap;
 
@@ -92,12 +92,14 @@ class _MarkerOrResourceDropdownListState
                             },
                             child: production
                                 ? SizedBox(
-                                    height: AppConstants.standardProjectItemSize,
+                                    height:
+                                        AppConstants.standardProjectItemSize,
                                     child: ProductionWidget(type: type),
                                   )
                                 : Image(
                                     image: type.resourceImage,
-                                    height: AppConstants.standardProjectItemSize,
+                                    height:
+                                        AppConstants.standardProjectItemSize,
                                   ),
                           ),
                         ),

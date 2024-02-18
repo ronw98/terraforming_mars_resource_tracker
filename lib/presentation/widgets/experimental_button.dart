@@ -73,7 +73,9 @@ class _ExperimentalButtonState extends State<ExperimentalButton>
                         children: [
                           Icon(Icons.info),
                           horizontalSmallSpacer,
-                          Text(LocaleKeys.common.experimental.translate(context)),
+                          Text(
+                            LocaleKeys.common.experimental.translate(context),
+                          ),
                           Spacer(),
                           IconButton(
                             onPressed: () {
@@ -91,7 +93,8 @@ class _ExperimentalButtonState extends State<ExperimentalButton>
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: Text(
-                            LocaleKeys.common.experimental_text.translate(context),
+                            LocaleKeys.common.experimental_text
+                                .translate(context),
                             style: TextStyle(fontSize: 12),
                           ),
                         ),

@@ -4,8 +4,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/notch.dart';
 
 class TMDefaultBottomSheet extends StatelessWidget {
   const TMDefaultBottomSheet({
-    Key? key,
     required this.child,
+    Key? key,
     this.expand = false,
     this.initialChildSize = 0.3,
     this.minChildSize = 0.25,

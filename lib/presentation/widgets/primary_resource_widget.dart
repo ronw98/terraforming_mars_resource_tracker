@@ -53,7 +53,7 @@ class PrimaryResourceWidget extends StatelessWidget {
                             context,
                             translationParams: {
                               'unit': type.resourceKey.translate(context),
-                              'value': '$stock'
+                              'value': '$stock',
                             },
                           ),
                           child: TextEditableValue(
@@ -75,7 +75,7 @@ class PrimaryResourceWidget extends StatelessWidget {
                             context,
                             translationParams: {
                               'unit': type.resourceKey.translate(context),
-                              'value': '$production'
+                              'value': '$production',
                             },
                           ),
                           child: TextEditableValue(

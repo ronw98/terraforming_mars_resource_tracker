@@ -4,9 +4,9 @@ import 'package:tm_ressource_tracker/domain/repositories/configuration_repositor
 
 @injectable
 class SetConfig {
-  final ConfigurationRepository repository;
-
   SetConfig(this.repository);
+
+  final ConfigurationRepository repository;
 
   Future<bool> call(Configuration config) {
     return repository.setConfig(config);

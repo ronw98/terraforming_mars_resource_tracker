@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:injectable/injectable.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/domain/entities/game_info.dart';
 import 'package:tm_ressource_tracker/domain/entities/resources.dart';
 import 'package:tm_ressource_tracker/domain/repositories/games_repository.dart';
@@ -40,9 +39,8 @@ class UploadResources {
         resources,
       );
     } on Exception catch (e, s) {
-      log(
-        'Error uploading resources',
-        name: 'UploadResources',
+      logger.e(
+        '[UploadResources] Error uploading resources',
         error: e,
         stackTrace: s,
       );

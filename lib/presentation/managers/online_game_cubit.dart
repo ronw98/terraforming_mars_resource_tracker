@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/domain/entities/game.dart';
 import 'package:tm_ressource_tracker/domain/entities/game_info.dart';
 import 'package:tm_ressource_tracker/domain/entities/resources.dart';
@@ -190,7 +190,7 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
             // On failure, check if the game still exists
             // If so do nothing, otherwise, reset cubit
             // TODO check for network interruptions to reconnect
-            log('NETWORK ERROR');
+            logger.e('NETWORK ERROR');
           },
           (info) {
             if (_lastInfo == null && onTeamCreatedCallback != null) {
@@ -209,7 +209,7 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
         );
       },
       onError: (e, s) {
-        log('Error subscription game', error: e, stackTrace: s);
+        logger.e('Error subscription game', error: e, stackTrace: s);
         if (e is AppwriteException) {
           // Team document deleted
           if (e.code == 404) {
@@ -253,7 +253,7 @@ class OnlineGameCubit extends Cubit<OnlineGameState> {
         );
       },
       onError: (e, s) {
-        log('Error subscription resources', error: e, stackTrace: s);
+        logger.e('Error subscription resources', error: e, stackTrace: s);
       },
     );
   }

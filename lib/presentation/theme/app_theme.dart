@@ -12,6 +12,7 @@ class TMColors {
 }
 
 ThemeData appTheme = ThemeData(
+  useMaterial3: false,
   fontFamily: Fonts.enterSansman,
   primaryColor: Color.fromARGB(255, 140, 80, 38),
   colorScheme: ColorScheme.fromSeed(

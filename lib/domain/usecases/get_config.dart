@@ -4,9 +4,9 @@ import 'package:tm_ressource_tracker/domain/repositories/configuration_repositor
 
 @injectable
 class GetConfig {
-  final ConfigurationRepository repository;
-
   GetConfig(this.repository);
+
+  final ConfigurationRepository repository;
 
   Future<Configuration> call() {
     return repository.getConfig();

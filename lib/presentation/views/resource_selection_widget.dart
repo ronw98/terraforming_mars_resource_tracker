@@ -10,9 +10,9 @@ import 'package:tm_ressource_tracker/presentation/widgets/production_widget.dart
 
 class ResourceSelectionWidget extends StatelessWidget {
   const ResourceSelectionWidget({
-    Key? key,
     required this.onNewType,
     required this.costResource,
+    Key? key,
   }) : super(key: key);
 
   final void Function(MarkerOrResource) onNewType;

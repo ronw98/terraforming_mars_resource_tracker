@@ -1,43 +1,15 @@
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:dart_appwrite/dart_appwrite.dart';
 import 'package:uuid/uuid.dart';
 
-/*
-  'req' variable has:
-    'headers' - object with request headers
-    'payload' - request body data as a string
-    'variables' - object with function variables
-
-  'res' variable has:
-    'send(text, status: status)' - function to return text response. Status code defaults to 200
-    'json(obj, status: status)' - function to return JSON response. Status code defaults to 200
-  
-  If an error is thrown, a response with code 500 will be returned.
-*/
-// class Req {
-//   final Map<String, dynamic> variables = {
-//     'APPWRITE_FUNCTION_EVENT_DATA': jsonEncode(
-//       {'\$id': 'pouetTest'},
-//     ),
-//   };
-// }
-//
-// class Res {
-//   void send(String text, {int? status}) {}
-// }
-//
-// void main() {
-//   start(Req(), Res());
-// }
-
-Future<void> start(final req, final res) async {
+Future main(final context) async {
   try {
     final client = Client();
 
-    final apiKey = req.variables['API_KEY'];
-    final serverEndpoint = req.variables['SERVER_ENDPOINT'];
-    final projectId = req.variables['APPWRITE_FUNCTION_PROJECT_ID'];
+    final apiKey = Platform.environment['API_KEY'];
+    final serverEndpoint = Platform.environment['SERVER_ENDPOINT']!;
+    final projectId = Platform.environment['APPWRITE_FUNCTION_PROJECT_ID'];
 
     client
         .setEndpoint(serverEndpoint)
@@ -47,23 +19,16 @@ Future<void> start(final req, final res) async {
 
     final database = Databases(client);
 
-    print(req.variables['APPWRITE_FUNCTION_EVENT_DATA']);
-
-    print(req.variables['APPWRITE_FUNCTION_EVENT_DATA'].runtimeType);
-
-    final payloadString = req.variables['APPWRITE_FUNCTION_EVENT_DATA'];
-
-    final payload = jsonDecode(payloadString);
-
-    print(payload);
+    context.log(context.req.body);
+    final payload = context.req.body;
 
     final createdTeamId = payload['\$id'];
 
-    print(createdTeamId);
+    context.log(createdTeamId);
 
     final teamCode = await _generateTeamValidCode(database);
 
-    print(teamCode);
+    context.log(teamCode);
 
     await database.createDocument(
       databaseId: '63bd3f445063816087a0',
@@ -77,11 +42,11 @@ Future<void> start(final req, final res) async {
       permissions: [Permission.read(Role.team(createdTeamId))],
     );
 
-    res.send('OK', status: 200);
+    return context.res.send('OK', 200);
   } catch (e, s) {
-    print(e.toString());
-    print(s.toString());
-    res.send('KO', status: 500);
+    context.error(e.toString());
+    context.error(s.toString());
+    return context.res.send('KO', 500);
   }
 }
 

@@ -5,7 +5,8 @@ import 'package:tm_ressource_tracker/domain/entities/standard_project.dart';
 import 'package:tm_ressource_tracker/domain/entities/standard_project_config.dart';
 
 StandardProjectConfig standardProjectConfigModelToEntity(
-    StandardProjectConfigModel model) {
+  StandardProjectConfigModel model,
+) {
   final List<StandardProject> projects = modelEntityListConverter(
     model.projects,
     standardProjectModelToEntity,
@@ -28,7 +29,8 @@ StandardProjectConfig standardProjectConfigModelToEntity(
 }
 
 StandardProjectConfigModel standardProjectConfigEntityToModel(
-        StandardProjectConfig entity) =>
+  StandardProjectConfig entity,
+) =>
     StandardProjectConfigModel(
       projects: modelEntityListConverter(
         entity.projects.values,

@@ -4,14 +4,15 @@ import 'package:tm_ressource_tracker/presentation/extension/number_extension.dar
 import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.dart';
 import 'package:tm_ressource_tracker/presentation/widgets/number_text_edit.dart';
 
-/// This widget either displays a text or an editable text depending on [Settings.editValuesWithText] value
+/// This widget either displays a text or an editable text depending on
+/// [Settings.editValuesWithText] value.
 class TextEditableValue extends StatelessWidget {
   const TextEditableValue({
+    required this.value,
+    required this.editable,
     Key? key,
     this.style,
-    required this.value,
     this.onValueChanged,
-    required this.editable,
     this.signedString = false,
   }) : super(key: key);
   final TextStyle? style;

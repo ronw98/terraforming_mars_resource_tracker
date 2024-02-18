@@ -5,10 +5,10 @@ import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
 class ResourceHistoryWidget extends StatelessWidget {
   const ResourceHistoryWidget({
-    Key? key,
     required this.history,
-    this.textStyle,
     required this.label,
+    Key? key,
+    this.textStyle,
   }) : super(key: key);
   final List<HistoryItem> history;
   final TextStyle? textStyle;

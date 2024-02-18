@@ -5,7 +5,7 @@ mixin AppConstants {
 
   static const Duration defaultDuration = Duration(milliseconds: 200);
 
-  static const String projectId = '63bc3fa004007cca5546';
+  static const String projectId = '65bcba51796449d2436d';
   static const String databaseId = '63bd3f445063816087a0';
   static const String gameCollectionId = '63bd417320516eea0652';
   static const String teamsCollectionId = '63bd3f4c90e5f37232cc';

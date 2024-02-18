@@ -3,9 +3,9 @@ import 'package:tm_ressource_tracker/presentation/spacers.dart';
 
 class TabItem extends StatelessWidget {
   const TabItem({
-    Key? key,
     required this.widthFactor,
     required this.text,
+    Key? key,
   }) : super(key: key);
   final double widthFactor;
   final String text;

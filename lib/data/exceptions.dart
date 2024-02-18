@@ -8,9 +8,9 @@ class DocumentNotFoundException implements Exception {
 }
 
 class TooManyResultsException implements Exception {
-  final String message;
-
   const TooManyResultsException(this.message);
+
+  final String message;
 
   @override
   String toString() => 'TooManyResultsException: $message';

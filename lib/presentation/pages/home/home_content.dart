@@ -38,7 +38,7 @@ class _HomeContentState extends State<HomeContent> {
                       widthFactor: 0.3,
                       text:
                           LocaleKeys.home.tabs.current_game.translate(context),
-                    )
+                    ),
                   ],
                   isScrollable: true,
                 ),

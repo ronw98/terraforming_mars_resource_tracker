@@ -26,7 +26,7 @@ class ResourceMinimalDisplay extends StatelessWidget {
               height: 40,
             ),
             horizontalSmallSpacer,
-            Text(resource.stock.toString(), style: style)
+            Text(resource.stock.toString(), style: style),
           ],
         ),
       PrimaryResource() => Row(

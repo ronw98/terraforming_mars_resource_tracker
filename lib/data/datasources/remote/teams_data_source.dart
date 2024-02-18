@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
@@ -8,6 +7,7 @@ import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/data/datasources/remote/appwrite_database_datasource.dart';
 import 'package:tm_ressource_tracker/data/exceptions.dart';
 import 'package:tm_ressource_tracker/data/models/team_document_model.dart';
@@ -121,9 +121,8 @@ class TeamsDataSourceImpl
         (document) => TeamDocumentModel.fromJson(document.data),
       );
     } on Exception catch (_) {
-      log(
-        'Could not get team right away',
-        name: runtimeType.toString(),
+      logger.e(
+        '[${runtimeType.toString()}] Could not get team right away',
       );
       // If the document was not created right away, listen to collection
       // changes.
@@ -159,9 +158,9 @@ class TeamsDataSourceImpl
             final createdDocTeamId = event.payload['teamId'];
             // Document is for the current team
             if (createdDocTeamId == teamId) {
-              log(
-                'Team document created, watching changes',
-                name: runtimeType.toString(),
+              logger.d(
+                '[${runtimeType.toString()}] Team document created, '
+                'watching changes',
               );
               // Watch said document changes
               streamController.addStream(
@@ -190,7 +189,7 @@ class TeamsDataSourceImpl
       try {
         final document = await _getTeamRawDocument(teamId);
 
-        log('Better luck the second time', name: 'Team creation');
+        logger.d('Better luck the second time');
         streamController.close();
         yield* watchDocument(
           AppConstants.databaseId,
@@ -202,7 +201,7 @@ class TeamsDataSourceImpl
         );
         collectionChangesSubscription.close();
       } on Exception catch (_) {
-        log('Could not get the second time', name: 'Team creation');
+        logger.e('Could not get the second time');
       }
 
       yield* streamController.stream;
@@ -239,7 +238,7 @@ class TeamsDataSourceImpl
   ) async {
     final execution = await serviceLocator<Functions>().createExecution(
       functionId: AppConstants.joinTeamFnId,
-      data: jsonEncode(
+      body: jsonEncode(
         {
           'team_code': teamCode,
           'user_name': userName,
@@ -247,8 +246,7 @@ class TeamsDataSourceImpl
         },
       ),
     );
-    final Map<String, dynamic> response = jsonDecode(execution.response);
-    return response['status'] ?? 500;
+    return jsonDecode(execution.responseBody)['status'] as int;
   }
 
   @override

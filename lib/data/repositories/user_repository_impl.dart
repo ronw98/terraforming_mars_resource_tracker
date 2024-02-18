@@ -1,16 +1,15 @@
-import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/data/datasources/remote/user_data_source.dart';
 import 'package:tm_ressource_tracker/domain/repositories/user_repository.dart';
 
 @Injectable(as: UserRepository)
 class UserRepositoryImpl implements UserRepository {
-  final UserDataSource userDataSource;
 
   UserRepositoryImpl(this.userDataSource);
+  final UserDataSource userDataSource;
 
   @override
   Future<bool> clearUserData() async {
@@ -20,9 +19,8 @@ class UserRepositoryImpl implements UserRepository {
 
       return result;
     } catch (e, s) {
-      log(
-        'Error clearing user data',
-        name: 'UserRepositoryImpl',
+      logger.e(
+        '[UserRepositoryImpl] Error clearing user data',
         error: e,
         stackTrace: s,
       );

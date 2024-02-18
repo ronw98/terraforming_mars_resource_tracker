@@ -5,8 +5,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/text_editable_value.da
 
 class EditValueWidget extends StatefulWidget {
   const EditValueWidget({
-    Key? key,
     required this.value,
+    Key? key,
     this.onValueChanged,
     this.textStyle,
     this.editable = false,

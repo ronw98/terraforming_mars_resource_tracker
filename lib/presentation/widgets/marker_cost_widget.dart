@@ -5,9 +5,9 @@ import 'package:tm_ressource_tracker/presentation/spacers.dart';
 
 class MarkerCostWidget extends StatelessWidget {
   const MarkerCostWidget({
-    Key? key,
     required this.type,
     required this.value,
+    Key? key,
   }) : super(key: key);
 
   final MarkerType type;
@@ -22,7 +22,7 @@ class MarkerCostWidget extends StatelessWidget {
           Text('$value'),
           horizontalSmallSpacer,
         ],
-        Image(image: type.markerImage)
+        Image(image: type.markerImage),
       ],
     );
   }

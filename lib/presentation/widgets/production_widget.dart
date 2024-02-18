@@ -5,8 +5,8 @@ import 'package:tm_ressource_tracker/presentation/extension/resource_type_extens
 
 class ProductionWidget extends StatelessWidget {
   const ProductionWidget({
-    Key? key,
     required this.type,
+    Key? key,
   }) : super(key: key);
 
   final ResourceType type;

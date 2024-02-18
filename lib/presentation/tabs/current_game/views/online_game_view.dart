@@ -12,8 +12,8 @@ import 'package:tm_ressource_tracker/presentation/widgets/custom_card.dart';
 
 class OnlineGameView extends StatelessWidget {
   const OnlineGameView({
-    Key? key,
     required this.game,
+    Key? key,
   }) : super(key: key);
 
   final Game game;

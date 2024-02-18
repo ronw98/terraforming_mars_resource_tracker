@@ -5,7 +5,6 @@ import 'package:flutter_i18n/utils/message_printer.dart';
 /// Except that it merges all files in one map rather than using a different
 /// map key for each file
 class TMTranslationFileLoader extends FileTranslationLoader {
-  final String defaultLocale;
   TMTranslationFileLoader({
     required this.defaultLocale,
     String basePath = 'assets/locales',
@@ -20,6 +19,7 @@ class TMTranslationFileLoader extends FileTranslationLoader {
           forcedLocale: forcedLocale,
           decodeStrategies: decodeStrategies,
         );
+  final String defaultLocale;
 
   @override
   Future<Map> load() async {

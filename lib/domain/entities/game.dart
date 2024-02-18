@@ -11,7 +11,8 @@ class Game with _$Game {
     /// Miscellaneous information about the game
     required GameInfo info,
 
-    /// A [UserResources] list containing data about the resources of all the users in the game.
+    /// A [UserResources] list containing data about the resources of all the
+    /// users in the game.
     @Default([]) List<UserResources> resources,
   }) = _Game;
 }

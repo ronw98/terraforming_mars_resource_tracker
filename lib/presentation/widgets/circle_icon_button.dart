@@ -3,9 +3,9 @@ import 'package:tm_ressource_tracker/jsons.dart';
 
 class ShapeIconButton extends StatelessWidget {
   ShapeIconButton({
-    Key? key,
     required this.onPressed,
     required this.icon,
+    Key? key,
     this.fillColor,
     String? semanticsKey,
     this.padding = const EdgeInsets.all(15),

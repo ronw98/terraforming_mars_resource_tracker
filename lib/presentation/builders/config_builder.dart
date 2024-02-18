@@ -5,7 +5,7 @@ import 'package:tm_ressource_tracker/presentation/managers/configuration_cubit.d
 import 'package:tm_ressource_tracker/presentation/widgets/none_widget.dart';
 
 class ConfigBuilder extends StatelessWidget {
-  const ConfigBuilder({Key? key, required this.builder}) : super(key: key);
+  const ConfigBuilder({required this.builder, Key? key}) : super(key: key);
 
   final Widget Function(Configuration config) builder;
 

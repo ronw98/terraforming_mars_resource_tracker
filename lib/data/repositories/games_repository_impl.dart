@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tm_ressource_tracker/constants.dart';
 import 'package:tm_ressource_tracker/core/injection.dart';
+import 'package:tm_ressource_tracker/core/log.dart';
 import 'package:tm_ressource_tracker/data/datasources/remote/teams_data_source.dart';
 import 'package:tm_ressource_tracker/data/datasources/remote/user_resources_data_source.dart';
 import 'package:tm_ressource_tracker/data/models/team_document_model.dart';
@@ -42,7 +41,9 @@ class GamesRepositoryImpl implements GamesRepository {
       final allTeams = await teamsDataSource.getTeams();
       for (final team in allTeams) {
         final membership = await teamsDataSource.getCurrentUserTeamMembership(
-            userId, team.$id);
+          userId,
+          team.$id,
+        );
         if (membership != null)
           await teamsDataSource.deleteMembership(team.$id, membership.$id);
       }
@@ -53,9 +54,8 @@ class GamesRepositoryImpl implements GamesRepository {
         name: team.name,
       );
     } on AppwriteException catch (e, s) {
-      log(
-        'Error while creating team',
-        name: runtimeType.toString(),
+      logger.d(
+        '[${runtimeType.toString()}] Error while creating team',
         error: e,
         stackTrace: s,
       );
@@ -96,9 +96,8 @@ class GamesRepositoryImpl implements GamesRepository {
       );
       return result;
     } on AppwriteException catch (e, s) {
-      log(
-        'Error while leaving game',
-        name: runtimeType.toString(),
+      logger.e(
+        '[${runtimeType.toString()}] Error while leaving game',
         error: e,
         stackTrace: s,
       );
@@ -137,9 +136,8 @@ class GamesRepositoryImpl implements GamesRepository {
             .toList(),
       );
     } on AppwriteException catch (e, s) {
-      log(
-        'Error while getting current game',
-        name: runtimeType.toString(),
+      logger.e(
+        '[${runtimeType.toString()}] Error while getting current game',
         error: e,
         stackTrace: s,
       );
@@ -174,9 +172,8 @@ class GamesRepositoryImpl implements GamesRepository {
                 .toList(),
           );
         } on AppwriteException catch (e, s) {
-          log(
-            'Error while watching current game',
-            name: runtimeType.toString(),
+          logger.e(
+            '[${runtimeType.toString()}] Error while watching current game',
             error: e,
             stackTrace: s,
           );
@@ -187,7 +184,10 @@ class GamesRepositoryImpl implements GamesRepository {
   }
 
   @override
-  Future<Either<Failure, int>> joinGame(String inviteCode, String userName) async {
+  Future<Either<Failure, int>> joinGame(
+    String inviteCode,
+    String userName,
+  ) async {
     try {
       final newEmail = userName +
           serviceLocator<Uuid>().v4().substring(0, 6) +
@@ -199,17 +199,16 @@ class GamesRepositoryImpl implements GamesRepository {
       );
       final joinedResult =
           await teamsDataSource.joinTeam(inviteCode, userName, newEmail);
-      if(joinedResult >= 200 && joinedResult < 300) {
+      if (joinedResult >= 200 && joinedResult < 300) {
         return Right(joinedResult);
       }
-      if(joinedResult == 404) {
+      if (joinedResult == 404) {
         return Left(Failure.gameJoin(GameJoinFailure.invalidCode));
       }
       return Left(Failure.gameJoin());
     } on AppwriteException catch (e, s) {
-      log(
-        'Error while joining game',
-        name: runtimeType.toString(),
+      logger.e(
+        '[${runtimeType.toString()}] Error while joining game',
         error: e,
         stackTrace: s,
       );

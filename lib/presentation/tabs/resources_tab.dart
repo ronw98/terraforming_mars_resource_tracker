@@ -24,9 +24,12 @@ class ResourcesTab extends StatelessWidget {
           delegate: SliverChildListDelegate(
             ResourceType.values
                 .where((type) => type != ResourceType.terraformingRating)
-                .map((type) => GestureDetector(
+                .map(
+                  (type) => GestureDetector(
                     onTap: () => _onResourceWidgetTapped(context, type),
-                    child: ResourceWidget(resourceType: type)))
+                    child: ResourceWidget(resourceType: type),
+                  ),
+                )
                 .toList(),
           ),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -67,13 +70,15 @@ class ResourcesTab extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
-        )
+        ),
       ],
     );
   }
 
   void _onResourceWidgetTapped(
-      BuildContext context, ResourceType resourceType) {
+    BuildContext context,
+    ResourceType resourceType,
+  ) {
     if (resourceType != ResourceType.terraformingRating) {
       showModalBottomSheet(
         context: context,
